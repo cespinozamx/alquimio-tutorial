@@ -1,0 +1,1221 @@
+{
+ "id": 1,
+ "title": {
+  "es": "Fundamentos de Microsoft Fabric",
+  "en": "Microsoft Fabric Fundamentals"
+ },
+ "desc": {
+  "es": "Qué es Fabric, OneLake, Lakehouse, Medallion y tu primer notebook.",
+  "en": "What Fabric is, OneLake, Lakehouse, Medallion and your first notebook."
+ },
+ "lessons": [
+  {
+   "id": "l1-1",
+   "icon": "✨",
+   "min": 12,
+   "badge": {
+    "e": "🔮",
+    "n": {
+     "es": "Visionario de Fabric",
+     "en": "Fabric Visionary"
+    }
+   },
+   "title": {
+    "es": "¿Qué es Microsoft Fabric?",
+    "en": "What is Microsoft Fabric?"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Empecemos con una historia. Lee con calma: <b>no hay prisa</b>.",
+      "en": "Let's start with a story. Read slowly: <b>no rush</b>."
+     },
+     "kicker": {
+      "es": "Una historia antes del código",
+      "en": "A story before the code"
+     },
+     "title": {
+      "es": "La cocina con siete refrigeradores",
+      "en": "The kitchen with seven fridges"
+     },
+     "body": {
+      "es": "<p>Imagina un restaurante donde cada cocinero tiene <b>su propio refrigerador</b>. El de postres guarda leche, el de salsas también guarda leche, y el de café… también. Nadie sabe cuál está fresca, todos pagan electricidad por separado y para cocinar un platillo hay que ir pasando ingredientes de un refri a otro.</p>\n               <p>Así trabajaban muchas empresas con sus datos: un servicio para mover datos, otro para el data warehouse, otro para ciencia de datos, otro para reportes… <span class=\"hl\">cada uno con su propio almacenamiento, su seguridad y su factura</span>.</p>\n               <p><b>Microsoft Fabric</b> es la idea de tener <b>una sola gran despensa</b> (OneLake) y una cocina donde todos los cocineros trabajan juntos con los mismos ingredientes.</p>",
+      "en": "<p>Picture a restaurant where every cook has <b>their own fridge</b>. The dessert cook keeps milk, the sauce cook keeps milk too, and so does the coffee guy… Nobody knows which carton is fresh, everyone pays their own electric bill, and cooking one dish means passing ingredients from fridge to fridge.</p>\n               <p>That's how many companies worked with data: one service to move data, another for the data warehouse, another for data science, another for reports… <span class=\"hl\">each with its own storage, security and bill</span>.</p>\n               <p><b>Microsoft Fabric</b> is the idea of having <b>one big pantry</b> (OneLake) and one kitchen where every cook works with the same ingredients.</p>"
+     },
+     "visual": "beforeAfter"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Estas son las <b>experiencias</b> de Fabric. Como ingeniero de datos vivirás en las marcadas con ⭐.",
+      "en": "These are Fabric's <b>experiences</b>. As a data engineer you'll live in the ones marked ⭐."
+     },
+     "kicker": {
+      "es": "El mapa de la cocina",
+      "en": "The kitchen map"
+     },
+     "title": {
+      "es": "Una plataforma SaaS, muchas experiencias",
+      "en": "One SaaS platform, many experiences"
+     },
+     "body": {
+      "es": "<p>Fabric es <b>SaaS</b> (Software como Servicio): no instalas servidores ni administras clústeres. Entras al portal, creas elementos y Microsoft se encarga de la infraestructura.</p>",
+      "en": "<p>Fabric is <b>SaaS</b> (Software as a Service): you don't install servers or manage clusters. You open the portal, create items, and Microsoft runs the infrastructure.</p>"
+     },
+     "cards": [
+      {
+       "e": "🏗️",
+       "n": "Data Factory",
+       "d": {
+        "es": "Mover y orquestar datos: pipelines, Copy job, Dataflows Gen2.",
+        "en": "Move and orchestrate data: pipelines, Copy job, Dataflows Gen2."
+       },
+       "star": true
+      },
+      {
+       "e": "⚙️",
+       "n": "Data Engineering",
+       "d": {
+        "es": "Lakehouse, notebooks y Spark para transformar a escala.",
+        "en": "Lakehouse, notebooks and Spark to transform at scale."
+       },
+       "star": true
+      },
+      {
+       "e": "🏛️",
+       "n": "Data Warehouse",
+       "d": {
+        "es": "Almacén relacional con T-SQL completo.",
+        "en": "Relational warehouse with full T-SQL."
+       },
+       "star": true
+      },
+      {
+       "e": "⚡",
+       "n": "Real-Time Intelligence",
+       "d": {
+        "es": "Eventos en streaming, Eventhouse y KQL.",
+        "en": "Streaming events, Eventhouse and KQL."
+       },
+       "star": false
+      },
+      {
+       "e": "🧪",
+       "n": "Data Science",
+       "d": {
+        "es": "Modelos de ML y experimentos.",
+        "en": "ML models and experiments."
+       },
+       "star": false
+      },
+      {
+       "e": "📊",
+       "n": "Power BI",
+       "d": {
+        "es": "Modelos semánticos y reportes.",
+        "en": "Semantic models and reports."
+       },
+       "star": false
+      },
+      {
+       "e": "🗄️",
+       "n": "Databases",
+       "d": {
+        "es": "Bases de datos SQL operacionales dentro de Fabric.",
+        "en": "Operational SQL databases inside Fabric."
+       },
+       "star": false
+      }
+     ],
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "<ul><li>Todo se guarda en <b>OneLake</b>.</li><li>Todo se paga con una <b>capacidad</b> compartida (SKU tipo <code>F2</code>, <code>F64</code>…) medida en <i>Capacity Units</i>.</li><li>Todo se gobierna desde el mismo lugar.</li></ul>",
+        "en": "<ul><li>Everything is stored in <b>OneLake</b>.</li><li>Everything is paid for with a shared <b>capacity</b> (SKUs like <code>F2</code>, <code>F64</code>…) measured in <i>Capacity Units</i>.</li><li>Everything is governed from one place.</li></ul>"
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Antes de ver la respuesta, <b>piénsalo 30 segundos</b>. Tu cerebro aprende más cuando adivina primero.",
+      "en": "Before you peek, <b>think for 30 seconds</b>. Your brain learns more when it guesses first."
+     },
+     "prompt": {
+      "es": "Si todos los servicios leen y escriben en <b>el mismo lago</b>, ¿qué trabajo pesado y aburrido desaparece casi por completo?",
+      "en": "If every service reads and writes to <b>the same lake</b>, what heavy, boring job almost disappears?"
+     },
+     "answer": {
+      "es": "Copiar datos entre herramientas. Antes había procesos ETL solo para mover la misma tabla del warehouse al motor de ML o a Power BI. En Fabric, Spark, T-SQL y Power BI leen <b>la misma copia</b> en formato abierto Delta. Menos copias = menos costo, menos errores y una sola versión de la verdad.",
+      "en": "Copying data between tools. There used to be ETL jobs just to move the same table from the warehouse to the ML engine or to Power BI. In Fabric, Spark, T-SQL and Power BI read <b>the same copy</b> in the open Delta format. Fewer copies = lower cost, fewer errors, and one version of the truth."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Primera pregunta. ¡Tú puedes!",
+      "en": "First question. You've got this!"
+     },
+     "q": {
+      "es": "¿Qué significa que Microsoft Fabric sea SaaS?",
+      "en": "What does it mean that Microsoft Fabric is SaaS?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Que tú instalas y parchas los clústeres de Spark",
+        "en": "You install and patch the Spark clusters"
+       },
+       "why": {
+        "es": "Eso sería IaaS o un PaaS más manual. En Fabric no administras clústeres.",
+        "en": "That would be IaaS or a more hands-on PaaS. In Fabric you don't manage clusters."
+       }
+      },
+      {
+       "t": {
+        "es": "Que Microsoft administra la infraestructura y tú te enfocas en los datos",
+        "en": "Microsoft runs the infrastructure and you focus on the data"
+       },
+       "ok": 1,
+       "why": {
+        "es": "¡Eso! Abres el navegador, creas un Lakehouse y listo. La infraestructura es problema de Microsoft.",
+        "en": "Yes! Open the browser, create a Lakehouse, done. Infrastructure is Microsoft's problem."
+       }
+      },
+      {
+       "t": {
+        "es": "Que solo funciona instalado en tus servidores (on-premises)",
+        "en": "It only runs installed on your own servers (on-premises)"
+       },
+       "why": {
+        "es": "Al revés: Fabric vive en la nube de Microsoft.",
+        "en": "The opposite: Fabric lives in Microsoft's cloud."
+       }
+      },
+      {
+       "t": {
+        "es": "Que se licencia por cada servidor físico",
+        "en": "It's licensed per physical server"
+       },
+       "why": {
+        "es": "Fabric se paga por capacidad (SKU F) compartida, no por servidor.",
+        "en": "Fabric is paid per shared capacity (F SKU), not per server."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Ahora une cada experiencia con su trabajo. Si fallas, no pasa nada: <b>equivocarse también enseña</b>.",
+      "en": "Now pair each experience with its job. Mistakes are fine: <b>getting it wrong teaches too</b>."
+     },
+     "title": {
+      "es": "¿Quién hace qué en la cocina?",
+      "en": "Who does what in the kitchen?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Data Factory",
+        "en": "Data Factory"
+       },
+       {
+        "es": "Orquestar y copiar datos desde las fuentes",
+        "en": "Orchestrate and copy data from sources"
+       }
+      ],
+      [
+       {
+        "es": "Data Engineering",
+        "en": "Data Engineering"
+       },
+       {
+        "es": "Transformar con Spark y notebooks",
+        "en": "Transform with Spark and notebooks"
+       }
+      ],
+      [
+       {
+        "es": "Data Warehouse",
+        "en": "Data Warehouse"
+       },
+       {
+        "es": "Modelar y consultar con T-SQL",
+        "en": "Model and query with T-SQL"
+       }
+      ],
+      [
+       {
+        "es": "Real-Time Intelligence",
+        "en": "Real-Time Intelligence"
+       },
+       {
+        "es": "Analizar eventos en streaming con KQL",
+        "en": "Analyze streaming events with KQL"
+       }
+      ],
+      [
+       {
+        "es": "Power BI",
+        "en": "Power BI"
+       },
+       {
+        "es": "Visualizar y compartir reportes",
+        "en": "Visualize and share reports"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Estas dudas las tiene <b>todo el mundo</b>. Léelas.",
+      "en": "<b>Everyone</b> has these doubts. Read them."
+     },
+     "title": {
+      "es": "Dudas frecuentes",
+      "en": "Common questions"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "callouts": [
+      {
+       "k": "nodumb",
+       "qa": [
+        {
+         "q": {
+          "es": "¿Fabric reemplaza a Azure Synapse?",
+          "en": "Does Fabric replace Azure Synapse?"
+         },
+         "a": {
+          "es": "Fabric es la evolución SaaS de muchas capacidades de Synapse, Data Factory y Power BI. Synapse sigue existiendo como servicio PaaS, pero la innovación nueva se concentra en Fabric.",
+          "en": "Fabric is the SaaS evolution of many Synapse, Data Factory and Power BI capabilities. Synapse still exists as a PaaS service, but new innovation is focused on Fabric."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Necesito saber programar para empezar?",
+          "en": "Do I need to code to get started?"
+         },
+         "a": {
+          "es": "No. Hay herramientas sin código (Dataflows Gen2, pipelines) y con código (notebooks en PySpark, SQL). En este curso usaremos ambas, empezando por lo visual.",
+          "en": "No. There are no-code tools (Dataflows Gen2, pipelines) and code-first tools (PySpark notebooks, SQL). This course uses both, starting with the visual ones."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Cómo practico sin pagar?",
+          "en": "How do I practice without paying?"
+         },
+         "a": {
+          "es": "Fabric ofrece una prueba gratuita de capacidad por tiempo limitado. Revisa la página oficial de Microsoft porque las condiciones pueden cambiar.",
+          "en": "Fabric offers a time-limited free capacity trial. Check Microsoft's official page, since the terms can change."
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Última del día. Piensa en la palabra <b>compartida</b>.",
+      "en": "Last one. Think about the word <b>shared</b>."
+     },
+     "q": {
+      "es": "En Fabric, una “capacidad” es…",
+      "en": "In Fabric, a “capacity” is…"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Un disco donde se guardan los archivos",
+        "en": "A disk where files are stored"
+       },
+       "why": {
+        "es": "El almacenamiento es OneLake. La capacidad es cómputo.",
+        "en": "Storage is OneLake. Capacity is compute."
+       }
+      },
+      {
+       "t": {
+        "es": "Un conjunto de cómputo (Capacity Units) que comparten todas las experiencias",
+        "en": "A pool of compute (Capacity Units) shared by every experience"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Correcto. Spark, SQL, Power BI y los pipelines consumen de la misma bolsa de CUs.",
+        "en": "Right. Spark, SQL, Power BI and pipelines all draw from the same pool of CUs."
+       }
+      },
+      {
+       "t": {
+        "es": "Un usuario con permisos de administrador",
+        "en": "A user with admin rights"
+       },
+       "why": {
+        "es": "Los permisos se manejan con roles, no con capacidades.",
+        "en": "Permissions are handled with roles, not capacities."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l1-2",
+   "icon": "🌊",
+   "min": 12,
+   "badge": {
+    "e": "💧",
+    "n": {
+     "es": "Guardián de OneLake",
+     "en": "OneLake Keeper"
+    }
+   },
+   "title": {
+    "es": "OneLake: un solo lago para todo",
+    "en": "OneLake: one lake for everything"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Si usas OneDrive, ya entiendes el 80% de OneLake. 😉",
+      "en": "If you use OneDrive, you already get 80% of OneLake. 😉"
+     },
+     "kicker": {
+      "es": "La analogía clave",
+      "en": "The key analogy"
+     },
+     "title": {
+      "es": "OneLake es el “OneDrive de los datos”",
+      "en": "OneLake is “OneDrive for data”"
+     },
+     "body": {
+      "es": "<p>Tu organización no crea OneLake: <b>ya existe</b>. Hay <span class=\"hl\">exactamente un OneLake por tenant</span>, igual que tienes un solo OneDrive por cuenta.</p>\n               <p>Dentro de él, cada <b>workspace</b> es como una carpeta compartida de un equipo, y cada <b>elemento</b> (Lakehouse, Warehouse…) guarda sus datos ahí.</p>",
+      "en": "<p>Your organization doesn't create OneLake: <b>it already exists</b>. There's <span class=\"hl\">exactly one OneLake per tenant</span>, just like you have one OneDrive per account.</p>\n               <p>Inside it, each <b>workspace</b> is like a team's shared folder, and each <b>item</b> (Lakehouse, Warehouse…) stores its data there.</p>"
+     },
+     "visual": "hierarchy"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Esto es lo que hace mágico a Fabric: <b>un formato abierto</b>.",
+      "en": "This is what makes Fabric magical: <b>one open format</b>."
+     },
+     "title": {
+      "es": "Delta Parquet: el idioma común",
+      "en": "Delta Parquet: the common language"
+     },
+     "body": {
+      "es": "<p>Las tablas en OneLake se guardan en formato <b>Delta Lake</b> (archivos Parquet + un registro de transacciones). Es un formato <b>abierto</b>, así que distintos motores leen la <b>misma copia</b>:</p>\n               <ul><li>Spark (notebooks) la lee y la escribe.</li><li>El SQL analytics endpoint la consulta con T-SQL.</li><li>Power BI la lee en modo <b>Direct Lake</b>, sin importar los datos.</li></ul>",
+      "en": "<p>Tables in OneLake are stored in the <b>Delta Lake</b> format (Parquet files + a transaction log). It's an <b>open</b> format, so different engines read the <b>same copy</b>:</p>\n               <ul><li>Spark (notebooks) reads and writes it.</li><li>The SQL analytics endpoint queries it with T-SQL.</li><li>Power BI reads it in <b>Direct Lake</b> mode, without importing.</li></ul>"
+     },
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "Delta agrega a Parquet transacciones ACID, historial de versiones (<i>time travel</i>) y la posibilidad de actualizar o borrar filas.",
+        "en": "Delta adds ACID transactions, version history (<i>time travel</i>) and row updates/deletes on top of Parquet."
+       }
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Los shortcuts son mi hechizo favorito: <b>traer datos sin moverlos</b>.",
+      "en": "Shortcuts are my favorite spell: <b>bring data in without moving it</b>."
+     },
+     "title": {
+      "es": "Shortcuts: accesos directos a datos",
+      "en": "Shortcuts: pointers to data"
+     },
+     "body": {
+      "es": "<p>Un <b>shortcut</b> es como un acceso directo de Windows: aparece dentro de tu Lakehouse, pero los datos siguen viviendo en su lugar original: otro workspace, Azure Data Lake Storage Gen2, Amazon S3, Google Cloud Storage y otras fuentes compatibles.</p>",
+      "en": "<p>A <b>shortcut</b> is like a Windows shortcut: it shows up inside your Lakehouse, but the data keeps living where it was: another workspace, Azure Data Lake Storage Gen2, Amazon S3, Google Cloud Storage and other supported sources.</p>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Un shortcut <b>no copia</b> los datos. Si alguien borra o mueve el origen, el shortcut se rompe. Y borrar el shortcut no borra el origen.",
+        "en": "A shortcut <b>doesn't copy</b> data. If someone deletes or moves the source, the shortcut breaks. Deleting the shortcut doesn't delete the source."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Ordena las muñecas rusas: de la más grande a la más pequeña.",
+      "en": "Stack the nesting dolls: from biggest to smallest."
+     },
+     "title": {
+      "es": "De lo grande a lo pequeño",
+      "en": "From big to small"
+     },
+     "items": [
+      {
+       "es": "Tenant (organización)",
+       "en": "Tenant (organization)"
+      },
+      {
+       "es": "OneLake",
+       "en": "OneLake"
+      },
+      {
+       "es": "Workspace",
+       "en": "Workspace"
+      },
+      {
+       "es": "Lakehouse",
+       "en": "Lakehouse"
+      },
+      {
+       "es": "Tables / Files",
+       "en": "Tables / Files"
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Caso real de consultoría. ¿Qué harías?",
+      "en": "A real consulting scenario. What would you do?"
+     },
+     "q": {
+      "es": "Un cliente tiene 2 TB en Azure Data Lake Storage Gen2 y quiere consultarlos desde Fabric <b>sin duplicarlos</b>. ¿Qué usas?",
+      "en": "A client has 2 TB in Azure Data Lake Storage Gen2 and wants to query it from Fabric <b>without duplicating it</b>. What do you use?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Una actividad Copy en un pipeline",
+        "en": "A Copy activity in a pipeline"
+       },
+       "why": {
+        "es": "Funcionaría, pero <b>duplica</b> los 2 TB. Justo lo que querían evitar.",
+        "en": "It would work, but it <b>duplicates</b> the 2 TB. Exactly what they wanted to avoid."
+       }
+      },
+      {
+       "t": {
+        "es": "Un shortcut de OneLake",
+        "en": "A OneLake shortcut"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Exacto: los datos se quedan en ADLS y aparecen en tu Lakehouse como si estuvieran ahí.",
+        "en": "Exactly: the data stays in ADLS and appears in your Lakehouse as if it lived there."
+       }
+      },
+      {
+       "t": {
+        "es": "Exportar todo a CSV y subirlo",
+        "en": "Export everything to CSV and upload it"
+       },
+       "why": {
+        "es": "Lento, duplica y pierde tipos de datos. Nunca con 2 TB. 😅",
+        "en": "Slow, duplicates data and loses types. Never with 2 TB. 😅"
+       }
+      },
+      {
+       "t": {
+        "es": "Crear un segundo tenant",
+        "en": "Create a second tenant"
+       },
+       "why": {
+        "es": "No tiene relación con el problema. Un tenant es la organización completa.",
+        "en": "Unrelated. A tenant is the whole organization."
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "pencil",
+     "say": {
+      "es": "Escríbelo con tus palabras. Escribir fija la memoria.",
+      "en": "Write it in your own words. Writing locks in memory."
+     },
+     "prompt": {
+      "es": "Completa: “Una organización tiene ___ OneLake(s), y todas las tablas se guardan en formato ___.”",
+      "en": "Fill in: “An organization has ___ OneLake(s), and every table is stored in ___ format.”"
+     },
+     "answer": {
+      "es": "<b>Un solo</b> OneLake por tenant, y las tablas en formato <b>Delta</b> (Parquet + registro de transacciones).",
+      "en": "<b>Exactly one</b> OneLake per tenant, and tables in <b>Delta</b> format (Parquet + transaction log)."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l1-3",
+   "icon": "🏠",
+   "min": 20,
+   "badge": {
+    "e": "🏡",
+    "n": {
+     "es": "Constructor de Lakehouses",
+     "en": "Lakehouse Builder"
+    }
+   },
+   "title": {
+    "es": "Workspace y tu primer Lakehouse (laboratorio)",
+    "en": "Workspace and your first Lakehouse (lab)"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Hoy sí tocamos Fabric. Primero, dos conceptos.",
+      "en": "Today we get hands-on. First, two concepts."
+     },
+     "kicker": {
+      "es": "Antes del laboratorio",
+      "en": "Before the lab"
+     },
+     "title": {
+      "es": "Workspace + Lakehouse",
+      "en": "Workspace + Lakehouse"
+     },
+     "body": {
+      "es": "<p>Un <b>workspace</b> es el espacio de trabajo de un equipo: agrupa elementos, se asigna a una capacidad y controla quién puede hacer qué con roles: <b>Admin</b>, <b>Member</b>, <b>Contributor</b> y <b>Viewer</b>.</p>\n               <p>Un <b>Lakehouse</b> combina lo mejor de un data lake y un warehouse. Tiene dos zonas:</p>\n               <ul><li><b>Files</b>: archivos en cualquier formato (CSV, JSON, imágenes). Ideal para datos crudos.</li><li><b>Tables</b>: tablas Delta administradas, listas para consultar.</li></ul>\n               <p>Además, cada Lakehouse trae de regalo un <b>SQL analytics endpoint</b>: una vista T-SQL de <i>solo lectura</i> sobre sus tablas.</p>",
+      "en": "<p>A <b>workspace</b> is a team's working area: it groups items, is assigned to a capacity, and controls who can do what with roles: <b>Admin</b>, <b>Member</b>, <b>Contributor</b> and <b>Viewer</b>.</p>\n               <p>A <b>Lakehouse</b> combines the best of a data lake and a warehouse. It has two zones:</p>\n               <ul><li><b>Files</b>: files in any format (CSV, JSON, images). Great for raw data.</li><li><b>Tables</b>: managed Delta tables, ready to query.</li></ul>\n               <p>Plus, every Lakehouse comes with a free <b>SQL analytics endpoint</b>: a <i>read-only</i> T-SQL view over its tables.</p>"
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Pregunta de seguridad: piensa en el principio de mínimo privilegio.",
+      "en": "Security question: think least privilege."
+     },
+     "q": {
+      "es": "Tu director quiere <b>ver</b> los reportes del workspace pero nunca modificar nada. ¿Qué rol le das?",
+      "en": "Your director wants to <b>see</b> the workspace reports but never change anything. Which role?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Admin",
+        "en": "Admin"
+       },
+       "why": {
+        "es": "Demasiado poder: podría borrar el workspace.",
+        "en": "Way too much power: they could delete the workspace."
+       }
+      },
+      {
+       "t": {
+        "es": "Contributor",
+        "en": "Contributor"
+       },
+       "why": {
+        "es": "Contributor puede crear y editar elementos.",
+        "en": "Contributor can create and edit items."
+       }
+      },
+      {
+       "t": {
+        "es": "Viewer",
+        "en": "Viewer"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Correcto: Viewer puede ver y consumir contenido sin modificarlo.",
+        "en": "Correct: Viewer can view and consume content without changing it."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "¡Hora del laboratorio! Abre Fabric en otra pestaña y sigue los pasos. Yo te espero aquí. 🧙",
+      "en": "Lab time! Open Fabric in another tab and follow the steps. I'll wait right here. 🧙"
+     },
+     "title": {
+      "es": "Laboratorio: de un CSV a una tabla consultable",
+      "en": "Lab: from a CSV to a queryable table"
+     },
+     "intro": {
+      "es": "Necesitas una cuenta con acceso a Fabric (de trabajo o escuela). Si no tienes capacidad, activa la prueba gratuita. <i>La interfaz de Fabric evoluciona: si un botón cambió de lugar, búscalo por su nombre.</i>",
+      "en": "You need a work or school account with Fabric access. If you have no capacity, start the free trial. <i>Fabric's UI evolves: if a button moved, look for it by name.</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Entra a <a href=\"https://app.fabric.microsoft.com\" target=\"_blank\" rel=\"noopener\">app.fabric.microsoft.com</a> con tu cuenta.",
+        "en": "Sign in to <a href=\"https://app.fabric.microsoft.com\" target=\"_blank\" rel=\"noopener\">app.fabric.microsoft.com</a>."
+       }
+      },
+      {
+       "t": {
+        "es": "Ve a <b>Workspaces → + New workspace</b>. Nómbralo <code>ws_tutor_fabric</code>. En <i>Advanced</i>, elige una capacidad <b>Trial</b> o <b>Fabric</b>.",
+        "en": "Go to <b>Workspaces → + New workspace</b>. Name it <code>ws_tutor_fabric</code>. Under <i>Advanced</i>, pick a <b>Trial</b> or <b>Fabric</b> capacity."
+       }
+      },
+      {
+       "t": {
+        "es": "Dentro del workspace: <b>+ New item → Lakehouse</b>. Nómbralo <code>lh_tutor</code> (sin espacios).",
+        "en": "Inside the workspace: <b>+ New item → Lakehouse</b>. Name it <code>lh_tutor</code> (no spaces)."
+       }
+      },
+      {
+       "t": {
+        "es": "Copia este contenido y guárdalo en tu computadora como <code>ventas.csv</code>:",
+        "en": "Copy this content and save it on your computer as <code>ventas.csv</code>:"
+       },
+       "code": "id,fecha,cliente,region,producto,monto\n1,2026-01-05,Abarrotes Luna,Norte,Agua 1L,1250.50\n2,2026-01-05,Super Sol,Centro,Refresco 600ml,980.00\n3,2026-01-06,Tienda Rosa,Sur,Jugo 1L,450.75\n3,2026-01-06,Tienda Rosa,Sur,Jugo 1L,450.75\n4,2026-01-07,Mini Market Eco,Norte,Agua 1L,-50.00\n5,2026-01-07,Super Sol,Centro,Te frio 500ml,620.00\n6,2026-01-08,Abarrotes Luna,Norte,Refresco 600ml,1780.25\n7,2026-01-08,La Esquina,Occidente,Agua 1L,300.00\n8,2026-01-09,Tienda Rosa,Sur,Refresco 600ml,890.00\n9,2026-01-09,La Esquina,Occidente,Jugo 1L,415.50\n10,2026-01-10,Mini Market Eco,Norte,Te frio 500ml,705.00"
+      },
+      {
+       "t": {
+        "es": "En el explorador del Lakehouse: <b>Files → … → Upload → Upload files</b> y sube <code>ventas.csv</code>.",
+        "en": "In the Lakehouse explorer: <b>Files → … → Upload → Upload files</b> and upload <code>ventas.csv</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Clic en <b>…</b> junto al archivo → <b>Load to Tables → New table</b>. Nombre: <code>ventas</code>.",
+        "en": "Click <b>…</b> next to the file → <b>Load to Tables → New table</b>. Name: <code>ventas</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Cambia arriba a la derecha de <i>Lakehouse</i> a <b>SQL analytics endpoint</b>, abre <b>New SQL query</b> y ejecuta:",
+        "en": "Top right, switch from <i>Lakehouse</i> to <b>SQL analytics endpoint</b>, open <b>New SQL query</b> and run:"
+       },
+       "code": "SELECT region, COUNT(*) AS filas, SUM(monto) AS total\nFROM ventas\nGROUP BY region;"
+      }
+     ],
+     "expect": {
+      "es": "Si ves 4 regiones (Norte, Centro, Sur, Occidente), ¡lo lograste! Fíjate: los datos todavía tienen un duplicado y un monto negativo. Los limpiaremos en la lección 1.5.",
+      "en": "If you see 4 regions (Norte, Centro, Sur, Occidente), you did it! Notice the data still has a duplicate and a negative amount. We'll clean them in lesson 1.5."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Comprobemos qué pasó realmente en tu laboratorio.",
+      "en": "Let's check what really happened in your lab."
+     },
+     "q": {
+      "es": "Justo después de subir el CSV a <b>Files</b> (antes de “Load to Tables”), ¿podías consultarlo desde el SQL analytics endpoint?",
+      "en": "Right after uploading the CSV to <b>Files</b> (before “Load to Tables”), could you query it from the SQL analytics endpoint?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Sí, el endpoint lee cualquier archivo",
+        "en": "Yes, the endpoint reads any file"
+       },
+       "why": {
+        "es": "El endpoint solo expone <b>tablas Delta</b> de la sección Tables.",
+        "en": "The endpoint only exposes <b>Delta tables</b> in the Tables section."
+       }
+      },
+      {
+       "t": {
+        "es": "No: primero había que convertirlo en tabla Delta",
+        "en": "No: it had to become a Delta table first"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Exacto. Files = zona cruda; Tables = Delta consultable por SQL, Spark y Power BI.",
+        "en": "Exactly. Files = raw zone; Tables = Delta, queryable by SQL, Spark and Power BI."
+       }
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Excelente trabajo. Anota estas buenas prácticas.",
+      "en": "Great work. Write down these good practices."
+     },
+     "title": {
+      "es": "Buenas prácticas de nombres",
+      "en": "Naming good practices"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "<ul><li>Usa prefijos: <code>ws_</code>, <code>lh_</code>, <code>wh_</code>, <code>nb_</code>, <code>pl_</code>.</li><li>Sin espacios ni acentos en nombres de tablas y columnas.</li><li>Separa ambientes: <code>ws_ventas_dev</code>, <code>ws_ventas_prod</code>.</li></ul>",
+        "en": "<ul><li>Use prefixes: <code>ws_</code>, <code>lh_</code>, <code>wh_</code>, <code>nb_</code>, <code>pl_</code>.</li><li>No spaces or accents in table and column names.</li><li>Separate environments: <code>ws_sales_dev</code>, <code>ws_sales_prod</code>.</li></ul>"
+       }
+      },
+      {
+       "k": "nodumb",
+       "qa": [
+        {
+         "q": {
+          "es": "¿Por qué el SQL analytics endpoint es de solo lectura?",
+          "en": "Why is the SQL analytics endpoint read-only?"
+         },
+         "a": {
+          "es": "Porque las tablas del Lakehouse se escriben con Spark (o pipelines). Si necesitas escribir con T-SQL (INSERT, UPDATE), usa un <b>Warehouse</b>. Lo veremos en el Nivel 4.",
+          "en": "Because Lakehouse tables are written with Spark (or pipelines). If you need to write with T-SQL (INSERT, UPDATE), use a <b>Warehouse</b>. Coming in Level 4."
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l1-4",
+   "icon": "🥇",
+   "min": 15,
+   "badge": {
+    "e": "🏅",
+    "n": {
+     "es": "Maestro Medallion",
+     "en": "Medallion Master"
+    }
+   },
+   "title": {
+    "es": "Arquitectura Medallion",
+    "en": "Medallion architecture"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Como buen alquimista, te cuento cómo convertir datos crudos en oro.",
+      "en": "As a proper alchemist, let me show you how raw data becomes gold."
+     },
+     "kicker": {
+      "es": "De la refinería al reporte",
+      "en": "From refinery to report"
+     },
+     "title": {
+      "es": "Bronce, Plata y Oro",
+      "en": "Bronze, Silver and Gold"
+     },
+     "body": {
+      "es": "<p>Piensa en una refinería: el petróleo crudo entra tal cual, luego se refina y al final sale gasolina lista para usarse. Nadie le pone petróleo crudo a su coche.</p>\n               <p>La <b>arquitectura Medallion</b> organiza los datos igual, en capas que suben su calidad:</p>\n               <ul><li>🥉 <b>Bronce</b>: copia fiel de la fuente, sin cambios, con metadatos de carga. <span class=\"hl\">Es tu seguro de vida.</span></li><li>🥈 <b>Plata</b>: datos limpios, tipados, sin duplicados y homologados.</li><li>🥇 <b>Oro</b>: modelos listos para el negocio: agregados, KPIs, esquema estrella.</li></ul>",
+      "en": "<p>Think of a refinery: crude oil comes in as-is, gets refined, and finally leaves as ready-to-use fuel. Nobody puts crude oil in their car.</p>\n               <p>The <b>Medallion architecture</b> organizes data the same way, in layers of rising quality:</p>\n               <ul><li>🥉 <b>Bronze</b>: a faithful copy of the source, unchanged, with load metadata. <span class=\"hl\">It's your life insurance.</span></li><li>🥈 <b>Silver</b>: clean, typed, deduplicated, conformed data.</li><li>🥇 <b>Gold</b>: business-ready models: aggregates, KPIs, star schema.</li></ul>"
+     },
+     "visual": "medallion"
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Une cada capa con lo que hace.",
+      "en": "Pair each layer with what it does."
+     },
+     "title": {
+      "es": "¿Qué pasa en cada capa?",
+      "en": "What happens in each layer?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "🥉 Bronce",
+        "en": "🥉 Bronze"
+       },
+       {
+        "es": "Guardar el dato tal como llegó",
+        "en": "Store data exactly as it arrived"
+       }
+      ],
+      [
+       {
+        "es": "🥈 Plata",
+        "en": "🥈 Silver"
+       },
+       {
+        "es": "Quitar duplicados y corregir tipos",
+        "en": "Remove duplicates and fix types"
+       }
+      ],
+      [
+       {
+        "es": "🥇 Oro",
+        "en": "🥇 Gold"
+       },
+       {
+        "es": "Calcular ventas por región para el tablero",
+        "en": "Compute sales by region for the dashboard"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Arma el flujo completo, de la fuente al reporte.",
+      "en": "Build the full flow, from source to report."
+     },
+     "title": {
+      "es": "Arma el pipeline",
+      "en": "Assemble the pipeline"
+     },
+     "items": [
+      {
+       "es": "Extraer de la fuente (ERP, API, archivo)",
+       "en": "Extract from the source (ERP, API, file)"
+      },
+      {
+       "es": "Aterrizar en Bronce sin transformar",
+       "en": "Land in Bronze untransformed"
+      },
+      {
+       "es": "Limpiar y deduplicar en Plata",
+       "en": "Clean and deduplicate in Silver"
+      },
+      {
+       "es": "Modelar hechos y dimensiones en Oro",
+       "en": "Model facts and dimensions in Gold"
+      },
+      {
+       "es": "Consumir en Power BI",
+       "en": "Consume in Power BI"
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Caso real: ¿dónde lo arreglas?",
+      "en": "Real case: where do you fix it?"
+     },
+     "q": {
+      "es": "Detectas el mismo cliente dos veces: una con RFC en minúsculas y otra en mayúsculas. ¿En qué capa lo corriges?",
+      "en": "You find the same customer twice: once with the tax ID lowercase, once uppercase. Which layer fixes it?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Bronce",
+        "en": "Bronze"
+       },
+       "why": {
+        "es": "Bronce no se toca: debe reflejar la fuente tal cual, para auditar y reprocesar.",
+        "en": "Bronze stays untouched: it mirrors the source so you can audit and reprocess."
+       }
+      },
+      {
+       "t": {
+        "es": "Plata",
+        "en": "Silver"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Sí: estandarizar formatos y deduplicar es el trabajo típico de Plata.",
+        "en": "Yes: standardizing formats and deduplicating is classic Silver work."
+       }
+      },
+      {
+       "t": {
+        "es": "Oro",
+        "en": "Gold"
+       },
+       "why": {
+        "es": "Oro debe recibir datos ya limpios; ahí solo modelas para el negocio.",
+        "en": "Gold should receive clean data; there you only model for the business."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Esta es de entrevista de trabajo. 😎",
+      "en": "This one's a job-interview classic. 😎"
+     },
+     "q": {
+      "es": "¿Por qué no conviene borrar Bronce cuando ya tienes Plata?",
+      "en": "Why shouldn't you delete Bronze once you have Silver?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Porque Power BI lee directo de Bronce",
+        "en": "Because Power BI reads straight from Bronze"
+       },
+       "why": {
+        "es": "No: Power BI debe leer de Oro.",
+        "en": "No: Power BI should read from Gold."
+       }
+      },
+      {
+       "t": {
+        "es": "Para poder reprocesar y auditar desde el origen si cambia una regla",
+        "en": "To reprocess and audit from the source if a rule changes"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Exacto. Si mañana una regla de limpieza estaba mal, regeneras Plata desde Bronce sin volver a pedir datos a la fuente.",
+        "en": "Exactly. If a cleaning rule turns out wrong tomorrow, you rebuild Silver from Bronze without re-pulling from the source."
+       }
+      },
+      {
+       "t": {
+        "es": "Porque Fabric no permite borrar tablas",
+        "en": "Because Fabric doesn't allow deleting tables"
+       },
+       "why": {
+        "es": "Sí se pueden borrar. La razón es de diseño, no técnica.",
+        "en": "You can delete them. The reason is design, not a technical limit."
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Pregunta de arquitecto. No hay una sola respuesta correcta.",
+      "en": "Architect question. There's no single right answer."
+     },
+     "prompt": {
+      "es": "¿Es mejor un Lakehouse por capa (lh_bronze, lh_silver, lh_gold) o un solo Lakehouse con esquemas bronze/silver/gold?",
+      "en": "Is it better to have one Lakehouse per layer (lh_bronze, lh_silver, lh_gold) or a single Lakehouse with bronze/silver/gold schemas?"
+     },
+     "answer": {
+      "es": "<b>Depende.</b> Un Lakehouse (o workspace) por capa facilita separar permisos y ciclos de vida: por ejemplo, que analistas solo vean Oro. Un solo Lakehouse con esquemas es más simple para equipos pequeños. En proyectos empresariales es común separar por capa y por dominio. Lo profundizamos en el Nivel 7 (gobierno).",
+      "en": "<b>It depends.</b> One Lakehouse (or workspace) per layer makes it easier to separate permissions and lifecycles: e.g., analysts only see Gold. A single Lakehouse with schemas is simpler for small teams. Enterprise projects often split by layer and by domain. We go deeper in Level 7 (governance)."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l1-5",
+   "icon": "🐍",
+   "min": 25,
+   "badge": {
+    "e": "🪄",
+    "n": {
+     "es": "Hechicero de PySpark",
+     "en": "PySpark Sorcerer"
+    }
+   },
+   "title": {
+    "es": "Tu primer Notebook: de Bronce a Oro con PySpark",
+    "en": "Your first Notebook: Bronze to Gold with PySpark"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Llegó el código. Tranquilo: lo leeremos línea por línea.",
+      "en": "Code time. Relax: we'll read it line by line."
+     },
+     "kicker": {
+      "es": "Notebooks en Fabric",
+      "en": "Notebooks in Fabric"
+     },
+     "title": {
+      "es": "Un cuaderno con superpoderes",
+      "en": "A notebook with superpowers"
+     },
+     "body": {
+      "es": "<p>Un <b>notebook</b> es un documento con celdas de código que se ejecutan en Spark. En Fabric, la sesión de Spark ya viene lista en la variable <code>spark</code>: no configuras nada.</p>\n               <p>Si <b>adjuntas un Lakehouse</b> al notebook, puedes usar rutas cortas como <code>Files/ventas.csv</code> y guardar tablas con <code>saveAsTable(\"nombre\")</code>.</p>\n               <p>Los tres verbos que usarás siempre:</p>\n               <ul><li><code>spark.read</code> → leer</li><li><code>df.filter / withColumn / groupBy</code> → transformar</li><li><code>df.write</code> → escribir en Delta</li></ul>",
+      "en": "<p>A <b>notebook</b> is a document with code cells that run on Spark. In Fabric, the Spark session is ready in the <code>spark</code> variable: nothing to configure.</p>\n               <p>If you <b>attach a Lakehouse</b> to the notebook, you can use short paths like <code>Files/ventas.csv</code> and save tables with <code>saveAsTable(\"name\")</code>.</p>\n               <p>The three verbs you'll always use:</p>\n               <ul><li><code>spark.read</code> → read</li><li><code>df.filter / withColumn / groupBy</code> → transform</li><li><code>df.write</code> → write to Delta</li></ul>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Spark es <b>perezoso</b> (<i>lazy</i>): las transformaciones no se ejecutan hasta que pides un resultado con <code>display()</code>, <code>count()</code> o <code>write</code>.",
+        "en": "Spark is <b>lazy</b>: transformations don't run until you ask for a result with <code>display()</code>, <code>count()</code> or <code>write</code>."
+       }
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "say": {
+      "es": "Completa el hechizo. Pista: son palabras en inglés del API de Spark.",
+      "en": "Complete the spell. Hint: they're English words from the Spark API."
+     },
+     "title": {
+      "es": "Completa el código",
+      "en": "Complete the code"
+     },
+     "code": "df = spark.read.{{0}}(\"header\", \"true\").csv(\"Files/ventas.csv\")\n\ndf_silver = df.dropDuplicates().{{1}}(F.col(\"monto\") > 0)\n\ndf_silver.write.mode(\"{{2}}\").format(\"delta\").saveAsTable(\"silver_ventas\")",
+     "blanks": [
+      {
+       "a": [
+        "option"
+       ],
+       "hint": {
+        "es": "Sirve para pasar una opción de lectura, como el encabezado.",
+        "en": "Used to pass a read option, like the header."
+       }
+      },
+      {
+       "a": [
+        "filter",
+        "where"
+       ],
+       "hint": {
+        "es": "Se queda solo con las filas que cumplen una condición.",
+        "en": "Keeps only rows that meet a condition."
+       }
+      },
+      {
+       "a": [
+        "overwrite"
+       ],
+       "hint": {
+        "es": "Reemplaza la tabla completa en cada ejecución.",
+        "en": "Replaces the whole table on every run."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Haz la cuenta antes de ejecutar. Revisa el CSV del laboratorio anterior.",
+      "en": "Do the math before running. Check the CSV from the previous lab."
+     },
+     "q": {
+      "es": "El CSV tiene 11 filas: una está duplicada y otra tiene monto negativo. ¿Cuántas filas tendrá <code>silver_ventas</code>?",
+      "en": "The CSV has 11 rows: one is a duplicate and one has a negative amount. How many rows will <code>silver_ventas</code> have?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "11",
+        "en": "11"
+       },
+       "why": {
+        "es": "Olvidaste que <code>dropDuplicates</code> y <code>filter</code> quitan filas.",
+        "en": "You forgot that <code>dropDuplicates</code> and <code>filter</code> remove rows."
+       }
+      },
+      {
+       "t": {
+        "es": "10",
+        "en": "10"
+       },
+       "why": {
+        "es": "Quitaste el duplicado, pero falta el monto negativo.",
+        "en": "You removed the duplicate but not the negative amount."
+       }
+      },
+      {
+       "t": {
+        "es": "9",
+        "en": "9"
+       },
+       "ok": 1,
+       "why": {
+        "es": "¡Exacto! 11 − 1 duplicado − 1 negativo = 9. Así se valida un pipeline: <b>con cifras de control</b>.",
+        "en": "Exactly! 11 − 1 duplicate − 1 negative = 9. That's how you validate a pipeline: <b>with control totals</b>."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Ahora ejecútalo de verdad en Fabric. Este es tu primer pipeline Medallion. 🎉",
+      "en": "Now run it for real in Fabric. This is your first Medallion pipeline. 🎉"
+     },
+     "title": {
+      "es": "Laboratorio: notebook Bronce → Plata → Oro",
+      "en": "Lab: Bronze → Silver → Gold notebook"
+     },
+     "intro": {
+      "es": "Usa el workspace y el Lakehouse <code>lh_tutor</code> de la lección 1.3.",
+      "en": "Use the workspace and the <code>lh_tutor</code> Lakehouse from lesson 1.3."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En <code>ws_tutor_fabric</code>: <b>+ New item → Notebook</b>. Renómbralo <code>nb_ventas_medallion</code>.",
+        "en": "In <code>ws_tutor_fabric</code>: <b>+ New item → Notebook</b>. Rename it <code>nb_ventas_medallion</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "En el panel izquierdo <b>Explorer → Add data items → Existing data source</b>, adjunta <code>lh_tutor</code>.",
+        "en": "In the left <b>Explorer → Add data items → Existing data source</b>, attach <code>lh_tutor</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Pega el código. Si quieres, sepáralo en tres celdas donde dice <code># Celda</code>, y ejecútalo con <b>Run all</b>.",
+        "en": "Paste the code. Optionally split it into three cells at each <code># Celda</code>, then hit <b>Run all</b>."
+       },
+       "code": "# Celda 1 · Leer el CSV desde la sección Files del Lakehouse\nfrom pyspark.sql import functions as F\n\ndf = (spark.read\n        .option(\"header\", \"true\")\n        .option(\"inferSchema\", \"true\")\n        .csv(\"Files/ventas.csv\"))\ndisplay(df)\nprint(\"Filas en bruto:\", df.count())\n\n# Celda 2 · Capa Silver: limpiar, tipar y auditar\ndf_silver = (df.dropDuplicates()\n               .filter(F.col(\"monto\") > 0)\n               .withColumn(\"fecha\", F.to_date(\"fecha\"))\n               .withColumn(\"_ingest_ts\", F.current_timestamp()))\ndf_silver.write.mode(\"overwrite\").format(\"delta\").saveAsTable(\"silver_ventas\")\nprint(\"Filas en Silver:\", df_silver.count())\n\n# Celda 3 · Capa Gold: agregado listo para negocio\ndf_gold = (df_silver.groupBy(\"region\")\n             .agg(F.round(F.sum(\"monto\"), 2).alias(\"venta_total\"))\n             .orderBy(F.desc(\"venta_total\")))\ndf_gold.write.mode(\"overwrite\").format(\"delta\").saveAsTable(\"gold_ventas_region\")\ndisplay(df_gold)"
+      },
+      {
+       "t": {
+        "es": "La primera ejecución tarda unos segundos mientras arranca Spark. Verifica que aparezcan <code>silver_ventas</code> y <code>gold_ventas_region</code> en <b>Tables</b> (usa refrescar).",
+        "en": "The first run takes a few seconds while Spark starts. Check that <code>silver_ventas</code> and <code>gold_ventas_region</code> show up under <b>Tables</b> (hit refresh)."
+       }
+      }
+     ],
+     "expect": {
+      "es": "<p><b>Filas en bruto: 11 · Filas en Silver: 9</b>. Tu tabla Oro debe verse así:</p>\n        <table class=\"res\"><tr><th>region</th><th>venta_total</th></tr><tr><td>Norte</td><td>3735.75</td></tr><tr><td>Centro</td><td>1600.00</td></tr><tr><td>Sur</td><td>1340.75</td></tr><tr><td>Occidente</td><td>715.50</td></tr></table>",
+      "en": "<p><b>Raw rows: 11 · Silver rows: 9</b>. Your Gold table should look like this:</p>\n        <table class=\"res\"><tr><th>region</th><th>venta_total</th></tr><tr><td>Norte</td><td>3735.75</td></tr><tr><td>Centro</td><td>1600.00</td></tr><tr><td>Sur</td><td>1340.75</td></tr><tr><td>Occidente</td><td>715.50</td></tr></table>"
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Última pregunta del Nivel 1. ¡Ya casi eres Aprendiz oficial!",
+      "en": "Final question of Level 1. You're almost an official Apprentice!"
+     },
+     "q": {
+      "es": "Ejecutas el notebook dos veces seguidas. ¿Qué pasa con <code>silver_ventas</code> si usaste <code>mode(\"overwrite\")</code>?",
+      "en": "You run the notebook twice in a row. What happens to <code>silver_ventas</code> if you used <code>mode(\"overwrite\")</code>?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Queda con 18 filas (se duplican)",
+        "en": "It ends up with 18 rows (duplicated)"
+       },
+       "why": {
+        "es": "Eso pasaría con <code>append</code>, que agrega filas en cada corrida.",
+        "en": "That would happen with <code>append</code>, which adds rows on every run."
+       }
+      },
+      {
+       "t": {
+        "es": "Sigue con 9 filas: la tabla se reemplaza",
+        "en": "It still has 9 rows: the table is replaced"
+       },
+       "ok": 1,
+       "why": {
+        "es": "Correcto. <code>overwrite</code> hace el proceso <b>idempotente</b>: correrlo N veces da el mismo resultado. Delta además guarda la versión anterior (time travel).",
+        "en": "Correct. <code>overwrite</code> makes the process <b>idempotent</b>: running it N times gives the same result. Delta also keeps the previous version (time travel)."
+       }
+      },
+      {
+       "t": {
+        "es": "Falla porque la tabla ya existe",
+        "en": "It fails because the table already exists"
+       },
+       "why": {
+        "es": "Fallaría con <code>mode(\"error\")</code>, el modo por defecto, no con overwrite.",
+        "en": "It would fail with <code>mode(\"error\")</code>, the default, not with overwrite."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

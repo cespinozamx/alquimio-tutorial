@@ -1,0 +1,1081 @@
+{
+ "id": 8,
+ "title": {
+  "es": "Proyecto final integrador",
+  "en": "Capstone project"
+ },
+ "desc": {
+  "es": "BiciCiudad: una plataforma completa con ruta batch, Oro en Warehouse, tiempo real, modelo semántico, seguridad y Git. Examen final y certificado.",
+  "en": "BiciCiudad: a complete platform with a batch path, Gold in a Warehouse, real time, a semantic model, security and Git. Final exam and certificate."
+ },
+ "lessons": [
+  {
+   "id": "l8-1",
+   "icon": "🗺️",
+   "min": 20,
+   "badge": {
+    "e": "📐",
+    "n": {
+     "es": "Arquitecto del proyecto",
+     "en": "Project Architect"
+    }
+   },
+   "title": {
+    "es": "El encargo: BiciCiudad necesita una plataforma de datos",
+    "en": "The brief: BiciCiudad needs a data platform"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "¡Llegaste al proyecto final! 🎓 Aquí ya no hay recetas paso a paso: tú decides. Yo solo te doy pistas… y soluciones escondidas por si te atoras.",
+      "en": "You made it to the capstone! 🎓 No more step-by-step recipes here: you decide. I'll just give hints… and hidden solutions in case you get stuck."
+     },
+     "kicker": {
+      "es": "Tu primer cliente",
+      "en": "Your first client"
+     },
+     "title": {
+      "es": "El correo de BiciCiudad",
+      "en": "The email from BiciCiudad"
+     },
+     "body": {
+      "es": "<p><b>BiciCiudad</b> es una empresa (ficticia) de renta de bicicletas. Su directora de operaciones te escribe:</p>\n    <blockquote style=\"border-left:4px solid var(--copper);margin:0 0 14px;padding:8px 14px;background:#fff;border-radius:0 12px 12px 0\">\n    “Necesitamos dos cosas. <b>Primero</b>, un reporte confiable de ingresos por barrio, estación y método de pago. Hoy cada área tiene su Excel y nunca cuadran. <b>Segundo</b>, saber <b>en este momento</b> qué estaciones se quedaron sin bicicletas, y que logística reciba un aviso para reabastecerlas. Ah, y TI pide que todo quede versionado y con seguridad: cada gerente de barrio debe ver solo lo suyo.”</blockquote>\n    <p>Vas a construir la solución completa en Fabric, uniendo <b>todo</b> lo que aprendiste: Lakehouse, Spark y MERGE, pipelines, Warehouse, Direct Lake, Real-Time Intelligence, seguridad y Git.</p>",
+      "en": "<p><b>BiciCiudad</b> is a (fictional) bike-rental company. Its operations director writes to you:</p>\n    <blockquote style=\"border-left:4px solid var(--copper);margin:0 0 14px;padding:8px 14px;background:#fff;border-radius:0 12px 12px 0\">\n    “We need two things. <b>First</b>, a reliable revenue report by neighbourhood, station and payment method. Today every department has its own Excel and they never match. <b>Second</b>, to know <b>right now</b> which stations ran out of bikes, with logistics getting an alert to restock them. Oh, and IT wants everything versioned and secured: each neighbourhood manager should see only their own data.”</blockquote>\n    <p>You'll build the complete solution in Fabric, bringing together <b>everything</b> you learned: Lakehouse, Spark and MERGE, pipelines, Warehouse, Direct Lake, Real-Time Intelligence, security and Git.</p>"
+     },
+     "visual": "capstoneArch"
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Traduce cada requisito del cliente a una pieza de Fabric. Es lo primero que hace un arquitecto.",
+      "en": "Translate each client requirement into a Fabric piece. It's the first thing an architect does."
+     },
+     "title": {
+      "es": "Requisito → solución",
+      "en": "Requirement → solution"
+     },
+     "pairs": [
+      [
+       {
+        "es": "“Los Excel nunca cuadran”",
+        "en": "“The Excel files never match”"
+       },
+       {
+        "es": "Modelo semántico con medidas únicas",
+        "en": "Semantic model with single measures"
+       }
+      ],
+      [
+       {
+        "es": "“Saber en este momento qué estaciones están vacías”",
+        "en": "“Know right now which stations are empty”"
+       },
+       {
+        "es": "Eventstream + Eventhouse + KQL",
+        "en": "Eventstream + Eventhouse + KQL"
+       }
+      ],
+      [
+       {
+        "es": "“Que logística reciba un aviso”",
+        "en": "“Logistics gets an alert”"
+       },
+       "Activator"
+      ],
+      [
+       {
+        "es": "“Cada gerente ve solo lo suyo”",
+        "en": "“Each manager sees only their own”"
+       },
+       {
+        "es": "RLS en el modelo semántico",
+        "en": "RLS in the semantic model"
+       }
+      ],
+      [
+       {
+        "es": "“Todo versionado”",
+        "en": "“Everything versioned”"
+       },
+       {
+        "es": "Integración con Git",
+        "en": "Git integration"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Planea el orden de construcción. Primero los cimientos.",
+      "en": "Plan the build order. Foundations first."
+     },
+     "title": {
+      "es": "Plan de trabajo del proyecto",
+      "en": "Project work plan"
+     },
+     "items": [
+      {
+       "es": "Crear el workspace y conectarlo a Git",
+       "en": "Create the workspace and connect it to Git"
+      },
+      {
+       "es": "Ruta batch: Lakehouse, notebook de Plata con MERGE y pipeline",
+       "en": "Batch path: Lakehouse, Silver notebook with MERGE and pipeline"
+      },
+      {
+       "es": "Oro en Warehouse: modelo estrella y procedimiento de carga",
+       "en": "Gold in Warehouse: star schema and load procedure"
+      },
+      {
+       "es": "Ruta en tiempo real: Eventstream, Eventhouse y alerta",
+       "en": "Real-time path: Eventstream, Eventhouse and alert"
+      },
+      {
+       "es": "Consumo: modelo semántico, reporte, RLS y endoso",
+       "en": "Consumption: semantic model, report, RLS and endorsement"
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Prepara el terreno. Usa un workspace nuevo para que el proyecto quede limpio y presentable.",
+      "en": "Prepare the ground. Use a new workspace so the project stays clean and presentable."
+     },
+     "title": {
+      "es": "Reto 0: el workspace del proyecto",
+      "en": "Challenge 0: the project workspace"
+     },
+     "intro": {
+      "es": "A partir de aquí, los pasos dicen <b>qué</b> lograr. Si necesitas recordar el <b>cómo</b>, vuelve a la lección del nivel correspondiente.",
+      "en": "From here on, the steps say <b>what</b> to achieve. If you need to remember <b>how</b>, revisit the lesson from the matching level."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Crea el workspace <code>ws_biciudad_dev</code> con capacidad Trial o Fabric. <i>(Nivel 1)</i>",
+        "en": "Create the <code>ws_biciudad_dev</code> workspace with a Trial or Fabric capacity. <i>(Level 1)</i>"
+       }
+      },
+      {
+       "t": {
+        "es": "Crea el Lakehouse <code>lh_bici</code>, el Warehouse <code>wh_bici</code> y el Eventhouse <code>eh_bici</code>. <i>(Niveles 1, 4 y 5)</i>",
+        "en": "Create the <code>lh_bici</code> Lakehouse, the <code>wh_bici</code> Warehouse and the <code>eh_bici</code> Eventhouse. <i>(Levels 1, 4 and 5)</i>"
+       }
+      },
+      {
+       "t": {
+        "es": "Conecta el workspace a un repositorio nuevo <code>biciudad-fabric</code>, en la carpeta <code>fabric</code>. <i>(Nivel 7)</i>",
+        "en": "Connect the workspace to a new <code>biciudad-fabric</code> repository, folder <code>fabric</code>. <i>(Level 7)</i>"
+       }
+      },
+      {
+       "t": {
+        "es": "Haz tu primer commit: <code>chore: estructura inicial del proyecto</code>.",
+        "en": "Make your first commit: <code>chore: initial project structure</code>."
+       }
+      }
+     ],
+     "expect": {
+      "es": "Un workspace con tres elementos vacíos y un repositorio con su primer commit. Parece poco, pero así empiezan los proyectos profesionales: con estructura y trazabilidad desde el día uno.",
+      "en": "A workspace with three empty items and a repository with its first commit. It looks small, but that's how professional projects start: with structure and traceability from day one."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l8-2",
+   "icon": "🚲",
+   "min": 35,
+   "badge": {
+    "e": "🧪",
+    "n": {
+     "es": "Ingeniero de la ruta batch",
+     "en": "Batch Path Engineer"
+    }
+   },
+   "title": {
+    "es": "Reto 1: la ruta batch, de Bronce a Plata con MERGE",
+    "en": "Challenge 1: the batch path, Bronze to Silver with MERGE"
+   },
+   "steps": [
+    {
+     "type": "reveal",
+     "kind": "pencil",
+     "say": {
+      "es": "Antes de escribir código, haz lo que hace un profesional: <b>calcula las cifras de control a mano</b>.",
+      "en": "Before writing code, do what a professional does: <b>compute the control totals by hand</b>."
+     },
+     "prompt": {
+      "es": "Este es el archivo de rentas del día 1. Las reglas de calidad dicen que se eliminan los duplicados exactos, las rentas con minutos ≤ 0 y las que no tienen monto.<br><b>¿Cuántas filas quedarán en Plata y cuál será el total de <code>monto</code>?</b><pre style=\"margin-top:10px\">id_renta,fecha,estacion,barrio,minutos,monto,metodo_pago\n1,2026-02-02,EST-01,Centro,25,45.00,tarjeta\n2,2026-02-02,EST-02,Norte,40,70.00,app\n3,2026-02-02,EST-01,Centro,15,30.00,app\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n5,2026-02-03,EST-04,Poniente,-10,20.00,app\n6,2026-02-04,EST-02,Norte,35,60.00,efectivo\n7,2026-02-04,EST-05,Centro,50,85.00,app\n8,2026-02-05,EST-04,Poniente,20,40.00,tarjeta\n9,2026-02-05,EST-03,Sur,30,55.00,app\n10,2026-02-06,EST-05,Centro,45,75.00,tarjeta\n11,2026-02-06,EST-01,Centro,10,,app\n12,2026-02-07,EST-02,Norte,55,90.00,app</pre>",
+      "en": "This is the day-1 rentals file. Data quality rules say exact duplicates are removed, as are rentals with minutes ≤ 0 and those with no amount.<br><b>How many rows will remain in Silver, and what will the <code>monto</code> total be?</b><pre style=\"margin-top:10px\">id_renta,fecha,estacion,barrio,minutos,monto,metodo_pago\n1,2026-02-02,EST-01,Centro,25,45.00,tarjeta\n2,2026-02-02,EST-02,Norte,40,70.00,app\n3,2026-02-02,EST-01,Centro,15,30.00,app\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n5,2026-02-03,EST-04,Poniente,-10,20.00,app\n6,2026-02-04,EST-02,Norte,35,60.00,efectivo\n7,2026-02-04,EST-05,Centro,50,85.00,app\n8,2026-02-05,EST-04,Poniente,20,40.00,tarjeta\n9,2026-02-05,EST-03,Sur,30,55.00,app\n10,2026-02-06,EST-05,Centro,45,75.00,tarjeta\n11,2026-02-06,EST-01,Centro,10,,app\n12,2026-02-07,EST-02,Norte,55,90.00,app</pre>"
+     },
+     "answer": {
+      "es": "13 filas en Bronce → se quita el duplicado del id 4 (12) → se quitan el id 5 (minutos −10) y el id 11 (sin monto) → <b>10 filas</b> en Plata. Total: 45 + 70 + 30 + 95 + 60 + 85 + 40 + 55 + 75 + 90 = <b>645.00</b>. Guarda estos números: son tu contrato con el cliente.",
+      "en": "13 rows in Bronze → remove id 4's duplicate (12) → remove id 5 (−10 minutes) and id 11 (no amount) → <b>10 rows</b> in Silver. Total: 45 + 70 + 30 + 95 + 60 + 85 + 40 + 55 + 75 + 90 = <b>645.00</b>. Keep these numbers: they're your contract with the client."
+     }
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Construye la ruta batch. Intenta escribir el notebook tú solo; la solución está escondida por si la necesitas.",
+      "en": "Build the batch path. Try writing the notebook yourself; the solution is hidden in case you need it."
+     },
+     "title": {
+      "es": "Reto 1: notebook parametrizado con MERGE",
+      "en": "Challenge 1: parameterized notebook with MERGE"
+     },
+     "intro": {
+      "es": "Requisitos: un notebook que reciba el nombre del archivo como <b>parámetro</b>, aplique las reglas de calidad, cree <code>silver_rentas</code> la primera vez y haga <b>MERGE por <code>id_renta</code></b> las siguientes. Debe imprimir y devolver las cifras de control. <i>(Niveles 1, 3 y 4 del curso)</i>",
+      "en": "Requirements: a notebook that takes the file name as a <b>parameter</b>, applies the quality rules, creates <code>silver_rentas</code> the first time and does a <b>MERGE on <code>id_renta</code></b> afterwards. It must print and return the control totals. <i>(Course levels 1, 3 and 4)</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Guarda este contenido como <code>rentas.csv</code> y súbelo a <b>Files</b> de <code>lh_bici</code>:",
+        "en": "Save this content as <code>rentas.csv</code> and upload it to <b>Files</b> in <code>lh_bici</code>:"
+       },
+       "code": "id_renta,fecha,estacion,barrio,minutos,monto,metodo_pago\n1,2026-02-02,EST-01,Centro,25,45.00,tarjeta\n2,2026-02-02,EST-02,Norte,40,70.00,app\n3,2026-02-02,EST-01,Centro,15,30.00,app\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n4,2026-02-03,EST-03,Sur,60,95.00,tarjeta\n5,2026-02-03,EST-04,Poniente,-10,20.00,app\n6,2026-02-04,EST-02,Norte,35,60.00,efectivo\n7,2026-02-04,EST-05,Centro,50,85.00,app\n8,2026-02-05,EST-04,Poniente,20,40.00,tarjeta\n9,2026-02-05,EST-03,Sur,30,55.00,app\n10,2026-02-06,EST-05,Centro,45,75.00,tarjeta\n11,2026-02-06,EST-01,Centro,10,,app\n12,2026-02-07,EST-02,Norte,55,90.00,app"
+      },
+      {
+       "t": {
+        "es": "Guarda este otro como <code>rentas_dia2.csv</code> y súbelo también (lo usarás en el paso 5):",
+        "en": "Save this one as <code>rentas_dia2.csv</code> and upload it too (you'll use it in step 5):"
+       },
+       "code": "id_renta,fecha,estacion,barrio,minutos,monto,metodo_pago\n9,2026-02-05,EST-03,Sur,30,65.00,app\n13,2026-02-08,EST-04,Poniente,30,50.00,app"
+      },
+      {
+       "t": {
+        "es": "Crea el notebook <code>nb_rentas_silver</code>, adjunta <code>lh_bici</code>, marca la primera celda como parámetros y escribe tu solución.",
+        "en": "Create the <code>nb_rentas_silver</code> notebook, attach <code>lh_bici</code>, mark the first cell as parameters and write your solution."
+       },
+       "solution": "# ── Celda 1 · PARÁMETROS ──\np_archivo = \"rentas.csv\"\n\n# ── Celda 2 · Bronce → Plata con MERGE y cifras de control ──\nfrom pyspark.sql import functions as F\nfrom delta.tables import DeltaTable\n\nbronce = (spark.read.option(\"header\", \"true\").option(\"inferSchema\", \"true\")\n               .csv(f\"Files/{p_archivo}\"))\nprint(\"Bronce:\", bronce.count())\n\nplata = (bronce.dropDuplicates()\n               .filter((F.col(\"minutos\") > 0) & F.col(\"monto\").isNotNull())\n               .withColumn(\"fecha\", F.to_date(\"fecha\"))\n               .withColumn(\"_ingest_ts\", F.current_timestamp()))\n\nif not spark.catalog.tableExists(\"silver_rentas\"):\n    plata.write.format(\"delta\").saveAsTable(\"silver_rentas\")\nelse:\n    (DeltaTable.forName(spark, \"silver_rentas\").alias(\"t\")\n        .merge(plata.alias(\"s\"), \"t.id_renta = s.id_renta\")\n        .whenMatchedUpdateAll()\n        .whenNotMatchedInsertAll()\n        .execute())\n\nr = spark.sql(\"SELECT COUNT(*) AS filas, ROUND(SUM(monto), 2) AS total FROM silver_rentas\").first()\nprint(\"Plata:\", r.filas, r.total)\nnotebookutils.notebook.exit(f\"{r.filas}|{r.total}\")"
+      },
+      {
+       "t": {
+        "es": "Ejecútalo con <code>p_archivo = \"rentas.csv\"</code>. Compara contra tus cifras de control.",
+        "en": "Run it with <code>p_archivo = \"rentas.csv\"</code>. Compare against your control totals."
+       }
+      },
+      {
+       "t": {
+        "es": "Crea el pipeline <code>pl_bici_diario</code> con una actividad Notebook que llame a <code>nb_rentas_silver</code> con el parámetro base <code>p_archivo = rentas_dia2.csv</code>. Ejecútalo. <i>(Nivel 2)</i>",
+        "en": "Create the <code>pl_bici_diario</code> pipeline with a Notebook activity calling <code>nb_rentas_silver</code> with base parameter <code>p_archivo = rentas_dia2.csv</code>. Run it. <i>(Level 2)</i>"
+       }
+      }
+     ],
+     "expect": {
+      "es": "Primera ejecución: <b>Bronce 13 · Plata 10 · total 645.0</b>. Después del pipeline con el día 2 (el id 9 corrige su monto de 55 a 65 y llega el id 13 con 50): <b>Plata 11 · total 705.0</b>. Si vuelves a ejecutar el pipeline, los números no cambian: tu carga es <b>idempotente</b>.",
+      "en": "First run: <b>Bronze 13 · Silver 10 · total 645.0</b>. After the pipeline with day 2 (id 9 corrects its amount from 55 to 65 and id 13 arrives with 50): <b>Silver 11 · total 705.0</b>. Run the pipeline again and the numbers don't change: your load is <b>idempotent</b>."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Comprueba que entiendes lo que acabas de construir.",
+      "en": "Check you understand what you just built."
+     },
+     "q": {
+      "es": "¿Por qué después del día 2 hay 11 filas y no 12, si el archivo traía 2 filas nuevas?",
+      "en": "Why are there 11 rows after day 2, not 12, if the file brought 2 rows?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Porque el filtro de calidad eliminó una",
+        "en": "Because the quality filter removed one"
+       },
+       "why": {
+        "es": "Las dos filas del día 2 pasan las reglas de calidad.",
+        "en": "Both day-2 rows pass the quality rules."
+       }
+      },
+      {
+       "t": {
+        "es": "Porque el id 9 ya existía: MERGE lo <b>actualizó</b> y solo <b>insertó</b> el id 13",
+        "en": "Because id 9 already existed: MERGE <b>updated</b> it and only <b>inserted</b> id 13"
+       },
+       "why": {
+        "es": "¡Exacto! 10 + 1 nueva = 11, y el total sube 10 (corrección) + 50 (nueva) = 705.",
+        "en": "Exactly! 10 + 1 new = 11, and the total rises by 10 (correction) + 50 (new) = 705."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Porque Spark perdió una fila",
+        "en": "Because Spark lost a row"
+       },
+       "why": {
+        "es": "Spark no pierde filas. 😉 Las cifras de control lo demuestran.",
+        "en": "Spark doesn't lose rows. 😉 The control totals prove it."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l8-3",
+   "icon": "🏛️",
+   "min": 30,
+   "badge": {
+    "e": "⭐",
+    "n": {
+     "es": "Constructor del Oro",
+     "en": "Gold Builder"
+    }
+   },
+   "title": {
+    "es": "Reto 2: Oro en el Warehouse",
+    "en": "Challenge 2: Gold in the Warehouse"
+   },
+   "steps": [
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Primero el diseño. Declara el grano.",
+      "en": "Design first. Declare the grain."
+     },
+     "q": {
+      "es": "¿Cuál es la granularidad correcta para <code>fact_rentas</code>?",
+      "en": "What's the right grain for <code>fact_rentas</code>?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Una fila por barrio por día",
+        "en": "One row per neighbourhood per day"
+       },
+       "why": {
+        "es": "Es un agregado: perderías el detalle por estación y método de pago.",
+        "en": "That's an aggregate: you'd lose detail by station and payment method."
+       }
+      },
+      {
+       "t": {
+        "es": "Una fila por renta",
+        "en": "One row per rental"
+       },
+       "why": {
+        "es": "¡Exacto! El grano más fino posible. Cualquier agregado se calcula después en el modelo.",
+        "en": "Exactly! The finest possible grain. Any aggregate gets computed later in the model."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Una fila por estación",
+        "en": "One row per station"
+       },
+       "why": {
+        "es": "Eso es una dimensión, no un hecho.",
+        "en": "That's a dimension, not a fact."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Construye la estrella con T-SQL. Recuerda las diferencias de Fabric: BIGINT IDENTITY, VARCHAR y nombres de tres partes.",
+      "en": "Build the star with T-SQL. Remember Fabric's differences: BIGINT IDENTITY, VARCHAR and three-part names."
+     },
+     "title": {
+      "es": "Reto 2: estrella + procedimiento idempotente",
+      "en": "Challenge 2: star schema + idempotent procedure"
+     },
+     "intro": {
+      "es": "Requisitos: <code>dim_estacion</code> con llave sustituta y <code>fact_rentas</code> con grano de una fila por renta, cargadas por un procedimiento <code>usp_cargar_rentas</code> que use MERGE y lea <code>lh_bici.dbo.silver_rentas</code>. <i>(Nivel 4)</i>",
+      "en": "Requirements: <code>dim_estacion</code> with a surrogate key and <code>fact_rentas</code> at one row per rental, loaded by a <code>usp_cargar_rentas</code> procedure that uses MERGE and reads <code>lh_bici.dbo.silver_rentas</code>. <i>(Level 4)</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En <code>wh_bici</code>, agrega <code>lh_bici</code> al Explorer para poder leerlo.",
+        "en": "In <code>wh_bici</code>, add <code>lh_bici</code> to the Explorer so you can read it."
+       }
+      },
+      {
+       "t": {
+        "es": "Crea las tablas y el procedimiento. Si usas un solo script, ejecuta primero los CREATE TABLE y después el CREATE PROCEDURE.",
+        "en": "Create the tables and the procedure. If you use one script, run the CREATE TABLE statements first, then the CREATE PROCEDURE."
+       },
+       "solution": "CREATE TABLE dbo.dim_estacion (\n    sk_estacion BIGINT IDENTITY,\n    estacion    VARCHAR(10) NOT NULL,\n    barrio      VARCHAR(30) NOT NULL\n);\n\nCREATE TABLE dbo.fact_rentas (\n    id_renta    INT,\n    sk_fecha    INT,\n    sk_estacion BIGINT,\n    metodo_pago VARCHAR(20),\n    minutos     INT,\n    monto       DECIMAL(10, 2)\n);\nGO\n\nCREATE PROCEDURE dbo.usp_cargar_rentas AS\nBEGIN\n    MERGE dbo.dim_estacion AS t\n    USING (SELECT DISTINCT estacion, barrio FROM lh_bici.dbo.silver_rentas) AS s\n       ON t.estacion = s.estacion\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (estacion, barrio) VALUES (s.estacion, s.barrio);\n\n    MERGE dbo.fact_rentas AS t\n    USING (SELECT r.id_renta,\n                  YEAR(r.fecha) * 10000 + MONTH(r.fecha) * 100 + DAY(r.fecha) AS sk_fecha,\n                  e.sk_estacion, r.metodo_pago, r.minutos,\n                  CAST(r.monto AS DECIMAL(10, 2)) AS monto\n           FROM lh_bici.dbo.silver_rentas AS r\n           JOIN dbo.dim_estacion AS e ON e.estacion = r.estacion) AS s\n       ON t.id_renta = s.id_renta\n    WHEN MATCHED AND (t.monto <> s.monto OR t.minutos <> s.minutos) THEN\n        UPDATE SET t.monto = s.monto, t.minutos = s.minutos\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (id_renta, sk_fecha, sk_estacion, metodo_pago, minutos, monto)\n        VALUES (s.id_renta, s.sk_fecha, s.sk_estacion, s.metodo_pago, s.minutos, s.monto);\nEND;"
+      },
+      {
+       "t": {
+        "es": "Ejecuta el procedimiento y valida:",
+        "en": "Run the procedure and validate:"
+       },
+       "code": "EXEC dbo.usp_cargar_rentas;\n\nSELECT e.barrio, COUNT(*) AS rentas, SUM(f.monto) AS ingresos\nFROM dbo.fact_rentas f\nJOIN dbo.dim_estacion e ON e.sk_estacion = f.sk_estacion\nGROUP BY e.barrio\nORDER BY ingresos DESC;"
+      },
+      {
+       "t": {
+        "es": "Agrega al pipeline <code>pl_bici_diario</code> una actividad <b>Stored procedure</b> después del notebook (On success). Agrega también una rama <b>On failure</b> con un aviso por Teams o correo. <i>(Nivel 2)</i>",
+        "en": "Add a <b>Stored procedure</b> activity to <code>pl_bici_diario</code> after the notebook (On success). Also add an <b>On failure</b> branch with a Teams or email alert. <i>(Level 2)</i>"
+       }
+      }
+     ],
+     "expect": {
+      "es": "<p><b>dim_estacion: 5 filas · fact_rentas: 11 filas · total 705.00</b>. Por barrio:</p>\n     <table class=\"res\"><tr><th>barrio</th><th>rentas</th><th>ingresos</th></tr><tr><td>Centro</td><td>4</td><td>235.00</td></tr><tr><td>Norte</td><td>3</td><td>220.00</td></tr><tr><td>Sur</td><td>2</td><td>160.00</td></tr><tr><td>Poniente</td><td>2</td><td>90.00</td></tr></table>\n     <p>Igual que en Plata. El dato viajó entero de Bronce a Oro.</p>",
+      "en": "<p><b>dim_estacion: 5 rows · fact_rentas: 11 rows · total 705.00</b>. By neighbourhood:</p>\n     <table class=\"res\"><tr><th>barrio</th><th>rentas</th><th>ingresos</th></tr><tr><td>Centro</td><td>4</td><td>235.00</td></tr><tr><td>Norte</td><td>3</td><td>220.00</td></tr><tr><td>Sur</td><td>2</td><td>160.00</td></tr><tr><td>Poniente</td><td>2</td><td>90.00</td></tr></table>\n     <p>Same as Silver. The data traveled whole from Bronze to Gold.</p>"
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Pregunta de cifras de control.",
+      "en": "A control-totals question."
+     },
+     "q": {
+      "es": "Ingresos de <b>Sur</b> en Oro: 160.00. En el archivo original el id 9 decía 55.00. ¿Es un error?",
+      "en": "<b>Sur</b> revenue in Gold: 160.00. In the original file id 9 said 55.00. Is it an error?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Sí: debería ser 150.00",
+        "en": "Yes: it should be 150.00"
+       },
+       "why": {
+        "es": "Esa era la cifra del día 1. El día 2 llegó una corrección.",
+        "en": "That was the day-1 figure. A correction arrived on day 2."
+       }
+      },
+      {
+       "t": {
+        "es": "No: 95.00 (id 4) + 65.00 (id 9 corregido el día 2) = 160.00",
+        "en": "No: 95.00 (id 4) + 65.00 (id 9 corrected on day 2) = 160.00"
+       },
+       "why": {
+        "es": "¡Correcto! El MERGE propagó la corrección de Plata a Oro. Eso es una plataforma confiable.",
+        "en": "Correct! The MERGE carried the correction from Silver to Gold. That's a trustworthy platform."
+       },
+       "ok": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l8-4",
+   "icon": "⚡",
+   "min": 30,
+   "badge": {
+    "e": "📡",
+    "n": {
+     "es": "Operador del tiempo real",
+     "en": "Real-Time Operator"
+    }
+   },
+   "title": {
+    "es": "Reto 3: la ruta en tiempo real",
+    "en": "Challenge 3: the real-time path"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Ahora la segunda petición del cliente: ver y actuar <b>en este momento</b>.",
+      "en": "Now the client's second request: see and act <b>right now</b>."
+     },
+     "kicker": {
+      "es": "Ruta rápida",
+      "en": "Fast path"
+     },
+     "title": {
+      "es": "Estaciones vacías, al instante",
+      "en": "Empty stations, instantly"
+     },
+     "body": {
+      "es": "<p>Para el proyecto usaremos el dataset de ejemplo <b>Bicycles</b> de Eventstream como si fueran los sensores de las estaciones de BiciCiudad. En un proyecto real, las estaciones enviarían su estado a un Azure IoT Hub o a Event Hubs, y el resto de la arquitectura sería idéntico.</p>\n    <p>La pregunta clave es: <b>¿cómo está cada estación ahora mismo?</b> Ya conoces el patrón: <code>arg_max(ingestion_time(), *) by BikepointID</code>.</p>",
+      "en": "<p>For the project we'll use Eventstream's <b>Bicycles</b> sample dataset as if it were BiciCiudad's station sensors. In a real project, stations would send their status to an Azure IoT Hub or Event Hubs, and the rest of the architecture would be identical.</p>\n    <p>The key question is: <b>how is each station right now?</b> You already know the pattern: <code>arg_max(ingestion_time(), *) by BikepointID</code>.</p>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Al terminar el reto, <b>detén el Eventstream y las reglas de Activator</b>. Un flujo en vivo que nadie mira sigue consumiendo capacidad.",
+        "en": "When you finish the challenge, <b>stop the Eventstream and the Activator rules</b>. A live stream nobody watches keeps consuming capacity."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Arma la ruta rápida completa. Esta parte luce muchísimo en una demo. 😎",
+      "en": "Build the full fast path. This part looks amazing in a demo. 😎"
+     },
+     "title": {
+      "es": "Reto 3: stream, KQL, tablero y alerta",
+      "en": "Challenge 3: stream, KQL, dashboard and alert"
+     },
+     "intro": {
+      "es": "Requisitos: eventos de estaciones en <code>eh_bici</code>, una consulta del estado actual, un tablero que se refresque solo, una alerta a logística y los eventos disponibles en OneLake. <i>(Nivel 5)</i>",
+      "en": "Requirements: station events in <code>eh_bici</code>, a current-state query, a self-refreshing dashboard, an alert to logistics and the events available in OneLake. <i>(Level 5)</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Crea el Eventstream <code>es_estaciones</code> con el ejemplo <b>Bicycles</b> y destino <code>eh_bici</code>, tabla <code>estado_estaciones</code>. Publícalo.",
+        "en": "Create the <code>es_estaciones</code> Eventstream with the <b>Bicycles</b> sample and destination <code>eh_bici</code>, table <code>estado_estaciones</code>. Publish it."
+       }
+      },
+      {
+       "t": {
+        "es": "Escribe en KQL: (a) las estaciones que <b>ahora</b> tienen 0 bicicletas y (b) cuántas estaciones vacías hay por barrio.",
+        "en": "Write in KQL: (a) the stations that <b>now</b> have 0 bikes and (b) how many empty stations there are per neighbourhood."
+       },
+       "solution": "// Estado actual de cada estación\nestado_estaciones\n| summarize arg_max(ingestion_time(), *) by BikepointID\n| where No_Bikes == 0\n| project BikepointID, Street, Neighbourhood, No_Bikes, No_Empty_Docks\n\n// Estaciones vacías por barrio, en este momento\nestado_estaciones\n| summarize arg_max(ingestion_time(), *) by BikepointID\n| summarize vacias = countif(No_Bikes == 0) by Neighbourhood\n| top 10 by vacias desc"
+      },
+      {
+       "t": {
+        "es": "Crea el Real-Time Dashboard <code>rtd_biciudad</code> con dos tiles (eventos por minuto y estaciones vacías por barrio) y refresco automático cada 30 segundos.",
+        "en": "Create the <code>rtd_biciudad</code> Real-Time Dashboard with two tiles (events per minute and empty stations per neighbourhood) and auto-refresh every 30 seconds."
+       }
+      },
+      {
+       "t": {
+        "es": "En el tile de estaciones vacías, crea una alerta de Activator (<code>act_logistica</code>) que te envíe un correo cuando un barrio tenga más de un umbral que elijas.",
+        "en": "On the empty-stations tile, create an Activator alert (<code>act_logistica</code>) that emails you when a neighbourhood goes above a threshold you choose."
+       }
+      },
+      {
+       "t": {
+        "es": "Activa la <b>disponibilidad en OneLake</b> de la base KQL (o de la tabla <code>estado_estaciones</code>), para que los eventos también existan como Delta.",
+        "en": "Turn on <b>OneLake availability</b> for the KQL database (or the <code>estado_estaciones</code> table), so events also exist as Delta."
+       }
+      },
+      {
+       "t": {
+        "es": "Haz commit en Git: <code>feat: ruta en tiempo real</code>. Luego detén el Eventstream y la regla.",
+        "en": "Commit to Git: <code>feat: real-time path</code>. Then stop the Eventstream and the rule."
+       }
+      }
+     ],
+     "expect": {
+      "es": "Un tablero vivo, un correo de Activator con el barrio que cruzó el umbral y la tabla de eventos disponible en OneLake. No hay cifras exactas que comparar porque los datos son en vivo. Lo que se valida es que <b>el ciclo evento → acción funciona</b>.",
+      "en": "A live dashboard, an Activator email naming the neighbourhood that crossed the threshold, and the events table available in OneLake. There are no exact figures to check because the data is live. What you validate is that <b>the event → action loop works</b>."
+     }
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Pregunta para tu presentación con el cliente.",
+      "en": "A question for your client presentation."
+     },
+     "prompt": {
+      "es": "La directora pregunta: “¿Por qué el reporte de ingresos y el tablero de estaciones están en lugares distintos? ¿No sería mejor todo junto?”. ¿Qué le respondes?",
+      "en": "The director asks: “Why are the revenue report and the stations dashboard in different places? Wouldn't it be better all together?” What do you answer?"
+     },
+     "answer": {
+      "es": "Porque responden preguntas a <b>velocidades distintas</b>. Los ingresos se consultan con datos validados y conciliados (ruta batch, cifras de control, una sola versión de la verdad). Las estaciones vacías necesitan segundos (ruta rápida). Ambos viven en la misma plataforma y en OneLake: si mañana quieren cruzar disponibilidad con ingresos, los eventos ya están como Delta y se pueden unir con el modelo batch. Es una arquitectura <b>Lambda</b>: dos velocidades, un solo lago.",
+      "en": "Because they answer questions at <b>different speeds</b>. Revenue is consulted with validated, reconciled data (batch path, control totals, single version of the truth). Empty stations need seconds (fast path). Both live on the same platform and in OneLake: if tomorrow they want to cross availability with revenue, the events are already Delta and can be joined with the batch model. It's a <b>Lambda</b> architecture: two speeds, one lake."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l8-5",
+   "icon": "📊",
+   "min": 30,
+   "badge": {
+    "e": "🎯",
+    "n": {
+     "es": "Entregador de valor",
+     "en": "Value Deliverer"
+    }
+   },
+   "title": {
+    "es": "Reto 4: consumo, seguridad y entrega",
+    "en": "Challenge 4: consumption, security and delivery"
+   },
+   "steps": [
+    {
+     "type": "lab",
+     "say": {
+      "es": "La recta final: el reporte que verá la directora. 🏁",
+      "en": "The home stretch: the report the director will see. 🏁"
+     },
+     "title": {
+      "es": "Reto 4: modelo semántico, DAX, RLS y gobierno",
+      "en": "Challenge 4: semantic model, DAX, RLS and governance"
+     },
+     "intro": {
+      "es": "Requisitos: un modelo Direct Lake sobre <code>wh_bici</code>, cinco medidas, un reporte, un rol por barrio, endoso y un commit final. <i>(Niveles 6 y 7)</i>",
+      "en": "Requirements: a Direct Lake model on <code>wh_bici</code>, five measures, a report, a role per neighbourhood, endorsement and a final commit. <i>(Levels 6 and 7)</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Crea el modelo <code>sm_biciudad</code> con <code>fact_rentas</code> y <code>dim_estacion</code>. Relación 1 → * en una dirección. Oculta las llaves y <code>id_renta</code>.",
+        "en": "Create the <code>sm_biciudad</code> model with <code>fact_rentas</code> and <code>dim_estacion</code>. A single-direction 1 → * relationship. Hide the keys and <code>id_renta</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Crea las medidas: Ingresos, Rentas, Minutos Promedio, Ingreso por Minuto y % Ingresos.",
+        "en": "Create the measures: Ingresos, Rentas, Minutos Promedio, Ingreso por Minuto and % Ingresos."
+       },
+       "solution": "Ingresos = SUM(fact_rentas[monto])\nRentas = COUNTROWS(fact_rentas)\nMinutos Promedio = DIVIDE(SUM(fact_rentas[minutos]), [Rentas])\nIngreso por Minuto = DIVIDE([Ingresos], SUM(fact_rentas[minutos]))\n% Ingresos = DIVIDE([Ingresos], CALCULATE([Ingresos], ALL(dim_estacion)))"
+      },
+      {
+       "t": {
+        "es": "Crea el reporte <code>rpt_biciudad</code>: tarjetas (Ingresos, Rentas, Minutos Promedio), tabla por barrio con % Ingresos y barras por método de pago.",
+        "en": "Create the <code>rpt_biciudad</code> report: cards (Ingresos, Rentas, Minutos Promedio), a table by neighbourhood with % Ingresos and bars by payment method."
+       }
+      },
+      {
+       "t": {
+        "es": "Crea el rol <code>Gerente Centro</code> con el filtro <code>[barrio] = \"Centro\"</code> en <code>dim_estacion</code> y pruébalo con <b>View as</b>.",
+        "en": "Create the <code>Gerente Centro</code> role with the filter <code>[barrio] = \"Centro\"</code> on <code>dim_estacion</code> and test it with <b>View as</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "Marca <code>sm_biciudad</code> como <b>Promoted</b> con una descripción, revisa el linaje completo del workspace y haz commit: <code>feat: modelo y reporte BiciCiudad</code>.",
+        "en": "Mark <code>sm_biciudad</code> as <b>Promoted</b> with a description, review the workspace's full lineage and commit: <code>feat: BiciCiudad model and report</code>."
+       }
+      }
+     ],
+     "expect": {
+      "es": "<p>Tarjetas: <b>Ingresos 705.00 · Rentas 11 · Minutos Promedio 36.82</b> (405 minutos / 11). Ingreso por Minuto: <b>1.74</b>.</p>\n     <table class=\"res\"><tr><th>barrio</th><th>Ingresos</th><th>% Ingresos</th></tr><tr><td>Centro</td><td>235.00</td><td>33.33%</td></tr><tr><td>Norte</td><td>220.00</td><td>31.21%</td></tr><tr><td>Sur</td><td>160.00</td><td>22.70%</td></tr><tr><td>Poniente</td><td>90.00</td><td>12.77%</td></tr></table>\n     <p>Por método de pago: app 390.00 · tarjeta 255.00 · efectivo 60.00. Con el rol <b>Gerente Centro</b>: Ingresos 235.00 y 4 rentas.</p>",
+      "en": "<p>Cards: <b>Ingresos 705.00 · Rentas 11 · Minutos Promedio 36.82</b> (405 minutes / 11). Ingreso por Minuto: <b>1.74</b>.</p>\n     <table class=\"res\"><tr><th>barrio</th><th>Ingresos</th><th>% Ingresos</th></tr><tr><td>Centro</td><td>235.00</td><td>33.33%</td></tr><tr><td>Norte</td><td>220.00</td><td>31.21%</td></tr><tr><td>Sur</td><td>160.00</td><td>22.70%</td></tr><tr><td>Poniente</td><td>90.00</td><td>12.77%</td></tr></table>\n     <p>By payment method: app 390.00 · tarjeta 255.00 · efectivo 60.00. With the <b>Gerente Centro</b> role: Ingresos 235.00 and 4 rentals.</p>"
+     }
+    },
+    {
+     "type": "reveal",
+     "kind": "pencil",
+     "say": {
+      "es": "Último ejercicio práctico: preséntalo como en la vida real.",
+      "en": "Last hands-on exercise: present it like in real life."
+     },
+     "prompt": {
+      "es": "Escribe en 4 o 5 líneas el resumen que le enviarías a la directora de BiciCiudad para entregar el proyecto.",
+      "en": "Write, in 4 or 5 lines, the summary you'd send the BiciCiudad director to deliver the project."
+     },
+     "answer": {
+      "es": "Un ejemplo: “Entregamos la plataforma de datos de BiciCiudad en Fabric. (1) Ingresos: un solo modelo certificable con 11 rentas validadas y $705.00, conciliados contra el origen con cifras de control; cada gerente ve solo su barrio. (2) Estaciones: tablero en vivo y alertas automáticas a logística cuando un barrio se queda sin bicicletas. (3) Todo está versionado en Git y la carga diaria es automática e idempotente. Siguiente paso propuesto: promover a producción con un deployment pipeline.” Fíjate: habla de <b>valor y confianza</b>, no de tecnología.",
+      "en": "An example: “We delivered BiciCiudad's data platform on Fabric. (1) Revenue: a single certifiable model with 11 validated rentals and $705.00, reconciled to source with control totals; each manager sees only their neighbourhood. (2) Stations: a live dashboard and automatic alerts to logistics when a neighbourhood runs out of bikes. (3) Everything is versioned in Git and the daily load is automated and idempotent. Proposed next step: promote to production with a deployment pipeline.” Notice: it talks about <b>value and trust</b>, not technology."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l8-6",
+   "icon": "🎓",
+   "min": 20,
+   "badge": {
+    "e": "🎓",
+    "n": {
+     "es": "Alquimista de datos certificado",
+     "en": "Certified Data Alchemist"
+    }
+   },
+   "title": {
+    "es": "Examen final",
+    "en": "Final exam"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Diez preguntas, una por cada gran idea del curso. Respira. Ya sabes todo esto. 🧘",
+      "en": "Ten questions, one for each big idea in the course. Breathe. You already know all of this. 🧘"
+     },
+     "kicker": {
+      "es": "La última prueba",
+      "en": "The final test"
+     },
+     "title": {
+      "es": "Antes del certificado",
+      "en": "Before the certificate"
+     },
+     "body": {
+      "es": "<p>Este examen repasa todo el programa, del Nivel 1 al 7. No hay tiempo límite y puedes volver a intentar cada pregunta, pero obtienes más XP si aciertas a la primera. Al terminar, se desbloquea tu <b>certificado de finalización</b>.</p>",
+      "en": "<p>This exam reviews the whole program, from Level 1 to 7. There's no time limit and you can retry each question, but you get more XP for getting it right on the first try. When you finish, your <b>certificate of completion</b> unlocks.</p>"
+     }
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 1</b> · ¿En qué formato guarda OneLake las tablas que leen Spark, SQL y Power BI?",
+      "en": "<b>Level 1</b> · In which format does OneLake store the tables read by Spark, SQL and Power BI?"
+     },
+     "opts": [
+      {
+       "t": "CSV",
+       "why": {
+        "es": "CSV se usa en Files, no para las tablas.",
+        "en": "CSV is for Files, not tables."
+       }
+      },
+      {
+       "t": "Delta Parquet",
+       "why": {
+        "es": "Correcto: un formato abierto, una sola copia para todos los motores.",
+        "en": "Correct: an open format, one copy for every engine."
+       },
+       "ok": 1
+      },
+      {
+       "t": "JSON",
+       "why": {
+        "es": "JSON es para datos semiestructurados en Files.",
+        "en": "JSON is for semi-structured data in Files."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 1</b> · ¿Qué capa Medallion debe conservar el dato tal como llegó de la fuente?",
+      "en": "<b>Level 1</b> · Which Medallion layer must keep the data exactly as it arrived?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Bronce",
+        "en": "Bronze"
+       },
+       "why": {
+        "es": "Correcto: es tu seguro para reprocesar y auditar.",
+        "en": "Correct: it's your insurance to reprocess and audit."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Plata",
+        "en": "Silver"
+       },
+       "why": {
+        "es": "Plata limpia y deduplica.",
+        "en": "Silver cleans and deduplicates."
+       }
+      },
+      {
+       "t": {
+        "es": "Oro",
+        "en": "Gold"
+       },
+       "why": {
+        "es": "Oro modela para el negocio.",
+        "en": "Gold models for the business."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 2</b> · Quieres consultar 3 TB que están en Amazon S3 sin copiarlos. ¿Qué usas?",
+      "en": "<b>Level 2</b> · You want to query 3 TB in Amazon S3 without copying them. What do you use?"
+     },
+     "opts": [
+      {
+       "t": "Copy job",
+       "why": {
+        "es": "Copiaría los 3 TB.",
+        "en": "It would copy the 3 TB."
+       }
+      },
+      {
+       "t": "Shortcut",
+       "why": {
+        "es": "Correcto: los datos se quedan donde están.",
+        "en": "Correct: the data stays where it is."
+       },
+       "ok": 1
+      },
+      {
+       "t": "Mirroring",
+       "why": {
+        "es": "Mirroring replica bases de datos.",
+        "en": "Mirroring replicates databases."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 2</b> · ¿Qué limitación tiene una carga incremental basada solo en watermark?",
+      "en": "<b>Level 2</b> · What's the limitation of a watermark-only incremental load?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "No detecta filas borradas en la fuente",
+        "en": "It doesn't detect rows deleted at the source"
+       },
+       "why": {
+        "es": "Correcto: para eso necesitas CDC, borrado lógico o una conciliación periódica.",
+        "en": "Correct: for that you need CDC, soft deletes or periodic reconciliation."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "No funciona con fechas",
+        "en": "It doesn't work with dates"
+       },
+       "why": {
+        "es": "Las fechas son el watermark más común.",
+        "en": "Dates are the most common watermark."
+       }
+      },
+      {
+       "t": {
+        "es": "Siempre copia todo",
+        "en": "It always copies everything"
+       },
+       "why": {
+        "es": "Eso sería una carga completa.",
+        "en": "That would be a full load."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 3</b> · ¿Cuál de estas operaciones obliga a Spark a ejecutar el plan?",
+      "en": "<b>Level 3</b> · Which of these operations forces Spark to run the plan?"
+     },
+     "opts": [
+      {
+       "t": "filter",
+       "why": {
+        "es": "Es una transformación perezosa.",
+        "en": "It's a lazy transformation."
+       }
+      },
+      {
+       "t": "withColumn",
+       "why": {
+        "es": "También es perezosa.",
+        "en": "Also lazy."
+       }
+      },
+      {
+       "t": "count",
+       "why": {
+        "es": "Correcto: es una acción.",
+        "en": "Correct: it's an action."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 3</b> · Ejecutas la misma carga dos veces y quieres que la tabla quede igual. ¿Qué usas en Plata?",
+      "en": "<b>Level 3</b> · You run the same load twice and want the table unchanged. What do you use in Silver?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Append",
+        "en": "Append"
+       },
+       "why": {
+        "es": "Duplicaría filas.",
+        "en": "It would duplicate rows."
+       }
+      },
+      {
+       "t": {
+        "es": "MERGE por clave",
+        "en": "MERGE on a key"
+       },
+       "why": {
+        "es": "Correcto: upsert idempotente.",
+        "en": "Correct: an idempotent upsert."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "VACUUM",
+        "en": "VACUUM"
+       },
+       "why": {
+        "es": "VACUUM limpia archivos viejos; no carga datos.",
+        "en": "VACUUM cleans old files; it doesn't load data."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 4</b> · En el Warehouse de Fabric, ¿qué tipo de dato admite IDENTITY?",
+      "en": "<b>Level 4</b> · In the Fabric Warehouse, which data type supports IDENTITY?"
+     },
+     "opts": [
+      {
+       "t": "INT",
+       "why": {
+        "es": "En Fabric, IDENTITY solo admite BIGINT.",
+        "en": "In Fabric, IDENTITY only supports BIGINT."
+       }
+      },
+      {
+       "t": "BIGINT",
+       "why": {
+        "es": "Correcto, y sus valores son únicos pero no consecutivos.",
+        "en": "Correct, and its values are unique but not consecutive."
+       },
+       "ok": 1
+      },
+      {
+       "t": "NVARCHAR",
+       "why": {
+        "es": "Ni siquiera existe nvarchar en el Warehouse de Fabric.",
+        "en": "nvarchar doesn't even exist in the Fabric Warehouse."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 5</b> · ¿Qué patrón KQL devuelve el estado más reciente de cada máquina?",
+      "en": "<b>Level 5</b> · Which KQL pattern returns each machine's latest state?"
+     },
+     "opts": [
+      {
+       "t": "take 1",
+       "why": {
+        "es": "Devuelve una fila cualquiera.",
+        "en": "It returns one arbitrary row."
+       }
+      },
+      {
+       "t": "summarize arg_max(ingestion_time(), *) by id",
+       "why": {
+        "es": "Correcto: la fila más reciente por objeto.",
+        "en": "Correct: the most recent row per object."
+       },
+       "ok": 1
+      },
+      {
+       "t": "summarize sum(valor) by id",
+       "why": {
+        "es": "Sumaría todas las lecturas históricas.",
+        "en": "It would add up every historical reading."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 6</b> · Un reporte en Direct Lake sobre SQL va lento porque el modelo usa una vista SQL. ¿Qué pasa?",
+      "en": "<b>Level 6</b> · A Direct Lake on SQL report is slow because the model uses a SQL view. What's happening?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Fallback a DirectQuery",
+        "en": "DirectQuery fallback"
+       },
+       "why": {
+        "es": "Correcto: materializa la vista como tabla en Oro.",
+        "en": "Correct: materialize the view as a Gold table."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Se está importando todo",
+        "en": "Everything is being imported"
+       },
+       "why": {
+        "es": "Direct Lake no importa datos.",
+        "en": "Direct Lake doesn't import data."
+       }
+      },
+      {
+       "t": {
+        "es": "Falta V-Order en Bronce",
+        "en": "Bronze is missing V-Order"
+       },
+       "why": {
+        "es": "Bronce no lo lee el reporte.",
+        "en": "The report doesn't read Bronze."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "q": {
+      "es": "<b>Nivel 7</b> · ¿Qué viaja a Git y en un deployment pipeline?",
+      "en": "<b>Level 7</b> · What travels to Git and through a deployment pipeline?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Las definiciones de los elementos, no los datos",
+        "en": "Item definitions, not data"
+       },
+       "why": {
+        "es": "Correcto: cada ambiente tiene sus propios datos.",
+        "en": "Correct: each environment has its own data."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Los datos de las tablas",
+        "en": "Table data"
+       },
+       "why": {
+        "es": "Los datos se quedan en OneLake.",
+        "en": "Data stays in OneLake."
+       }
+      },
+      {
+       "t": {
+        "es": "Solo los reportes",
+        "en": "Only reports"
+       },
+       "why": {
+        "es": "Viajan muchos tipos de elementos.",
+        "en": "Many item types travel."
+       }
+      }
+     ]
+    },
+    {
+     "type": "story",
+     "say": {
+      "es": "🎉 ¡Terminaste el examen! Pulsa <b>Terminar lección</b> y reclama tu certificado. Estoy muy orgulloso de ti, colega.",
+      "en": "🎉 You finished the exam! Click <b>Finish lesson</b> and claim your certificate. I'm very proud of you, colleague."
+     },
+     "kicker": {
+      "es": "¡Lo lograste!",
+      "en": "You did it!"
+     },
+     "title": {
+      "es": "De un CSV con errores a una plataforma completa",
+      "en": "From a messy CSV to a complete platform"
+     },
+     "body": {
+      "es": "<p>Empezaste sin saber qué era OneLake. Hoy sabes ingerir, limpiar, modelar, servir, vigilar en tiempo real, asegurar y versionar una plataforma de datos completa, y demostrar con cifras de control que el dato es confiable de principio a fin.</p><p>Al terminar esta lección se desbloquea tu certificado. Si te faltó alguna lección, la página del certificado te dirá cuál.</p>",
+      "en": "<p>You started without knowing what OneLake was. Today you can ingest, clean, model, serve, monitor in real time, secure and version a complete data platform, and prove with control totals that the data is trustworthy end to end.</p><p>When you finish this lesson, your certificate unlocks. If you missed a lesson, the certificate page will tell you which one.</p>"
+     }
+    }
+   ]
+  }
+ ]
+}

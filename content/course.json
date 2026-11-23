@@ -1,0 +1,40 @@
+{
+ "title": {
+  "es": "Alquimio · Tutor de Microsoft Fabric",
+  "en": "Alquimio · Microsoft Fabric Tutor"
+ },
+ "levels": [
+  {
+   "id": 1,
+   "file": "level-1.json"
+  },
+  {
+   "id": 2,
+   "file": "level-2.json"
+  },
+  {
+   "id": 3,
+   "file": "level-3.json"
+  },
+  {
+   "id": 4,
+   "file": "level-4.json"
+  },
+  {
+   "id": 5,
+   "file": "level-5.json"
+  },
+  {
+   "id": 6,
+   "file": "level-6.json"
+  },
+  {
+   "id": 7,
+   "file": "level-7.json"
+  },
+  {
+   "id": 8,
+   "file": "level-8.json"
+  }
+ ]
+}

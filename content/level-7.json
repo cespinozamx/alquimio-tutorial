@@ -1,0 +1,1026 @@
+{
+ "id": 7,
+ "title": {
+  "es": "Gobierno, seguridad y CI/CD",
+  "en": "Governance, security and CI/CD"
+ },
+ "desc": {
+  "es": "Dominios, endosos, linaje, seguridad por capas, OneLake security, Git, deployment pipelines, variable libraries y monitoreo.",
+  "en": "Domains, endorsement, lineage, layered security, OneLake security, Git, deployment pipelines, variable libraries and monitoring."
+ },
+ "lessons": [
+  {
+   "id": "l7-1",
+   "icon": "🗺️",
+   "min": 20,
+   "badge": {
+    "e": "🏙️",
+    "n": {
+     "es": "Urbanista de datos",
+     "en": "Data City Planner"
+    }
+   },
+   "title": {
+    "es": "Gobierno: dominios, endosos, etiquetas y linaje",
+    "en": "Governance: domains, endorsement, labels and lineage"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Nivel 7. Tu plataforma ya funciona. Ahora hay que hacer que <b>siga funcionando</b> con 200 usuarios. 🏙️",
+      "en": "Level 7. Your platform works. Now it has to <b>keep working</b> with 200 users. 🏙️"
+     },
+     "kicker": {
+      "es": "De pueblo a ciudad",
+      "en": "From village to city"
+     },
+     "title": {
+      "es": "Cuando la plataforma crece, necesita reglas de ciudad",
+      "en": "As the platform grows, it needs city rules"
+     },
+     "body": {
+      "es": "<p>En un pueblo todos se conocen: sabes quién hizo cada tabla y si confías en ella. En una ciudad de miles de habitantes necesitas <b>orden</b>:</p>\n    <ul><li>🏘️ <b>Dominios</b>: los barrios. Agrupan workspaces por área de negocio (Finanzas, Comercial, RR. HH.) y permiten delegar la administración a cada área.</li>\n    <li>🏅 <b>Endosos</b>: el sello de calidad. <i>Promoted</i> (“lo recomiendo”), <i>Certified</i> (revisado por alguien autorizado) y <i>Master data</i> (la fuente oficial de un dato clave).</li>\n    <li>🏷️ <b>Etiquetas de sensibilidad</b> de Microsoft Purview: “Confidencial” o “Uso interno”. Viajan con el dato, incluso si se exporta a Excel o PDF.</li>\n    <li>🧭 <b>Linaje</b>: el mapa de tuberías. De dónde viene cada dato y qué se rompe si cambias algo.</li></ul>",
+      "en": "<p>In a village everyone knows each other: you know who built each table and whether to trust it. In a city of thousands you need <b>order</b>:</p>\n    <ul><li>🏘️ <b>Domains</b>: the neighborhoods. They group workspaces by business area (Finance, Sales, HR) and let you delegate administration to each area.</li>\n    <li>🏅 <b>Endorsement</b>: the quality seal. <i>Promoted</i> (“I recommend it”), <i>Certified</i> (reviewed by an authorized person) and <i>Master data</i> (the official source of a key data point).</li>\n    <li>🏷️ Microsoft Purview <b>sensitivity labels</b>: “Confidential” or “Internal use”. They travel with the data, even when exported to Excel or PDF.</li>\n    <li>🧭 <b>Lineage</b>: the pipe map. Where each piece of data comes from and what breaks if you change something.</li></ul>"
+     },
+     "visual": "govCity"
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Une cada necesidad con su herramienta de gobierno.",
+      "en": "Pair each need with its governance tool."
+     },
+     "title": {
+      "es": "¿Qué herramienta de gobierno uso?",
+      "en": "Which governance tool do I use?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Que todos sepan cuál es el modelo oficial de ventas",
+        "en": "Everyone should know which sales model is the official one"
+       },
+       {
+        "es": "🏅 Endoso Certified",
+        "en": "🏅 Certified endorsement"
+       }
+      ],
+      [
+       {
+        "es": "Saber qué reportes se rompen si borro una columna",
+        "en": "Know which reports break if I drop a column"
+       },
+       {
+        "es": "🧭 Linaje",
+        "en": "🧭 Lineage"
+       }
+      ],
+      [
+       {
+        "es": "Que un Excel exportado siga marcado como confidencial",
+        "en": "An exported Excel file stays marked as confidential"
+       },
+       {
+        "es": "🏷️ Etiqueta de sensibilidad",
+        "en": "🏷️ Sensitivity label"
+       }
+      ],
+      [
+       {
+        "es": "Que Finanzas administre sus propios workspaces",
+        "en": "Finance manages its own workspaces"
+       },
+       {
+        "es": "🏘️ Dominio",
+        "en": "🏘️ Domain"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vamos a ver el mapa completo de lo que construiste en el curso. Te va a gustar. 🗺️",
+      "en": "Let's look at the full map of what you built during the course. You'll like it. 🗺️"
+     },
+     "title": {
+      "es": "Laboratorio: linaje y endoso de tu solución",
+      "en": "Lab: lineage and endorsement of your solution"
+     },
+     "intro": {
+      "es": "Trabaja en <code>ws_tutor_fabric</code>. <i>Los nombres de los botones pueden variar un poco según tu versión de Fabric.</i>",
+      "en": "Work in <code>ws_tutor_fabric</code>. <i>Button names may vary slightly with your Fabric version.</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En el workspace, cambia la vista de <b>List</b> a <b>Lineage</b> (ícono arriba a la derecha).",
+        "en": "In the workspace, switch the view from <b>List</b> to <b>Lineage</b> (top-right icon)."
+       }
+      },
+      {
+       "t": {
+        "es": "Sigue las flechas: <code>lh_tutor</code> → <code>wh_ventas</code> → <code>sm_ventas</code> → <code>rpt_ventas</code>. Haz clic en <code>sm_ventas</code> y usa <b>Show impact across workspaces</b> (o <i>Impact analysis</i>).",
+        "en": "Follow the arrows: <code>lh_tutor</code> → <code>wh_ventas</code> → <code>sm_ventas</code> → <code>rpt_ventas</code>. Click <code>sm_ventas</code> and use <b>Show impact across workspaces</b> (or <i>Impact analysis</i>)."
+       }
+      },
+      {
+       "t": {
+        "es": "Abre la configuración de <code>sm_ventas</code> → <b>Endorsement</b> → marca <b>Promoted</b> y agrega una descripción: “Modelo de ventas del tutor Alquimio”.",
+        "en": "Open <code>sm_ventas</code> settings → <b>Endorsement</b> → choose <b>Promoted</b> and add a description: “Alquimio tutor sales model”."
+       }
+      },
+      {
+       "t": {
+        "es": "Si tu organización tiene etiquetas de Purview, asigna una a <code>sm_ventas</code> (por ejemplo, <i>General</i> o <i>Internal</i>). Si no aparece la opción, tu tenant aún no las tiene configuradas: márcalo como hecho.",
+        "en": "If your organization has Purview labels, assign one to <code>sm_ventas</code> (e.g. <i>General</i> or <i>Internal</i>). If the option doesn't show, your tenant hasn't configured them yet: mark it done."
+       }
+      }
+     ],
+     "expect": {
+      "es": "En la vista de linaje verás la cadena completa del curso: del Lakehouse al reporte. <code>sm_ventas</code> mostrará el sello <b>Promoted</b>, y en el OneLake catalog aparecerá antes que los modelos sin endoso.",
+      "en": "In lineage view you'll see the course's whole chain: from the Lakehouse to the report. <code>sm_ventas</code> will show the <b>Promoted</b> badge, and in the OneLake catalog it will rank above unendorsed models."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Diferencia clave entre endosos.",
+      "en": "A key difference between endorsements."
+     },
+     "q": {
+      "es": "¿Cuál es la diferencia principal entre <b>Promoted</b> y <b>Certified</b>?",
+      "en": "What's the main difference between <b>Promoted</b> and <b>Certified</b>?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Ninguna, son sinónimos",
+        "en": "None, they're synonyms"
+       },
+       "why": {
+        "es": "Tienen distinto nivel de confianza y distintos permisos.",
+        "en": "They carry different trust levels and permissions."
+       }
+      },
+      {
+       "t": {
+        "es": "Cualquier colaborador puede promover; certificar solo lo hacen revisores que el administrador autoriza",
+        "en": "Any contributor can promote; only reviewers the admin authorizes can certify"
+       },
+       "why": {
+        "es": "¡Exacto! Promoted dice “yo lo recomiendo”. Certified dice “la organización lo revisó y lo respalda”.",
+        "en": "Exactly! Promoted says “I recommend it”. Certified says “the organization reviewed and backs it”."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Certified hace que la tabla sea más rápida",
+        "en": "Certified makes the table faster"
+       },
+       "why": {
+        "es": "Los endosos son de confianza y descubrimiento, no de rendimiento.",
+        "en": "Endorsements are about trust and discovery, not performance."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l7-2",
+   "icon": "🧅",
+   "min": 20,
+   "badge": {
+    "e": "🛡️",
+    "n": {
+     "es": "Guardián por capas",
+     "en": "Layered Guardian"
+    }
+   },
+   "title": {
+    "es": "Seguridad por capas: de Entra ID a OneLake security",
+    "en": "Layered security: from Entra ID to OneLake security"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "La seguridad en Fabric es como una cebolla: varias capas, y cada una protege algo distinto. 🧅",
+      "en": "Security in Fabric is like an onion: several layers, each protecting something different. 🧅"
+     },
+     "kicker": {
+      "es": "Defensa en profundidad",
+      "en": "Defense in depth"
+     },
+     "title": {
+      "es": "Las capas de seguridad de Fabric",
+      "en": "Fabric's security layers"
+     },
+     "body": {
+      "es": "<ol><li><b>Identidad (Microsoft Entra ID)</b>: quién eres, MFA y acceso condicional. Si no pasas esta puerta, no entras.</li>\n    <li><b>Roles de workspace</b>: Admin, Member, Contributor, Viewer. Deciden quién edita y quién solo consume.</li>\n    <li><b>Permisos por elemento</b>: compartir un reporte o un modelo sin dar acceso a todo el workspace.</li>\n    <li><b>OneLake security</b>: roles sobre los datos de un Lakehouse (tablas, carpetas, filas y columnas) que se aplican en todos los motores que leen OneLake.</li>\n    <li><b>Seguridad del motor</b>: GRANT y RLS en el Warehouse (Nivel 4) y RLS en el modelo semántico (Nivel 6).</li>\n    <li><b>Etiquetas de sensibilidad</b>: protegen el dato incluso fuera de Fabric.</li></ol>",
+      "en": "<ol><li><b>Identity (Microsoft Entra ID)</b>: who you are, MFA and conditional access. If you don't pass this gate, you're not in.</li>\n    <li><b>Workspace roles</b>: Admin, Member, Contributor, Viewer. They decide who edits and who only consumes.</li>\n    <li><b>Item permissions</b>: share a report or model without granting the whole workspace.</li>\n    <li><b>OneLake security</b>: roles over a Lakehouse's data (tables, folders, rows and columns) enforced across every engine that reads OneLake.</li>\n    <li><b>Engine security</b>: GRANT and RLS in the Warehouse (Level 4) and RLS in the semantic model (Level 6).</li>\n    <li><b>Sensitivity labels</b>: protect the data even outside Fabric.</li></ol>"
+     },
+     "visual": "securityLayers",
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "OneLake security funciona con <b>denegación por defecto</b>: cuando la activas en un Lakehouse, quien no pertenece a un rol no ve datos. Los roles los crean usuarios Admin o Member del workspace y dan acceso a usuarios con rol Viewer.",
+        "en": "OneLake security is <b>deny-by-default</b>: once enabled on a Lakehouse, anyone outside a role sees no data. Roles are created by workspace Admins or Members and grant access to users with the Viewer role."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Elige la capa correcta para cada caso.",
+      "en": "Pick the right layer for each case."
+     },
+     "title": {
+      "es": "¿En qué capa lo resuelvo?",
+      "en": "Which layer solves it?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Bloquear el acceso desde dispositivos no administrados",
+        "en": "Block access from unmanaged devices"
+       },
+       {
+        "es": "Acceso condicional de Entra ID",
+        "en": "Entra ID conditional access"
+       }
+      ],
+      [
+       {
+        "es": "El equipo de QA puede editar notebooks, pero no administrar el workspace",
+        "en": "The QA team can edit notebooks but not manage the workspace"
+       },
+       {
+        "es": "Rol Contributor",
+        "en": "Contributor role"
+       }
+      ],
+      [
+       {
+        "es": "Un científico de datos lee solo la tabla de clientes del Lakehouse desde Spark",
+        "en": "A data scientist reads only the customers table of the Lakehouse from Spark"
+       },
+       "OneLake security"
+      ],
+      [
+       {
+        "es": "El gerente ve solo su región en el reporte",
+        "en": "The manager sees only their region in the report"
+       },
+       {
+        "es": "RLS en el modelo semántico",
+        "en": "RLS in the semantic model"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "El principio de mínimo privilegio, aplicado.",
+      "en": "Least privilege, applied."
+     },
+     "q": {
+      "es": "Un auditor externo debe revisar un solo reporte durante dos semanas. ¿Qué le das?",
+      "en": "An external auditor must review a single report for two weeks. What do you give them?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Rol Member en el workspace",
+        "en": "Member role on the workspace"
+       },
+       "why": {
+        "es": "Le darías permiso de editar y compartir todo. Demasiado.",
+        "en": "You'd let them edit and share everything. Too much."
+       }
+      },
+      {
+       "t": {
+        "es": "Compartir solo ese reporte (permiso por elemento) y quitar el acceso al terminar",
+        "en": "Share just that report (item permission) and revoke it when done"
+       },
+       "why": {
+        "es": "¡Exacto! Mínimo privilegio y por tiempo limitado.",
+        "en": "Exactly! Least privilege, time-boxed."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Exportar el reporte a PDF y enviarlo por correo",
+        "en": "Export the report to PDF and email it"
+       },
+       "why": {
+        "es": "Pierdes control y trazabilidad, y el PDF puede reenviarse sin límite.",
+        "en": "You lose control and traceability, and the PDF can be forwarded endlessly."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Ojo con esta trampa clásica.",
+      "en": "Watch out for this classic trap."
+     },
+     "q": {
+      "es": "Configuraste RLS en el modelo semántico para que cada gerente vea su región. Pero agregaste a los gerentes como <b>Members</b> del workspace. ¿Qué pasa?",
+      "en": "You set up RLS in the semantic model so each manager sees their region. But you added the managers as workspace <b>Members</b>. What happens?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "RLS funciona igual",
+        "en": "RLS works the same"
+       },
+       "why": {
+        "es": "No: quienes pueden editar el modelo no quedan filtrados por RLS.",
+        "en": "No: people who can edit the model aren't filtered by RLS."
+       }
+      },
+      {
+       "t": {
+        "es": "Ven todas las regiones: RLS solo aplica a quienes tienen permiso de lectura",
+        "en": "They see every region: RLS only applies to people with read permission"
+       },
+       "why": {
+        "es": "Correcto. Los consumidores deben ser <b>Viewers</b> o recibir el reporte compartido o una app, nunca Members ni Contributors.",
+        "en": "Correct. Consumers should be <b>Viewers</b> or get the report via sharing or an app, never Members or Contributors."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Pregunta de arquitecto.",
+      "en": "Architect question."
+     },
+     "prompt": {
+      "es": "Si ya tienes RLS en el modelo semántico, ¿para qué querrías también OneLake security en el Lakehouse?",
+      "en": "If you already have RLS in the semantic model, why would you also want OneLake security on the Lakehouse?"
+     },
+     "answer": {
+      "es": "Porque RLS en el modelo solo protege a quien entra <b>por el modelo</b>. Un científico de datos con un notebook, un usuario del SQL endpoint o una herramienta externa que lee OneLake se saltaría el modelo. OneLake security define las reglas <b>en el dato</b>, así que aplican sin importar el motor. Defensa en profundidad: proteges el dato en su origen y también en cada punto de consumo.",
+      "en": "Because model RLS only protects people who come in <b>through the model</b>. A data scientist with a notebook, a SQL endpoint user or an external tool reading OneLake would bypass the model. OneLake security defines rules <b>on the data</b>, so they apply regardless of the engine. Defense in depth: you protect the data at its source and at every point of consumption."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l7-3",
+   "icon": "🌿",
+   "min": 30,
+   "badge": {
+    "e": "🌳",
+    "n": {
+     "es": "Jardinero de Git",
+     "en": "Git Gardener"
+    }
+   },
+   "title": {
+    "es": "Integración con Git: tu workspace bajo control de versiones",
+    "en": "Git integration: your workspace under version control"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "“¿Quién cambió este notebook y por qué?” Con Git, esa pregunta tiene respuesta. 🌿",
+      "en": "“Who changed this notebook, and why?” With Git, that question has an answer. 🌿"
+     },
+     "kicker": {
+      "es": "Control de versiones",
+      "en": "Version control"
+     },
+     "title": {
+      "es": "Un workspace conectado a un repositorio",
+      "en": "A workspace connected to a repository"
+     },
+     "body": {
+      "es": "<p>La <b>integración con Git</b> conecta un workspace con una rama de un repositorio en <b>Azure DevOps</b>, <b>GitHub</b> o <b>GitHub Enterprise</b>. Cada elemento se guarda como archivos de texto: un notebook como código, un pipeline como JSON, un modelo semántico en formato TMDL, un reporte en PBIR.</p>\n    <ul><li><b>Commit</b>: envías tus cambios del workspace al repositorio.</li><li><b>Update</b>: traes al workspace los cambios que otros hicieron en el repositorio.</li>\n    <li><b>Ramas</b>: cada desarrollador trabaja en su propia rama y su propio workspace, y luego integra con un <i>pull request</i>.</li></ul>",
+      "en": "<p><b>Git integration</b> connects a workspace to a branch of a repository in <b>Azure DevOps</b>, <b>GitHub</b> or <b>GitHub Enterprise</b>. Each item is stored as text files: a notebook as code, a pipeline as JSON, a semantic model in TMDL format, a report in PBIR.</p>\n    <ul><li><b>Commit</b>: send your workspace changes to the repository.</li><li><b>Update</b>: bring changes others made in the repository into the workspace.</li>\n    <li><b>Branches</b>: each developer works on their own branch and workspace, then merges via a <i>pull request</i>.</li></ul>"
+     },
+     "visual": "gitFlow",
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "A Git viajan las <b>definiciones</b> de los elementos, <b>no los datos</b>. Las tablas Delta de tu Lakehouse no se guardan en el repositorio (y qué bueno: serían gigabytes).",
+        "en": "Git stores item <b>definitions</b>, <b>not data</b>. Your Lakehouse's Delta tables don't go into the repository (thankfully: they'd be gigabytes)."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Confirma que entendiste qué viaja a Git.",
+      "en": "Confirm you understand what goes to Git."
+     },
+     "q": {
+      "es": "Haces commit de <code>ws_tutor_fabric</code>. ¿Qué encontrarás en el repositorio?",
+      "en": "You commit <code>ws_tutor_fabric</code>. What will you find in the repository?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Las 11 filas de silver_ventas_m en formato Parquet",
+        "en": "The 11 rows of silver_ventas_m in Parquet"
+       },
+       "why": {
+        "es": "Los datos se quedan en OneLake; Git guarda definiciones.",
+        "en": "Data stays in OneLake; Git stores definitions."
+       }
+      },
+      {
+       "t": {
+        "es": "El código de los notebooks, la definición de pipelines, modelos y reportes, y los metadatos de los elementos",
+        "en": "Notebook code, pipeline, model and report definitions, plus item metadata"
+       },
+       "why": {
+        "es": "¡Exacto! Todo lo necesario para <b>recrear</b> la solución, no sus datos.",
+        "en": "Exactly! Everything needed to <b>recreate</b> the solution, not its data."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Solo los reportes de Power BI",
+        "en": "Only the Power BI reports"
+       },
+       "why": {
+        "es": "Git soporta muchos tipos de elementos: notebooks, pipelines, lakehouses, warehouses, modelos y más.",
+        "en": "Git supports many item types: notebooks, pipelines, lakehouses, warehouses, models and more."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "El flujo de trabajo de un equipo profesional. Ordénalo.",
+      "en": "A professional team's workflow. Put it in order."
+     },
+     "title": {
+      "es": "El ciclo de un cambio con Git",
+      "en": "The lifecycle of a change with Git"
+     },
+     "items": [
+      {
+       "es": "Crear una rama de trabajo y su workspace de desarrollo",
+       "en": "Create a feature branch and its development workspace"
+      },
+      {
+       "es": "Hacer el cambio en el notebook y probarlo",
+       "en": "Make the change in the notebook and test it"
+      },
+      {
+       "es": "Commit con un mensaje que explique el porqué",
+       "en": "Commit with a message that explains why"
+      },
+      {
+       "es": "Abrir un pull request y pedir revisión",
+       "en": "Open a pull request and ask for review"
+      },
+      {
+       "es": "Fusionar a main y actualizar el workspace principal",
+       "en": "Merge to main and update the main workspace"
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Conecta tu workspace a GitHub y mira tu código aparecer en el repositorio. 🐙",
+      "en": "Connect your workspace to GitHub and watch your code appear in the repository. 🐙"
+     },
+     "title": {
+      "es": "Laboratorio: conecta ws_tutor_fabric a GitHub",
+      "en": "Lab: connect ws_tutor_fabric to GitHub"
+     },
+     "intro": {
+      "es": "Necesitas una cuenta de GitHub y ser Admin del workspace. El administrador de tu tenant debe tener habilitada la sincronización con GitHub. Si usas Azure DevOps, los pasos son equivalentes.",
+      "en": "You need a GitHub account and to be workspace Admin. Your tenant admin must have GitHub sync enabled. If you use Azure DevOps, the steps are equivalent."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En GitHub, crea un repositorio privado vacío llamado <code>alquimio-fabric</code>, con un README para que tenga la rama <code>main</code>.",
+        "en": "In GitHub, create an empty private repository called <code>alquimio-fabric</code>, with a README so it has a <code>main</code> branch."
+       }
+      },
+      {
+       "t": {
+        "es": "Crea un <b>fine-grained personal access token</b> limitado a ese repositorio, con permiso de lectura y escritura en <b>Contents</b>.",
+        "en": "Create a <b>fine-grained personal access token</b> limited to that repository, with read and write permission on <b>Contents</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "En Fabric: <b>Workspace settings → Git integration → GitHub</b>. Agrega tu cuenta con el token y la URL del repositorio.",
+        "en": "In Fabric: <b>Workspace settings → Git integration → GitHub</b>. Add your account with the token and the repository URL."
+       }
+      },
+      {
+       "t": {
+        "es": "Elige la rama <code>main</code>, escribe la carpeta <code>fabric</code> y pulsa <b>Connect and sync</b>.",
+        "en": "Choose the <code>main</code> branch, type the folder <code>fabric</code> and click <b>Connect and sync</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "En GitHub, abre <code>fabric/nb_ventas_medallion.Notebook/</code> y mira el archivo de contenido: es tu código de PySpark.",
+        "en": "In GitHub, open <code>fabric/nb_ventas_medallion.Notebook/</code> and look at the content file: it's your PySpark code."
+       }
+      },
+      {
+       "t": {
+        "es": "En Fabric, agrega una línea de comentario al principio del notebook:",
+        "en": "In Fabric, add a comment line at the top of the notebook:"
+       },
+       "code": "# v2 · revisado en el Nivel 7 del tutor Alquimio"
+      },
+      {
+       "t": {
+        "es": "Abre <b>Source control</b> (en la barra del workspace): verás el notebook como modificado. Haz <b>Commit</b> con el mensaje <code>docs: comentario de versión</code>.",
+        "en": "Open <b>Source control</b> (in the workspace bar): the notebook shows as modified. <b>Commit</b> with the message <code>docs: version comment</code>."
+       }
+      }
+     ],
+     "expect": {
+      "es": "En GitHub verás una carpeta por elemento (<code>.Notebook</code>, <code>.Lakehouse</code>, <code>.Warehouse</code>, <code>.SemanticModel</code>, <code>.Report</code>…) y, en el historial, tu commit con el diff de una sola línea. Ya tienes trazabilidad: quién, qué, cuándo y por qué.",
+      "en": "In GitHub you'll see a folder per item (<code>.Notebook</code>, <code>.Lakehouse</code>, <code>.Warehouse</code>, <code>.SemanticModel</code>, <code>.Report</code>…) and, in the history, your commit with a one-line diff. You now have traceability: who, what, when and why."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Seguridad en Git: muy importante.",
+      "en": "Security in Git: very important."
+     },
+     "q": {
+      "es": "Un notebook tiene escrita la contraseña de una base de datos y haces commit a GitHub. ¿Qué es lo correcto?",
+      "en": "A notebook has a database password hardcoded and you commit it to GitHub. What's the right move?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Borrar la línea en un nuevo commit y listo",
+        "en": "Delete the line in a new commit and move on"
+       },
+       "why": {
+        "es": "La contraseña sigue en el historial de Git. Hay que rotarla.",
+        "en": "The password is still in Git history. It must be rotated."
+       }
+      },
+      {
+       "t": {
+        "es": "Rotar la contraseña de inmediato y guardar los secretos en Azure Key Vault o en conexiones de Fabric, nunca en el código",
+        "en": "Rotate the password immediately and keep secrets in Azure Key Vault or Fabric connections, never in code"
+       },
+       "why": {
+        "es": "¡Correcto! Asume que el secreto ya se filtró. A partir de ahí, los secretos se leen en tiempo de ejecución, por ejemplo con <code>notebookutils.credentials.getSecret()</code> desde Key Vault.",
+        "en": "Correct! Assume the secret has leaked. From then on, secrets are read at runtime, e.g. with <code>notebookutils.credentials.getSecret()</code> from Key Vault."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Hacer el repositorio privado",
+        "en": "Make the repository private"
+       },
+       "why": {
+        "es": "Ayuda, pero no basta: cualquiera con acceso al repo, hoy o mañana, puede verla.",
+        "en": "It helps, but isn't enough: anyone with repo access, now or later, can see it."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l7-4",
+   "icon": "🚀",
+   "min": 28,
+   "badge": {
+    "e": "🛰️",
+    "n": {
+     "es": "Controlador de despliegues",
+     "en": "Deployment Controller"
+    }
+   },
+   "title": {
+    "es": "Deployment pipelines y variable libraries",
+    "en": "Deployment pipelines and variable libraries"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Nunca se edita directo en producción. Nunca. 🚫",
+      "en": "You never edit directly in production. Never. 🚫"
+     },
+     "kicker": {
+      "es": "Dev → Test → Prod",
+      "en": "Dev → Test → Prod"
+     },
+     "title": {
+      "es": "Promover contenido entre ambientes",
+      "en": "Promoting content across environments"
+     },
+     "body": {
+      "es": "<p>Un <b>deployment pipeline</b> conecta varios workspaces como <b>etapas</b>, normalmente Desarrollo, Pruebas y Producción. Con un clic <b>comparas</b> qué cambió entre etapas y <b>despliegas</b> solo lo que quieras.</p>\n    <ul><li>Se despliegan <b>definiciones</b>, no datos: un Lakehouse llega vacío a Pruebas y se llena con sus propias cargas.</li>\n    <li>Las <b>reglas de despliegue</b> cambian configuraciones por etapa, como la fuente de datos de un modelo semántico.</li>\n    <li>Las <b>variable libraries</b> guardan valores por ambiente (nombre de un Lakehouse, una conexión, un umbral). Cada etapa tiene su propio <b>conjunto de valores activo</b>, así que el mismo notebook o pipeline usa los valores correctos según el ambiente.</li></ul>",
+      "en": "<p>A <b>deployment pipeline</b> links several workspaces as <b>stages</b>, typically Development, Test and Production. With one click you <b>compare</b> what changed between stages and <b>deploy</b> only what you want.</p>\n    <ul><li>It deploys <b>definitions</b>, not data: a Lakehouse arrives empty in Test and fills up with its own loads.</li>\n    <li><b>Deployment rules</b> change settings per stage, such as a semantic model's data source.</li>\n    <li><b>Variable libraries</b> store per-environment values (a Lakehouse name, a connection, a threshold). Each stage has its own <b>active value set</b>, so the same notebook or pipeline uses the right values for each environment.</li></ul>"
+     },
+     "visual": "deployFlow"
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Escenario real de un cliente.",
+      "en": "A real client scenario."
+     },
+     "q": {
+      "es": "En Desarrollo, tu pipeline lee de <code>lh_bronze_dev</code>; en Producción debe leer de <code>lh_bronze_prod</code>. ¿Cómo lo resuelves sin editar el pipeline en cada ambiente?",
+      "en": "In Development, your pipeline reads from <code>lh_bronze_dev</code>; in Production it must read from <code>lh_bronze_prod</code>. How do you solve it without editing the pipeline in each environment?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Editar el pipeline a mano después de cada despliegue",
+        "en": "Edit the pipeline by hand after every deployment"
+       },
+       "why": {
+        "es": "Propenso a errores y sin trazabilidad. Justo lo que queremos evitar.",
+        "en": "Error-prone and untraceable. Exactly what we want to avoid."
+       }
+      },
+      {
+       "t": {
+        "es": "Una variable library con un conjunto de valores por etapa, y que el pipeline lea la variable",
+        "en": "A variable library with one value set per stage, with the pipeline reading the variable"
+       },
+       "why": {
+        "es": "¡Exacto! El pipeline es idéntico en todos los ambientes; solo cambia el conjunto de valores activo.",
+        "en": "Exactly! The pipeline is identical in every environment; only the active value set changes."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Tener un solo Lakehouse para todos los ambientes",
+        "en": "Use a single Lakehouse for every environment"
+       },
+       "why": {
+        "es": "Las pruebas mezclarían datos con producción. Riesgo alto.",
+        "en": "Tests would mix data with production. High risk."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Ordena un despliegue seguro.",
+      "en": "Order a safe deployment."
+     },
+     "title": {
+      "es": "Un despliegue responsable",
+      "en": "A responsible deployment"
+     },
+     "items": [
+      {
+       "es": "Fusionar el cambio aprobado a la rama main (workspace de Desarrollo)",
+       "en": "Merge the approved change into main (Development workspace)"
+      },
+      {
+       "es": "Comparar Desarrollo contra Pruebas y revisar las diferencias",
+       "en": "Compare Development against Test and review the differences"
+      },
+      {
+       "es": "Desplegar a Pruebas y ejecutar las validaciones (cifras de control)",
+       "en": "Deploy to Test and run the validations (control totals)"
+      },
+      {
+       "es": "Aprobar y desplegar a Producción",
+       "en": "Approve and deploy to Production"
+      },
+      {
+       "es": "Monitorear la primera ejecución en Producción",
+       "en": "Monitor the first run in Production"
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vas a promover tu solución a un ambiente de pruebas. Fíjate bien en qué llega… y qué no. 👀",
+      "en": "You'll promote your solution to a test environment. Pay attention to what arrives… and what doesn't. 👀"
+     },
+     "title": {
+      "es": "Laboratorio: tu primer deployment pipeline",
+      "en": "Lab: your first deployment pipeline"
+     },
+     "intro": {
+      "es": "Necesitas capacidad para un workspace más. <i>La interfaz de deployment pipelines tiene una versión nueva; si ves otra distribución, busca los mismos botones por nombre.</i>",
+      "en": "You need capacity for one more workspace. <i>The deployment pipelines UI has a new version; if your layout differs, look for the same buttons by name.</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En la barra lateral: <b>Workspaces → Deployment pipelines → New pipeline</b>. Nómbralo <code>dp_tutor</code> y deja dos etapas: <b>Development</b> y <b>Test</b>.",
+        "en": "In the sidebar: <b>Workspaces → Deployment pipelines → New pipeline</b>. Name it <code>dp_tutor</code> and keep two stages: <b>Development</b> and <b>Test</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "Asigna <code>ws_tutor_fabric</code> a la etapa <b>Development</b>.",
+        "en": "Assign <code>ws_tutor_fabric</code> to the <b>Development</b> stage."
+       }
+      },
+      {
+       "t": {
+        "es": "En <b>Test</b>, crea o asigna un workspace nuevo: <code>ws_tutor_fabric_test</code>.",
+        "en": "In <b>Test</b>, create or assign a new workspace: <code>ws_tutor_fabric_test</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Selecciona <code>lh_tutor</code>, <code>nb_ventas_medallion</code> y <code>pl_ingesta_tutor</code> y pulsa <b>Deploy</b> hacia Test.",
+        "en": "Select <code>lh_tutor</code>, <code>nb_ventas_medallion</code> and <code>pl_ingesta_tutor</code> and click <b>Deploy</b> to Test."
+       }
+      },
+      {
+       "t": {
+        "es": "Abre <code>ws_tutor_fabric_test</code> → <code>lh_tutor</code>. ¿Qué tablas tiene?",
+        "en": "Open <code>ws_tutor_fabric_test</code> → <code>lh_tutor</code>. Which tables does it have?"
+       }
+      },
+      {
+       "t": {
+        "es": "Regresa al deployment pipeline y usa <b>Compare</b> entre etapas: los elementos desplegados aparecen como iguales y el resto como “solo en Development”.",
+        "en": "Go back to the deployment pipeline and use <b>Compare</b> between stages: deployed items show as identical and the rest as “only in Development”."
+       }
+      }
+     ],
+     "expect": {
+      "es": "El Lakehouse de Test llega <b>vacío</b>: sin tablas ni archivos. Llegaron las <b>definiciones</b>, no los datos. Para llenarlo, Test necesita su propia carga: subir el CSV y ejecutar el pipeline y el notebook en ese ambiente. Así trabajan los equipos reales: cada ambiente con sus propios datos.",
+      "en": "Test's Lakehouse arrives <b>empty</b>: no tables, no files. The <b>definitions</b> arrived, not the data. To fill it, Test needs its own load: upload the CSV and run the pipeline and notebook in that environment. That's how real teams work: each environment with its own data."
+     }
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Para equipos grandes, todo esto se automatiza.",
+      "en": "For large teams, all of this gets automated."
+     },
+     "title": {
+      "es": "Automatizar el CI/CD",
+      "en": "Automating CI/CD"
+     },
+     "body": {
+      "es": "<p>Los deployment pipelines son ideales para empezar. Cuando el equipo crece, el despliegue se automatiza desde GitHub Actions o Azure Pipelines con estas herramientas:</p>",
+      "en": "<p>Deployment pipelines are ideal to start with. As the team grows, deployment is automated from GitHub Actions or Azure Pipelines with these tools:</p>"
+     },
+     "cards": [
+      {
+       "e": "🐍",
+       "n": "fabric-cicd",
+       "d": {
+        "es": "Librería de Python para desplegar elementos de un repositorio a workspaces. Es la herramienta de despliegue más adoptada.",
+        "en": "A Python library that deploys items from a repository to workspaces. It's the most widely adopted deployment tool."
+       },
+       "star": true
+      },
+      {
+       "e": "⌨️",
+       "n": "Fabric CLI",
+       "d": {
+        "es": "Línea de comandos de código abierto para scripts y runners de CI.",
+        "en": "An open-source command line for scripts and CI runners."
+       }
+      },
+      {
+       "e": "🏗️",
+       "n": "Terraform",
+       "d": {
+        "es": "Infraestructura como código: capacidades, workspaces y permisos.",
+        "en": "Infrastructure as code: capacities, workspaces and permissions."
+       }
+      },
+      {
+       "e": "🔌",
+       "n": "Fabric REST APIs",
+       "d": {
+        "es": "La base de todo lo anterior. Se autentican con un service principal.",
+        "en": "The foundation of all the above. Authenticated with a service principal."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l7-5",
+   "icon": "📈",
+   "min": 22,
+   "badge": {
+    "e": "🏆",
+    "n": {
+     "es": "Guardián de la plataforma",
+     "en": "Platform Guardian"
+    }
+   },
+   "title": {
+    "es": "Monitoreo, capacidad y el desafío final",
+    "en": "Monitoring, capacity and the final challenge"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Lo que no se mide, no se puede mejorar… ni defender ante el director de finanzas. 💸",
+      "en": "What isn't measured can't be improved… or defended to the CFO. 💸"
+     },
+     "kicker": {
+      "es": "Operación",
+      "en": "Operations"
+     },
+     "title": {
+      "es": "¿Quién está consumiendo mi capacidad?",
+      "en": "Who's eating my capacity?"
+     },
+     "body": {
+      "es": "<ul><li><b>Monitor hub</b> (Monitoreo): el historial de ejecuciones de pipelines, notebooks, Dataflows y Copy jobs, con estado y duración.</li>\n    <li><b>Capacity Metrics app</b>: cuántas <i>Capacity Units</i> (CU) consume cada elemento y operación, y si hubo limitación (<i>throttling</i>).</li>\n    <li><b>Workspace monitoring</b>: envía registros y métricas detalladas a una base de datos KQL dentro del workspace para analizarlas y crear alertas.</li></ul>\n    <p>Fabric <b>suaviza</b> el consumo en el tiempo: puedes tener picos por encima de tu capacidad y se “pagan” en los minutos u horas siguientes. Pero si te excedes demasiado y por mucho tiempo, Fabric primero <b>retrasa</b> y después <b>rechaza</b> operaciones nuevas.</p>",
+      "en": "<ul><li><b>Monitor hub</b>: the run history of pipelines, notebooks, Dataflows and Copy jobs, with status and duration.</li>\n    <li><b>Capacity Metrics app</b>: how many <i>Capacity Units</i> (CU) each item and operation consumes, and whether throttling happened.</li>\n    <li><b>Workspace monitoring</b>: sends detailed logs and metrics to a KQL database inside the workspace so you can analyze them and set alerts.</li></ul>\n    <p>Fabric <b>smooths</b> consumption over time: you can spike above your capacity and “pay it back” over the following minutes or hours. But if you overshoot too much for too long, Fabric first <b>delays</b> and then <b>rejects</b> new operations.</p>"
+     },
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "Antes de comprar una capacidad más grande, abre la Capacity Metrics app y busca el elemento que más consume. A menudo es un notebook sin optimizar o un Dataflow que se refresca cada 15 minutos sin necesidad.",
+        "en": "Before buying a bigger capacity, open the Capacity Metrics app and find the top consumer. It's often an unoptimized notebook or a Dataflow refreshing every 15 minutes for no reason."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Diagnóstico de costos.",
+      "en": "Cost diagnosis."
+     },
+     "q": {
+      "es": "Todos los días a las 9:00 los reportes van lentos. La Capacity Metrics app muestra que a esa hora corre la carga completa de un Dataflow de 40 millones de filas. ¿Qué propones primero?",
+      "en": "Every day at 9:00 reports are slow. The Capacity Metrics app shows a full load of a 40-million-row Dataflow running at that hour. What do you propose first?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Subir de F64 a F128",
+        "en": "Upgrade from F64 to F128"
+       },
+       "why": {
+        "es": "Duplicas el costo sin atacar la causa.",
+        "en": "You double the cost without fixing the cause."
+       }
+      },
+      {
+       "t": {
+        "es": "Mover la carga a la madrugada y volverla incremental (Copy job o notebook con MERGE)",
+        "en": "Move the load to the early morning and make it incremental (Copy job or notebook with MERGE)"
+       },
+       "why": {
+        "es": "¡Exacto! Menos datos y en otro horario: la capacidad queda libre para los reportes en horario laboral.",
+        "en": "Exactly! Less data, at a different time: capacity stays free for reports during business hours."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Pedir a los usuarios que no abran reportes a las 9:00",
+        "en": "Ask users not to open reports at 9:00"
+       },
+       "why": {
+        "es": "😅 Mejor que la plataforma se adapte al negocio, no al revés.",
+        "en": "😅 Better for the platform to adapt to the business, not the other way around."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "🏁 <b>Desafío final del Nivel 7.</b> Problema → herramienta.",
+      "en": "🏁 <b>Level 7 final challenge.</b> Problem → tool."
+     },
+     "title": {
+      "es": "Desafío: el guardián de la plataforma",
+      "en": "Challenge: the platform guardian"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Alguien cambió un notebook en producción y nadie sabe qué hizo",
+        "en": "Someone changed a production notebook and nobody knows what they did"
+       },
+       {
+        "es": "Integración con Git",
+        "en": "Git integration"
+       }
+      ],
+      [
+       {
+        "es": "Pasar cambios probados de Test a Prod",
+        "en": "Move tested changes from Test to Prod"
+       },
+       "Deployment pipeline"
+      ],
+      [
+       {
+        "es": "El mismo pipeline debe leer un Lakehouse distinto por ambiente",
+        "en": "The same pipeline must read a different Lakehouse per environment"
+       },
+       "Variable library"
+      ],
+      [
+       {
+        "es": "Saber qué reportes se rompen si borro una tabla",
+        "en": "Know which reports break if I drop a table"
+       },
+       {
+        "es": "Linaje / análisis de impacto",
+        "en": "Lineage / impact analysis"
+       }
+      ],
+      [
+       {
+        "es": "Encontrar qué está saturando la capacidad",
+        "en": "Find what's saturating the capacity"
+       },
+       "Capacity Metrics app"
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "La pregunta final del nivel. Piensa como líder técnico. 🎓",
+      "en": "The level's final question. Think like a tech lead. 🎓"
+     },
+     "q": {
+      "es": "Te contratan para ordenar la plataforma Fabric de una empresa con 30 workspaces, sin control de versiones y con cambios directos en producción. ¿Por dónde empiezas?",
+      "en": "You're hired to tidy up a company's Fabric platform: 30 workspaces, no version control and direct changes in production. Where do you start?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Borrar todo y empezar desde cero",
+        "en": "Delete everything and start from scratch"
+       },
+       "why": {
+        "es": "Rompes la operación del negocio. Nunca.",
+        "en": "You break the business. Never."
+       }
+      },
+      {
+       "t": {
+        "es": "Inventario con linaje y Capacity Metrics, conectar los workspaces críticos a Git, separar Dev/Test/Prod con deployment pipelines y aplicar roles de mínimo privilegio",
+        "en": "Inventory with lineage and Capacity Metrics, connect critical workspaces to Git, separate Dev/Test/Prod with deployment pipelines and apply least-privilege roles"
+       },
+       "why": {
+        "es": "¡Plan de nivel profesional! Primero entiendes y aseguras lo que hay; después ordenas el ciclo de vida, sin detener la operación. 🏆",
+        "en": "A professional-grade plan! First you understand and secure what exists; then you organize the lifecycle, without stopping operations. 🏆"
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Comprar la capacidad más grande para que nada falle",
+        "en": "Buy the biggest capacity so nothing fails"
+       },
+       "why": {
+        "es": "No resuelve gobierno, seguridad ni trazabilidad.",
+        "en": "It doesn't solve governance, security or traceability."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

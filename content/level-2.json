@@ -1,0 +1,1347 @@
+{
+ "id": 2,
+ "title": {
+  "es": "Ingesta de datos",
+  "en": "Data ingestion"
+ },
+ "desc": {
+  "es": "Shortcuts, Copy job, pipelines, Dataflows Gen2, cargas incrementales y Mirroring.",
+  "en": "Shortcuts, Copy job, pipelines, Dataflows Gen2, incremental loads and Mirroring."
+ },
+ "lessons": [
+  {
+   "id": "l2-1",
+   "icon": "🧭",
+   "min": 15,
+   "badge": {
+    "e": "🗺️",
+    "n": {
+     "es": "Cartógrafo de datos",
+     "en": "Data Cartographer"
+    }
+   },
+   "title": {
+    "es": "El mapa de la ingesta: ¿qué herramienta uso?",
+    "en": "The ingestion map: which tool do I use?"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Bienvenido al Nivel 2. Hoy aprendes a <b>elegir bien</b>, que vale más que saber usar una sola herramienta.",
+      "en": "Welcome to Level 2. Today you learn to <b>choose well</b>, which beats knowing just one tool."
+     },
+     "kicker": {
+      "es": "Una historia de mudanzas",
+      "en": "A moving-day story"
+     },
+     "title": {
+      "es": "Cinco formas de llevar tus cosas a casa nueva",
+      "en": "Five ways to get your stuff to a new home"
+     },
+     "body": {
+      "es": "<p>Imagina que te mudas. Tienes varias opciones, y cada una sirve para algo distinto:</p>\n    <ul><li>🔗 <b>Shortcut</b>: no te llevas nada; abres una <i>ventana</i> a la casa vieja y usas las cosas desde ahí.</li>\n    <li>📦 <b>Copy job</b>: contratas una mudanza que, además, <span class=\"hl\">regresa cada semana solo por lo nuevo</span>.</li>\n    <li>🧹 <b>Dataflow Gen2</b>: una mudanza que limpia, dobla y etiqueta mientras empaca.</li>\n    <li>🧭 <b>Pipeline</b>: el jefe de obra que coordina camiones, pintores y electricistas en el orden correcto.</li>\n    <li>🪞 <b>Mirroring</b>: un espejo mágico: lo que cambia en la casa vieja aparece en la nueva casi al instante.</li></ul>\n    <p>Este diagrama es tu brújula. Vuelve a él cada vez que dudes.</p>",
+      "en": "<p>Imagine you're moving. You have several options, each good for something different:</p>\n    <ul><li>🔗 <b>Shortcut</b>: you take nothing; you open a <i>window</i> into the old house and use things from there.</li>\n    <li>📦 <b>Copy job</b>: you hire movers who also <span class=\"hl\">come back every week for just the new stuff</span>.</li>\n    <li>🧹 <b>Dataflow Gen2</b>: movers who clean, fold and label while they pack.</li>\n    <li>🧭 <b>Pipeline</b>: the site foreman who coordinates trucks, painters and electricians in the right order.</li>\n    <li>🪞 <b>Mirroring</b>: a magic mirror: whatever changes in the old house shows up in the new one almost instantly.</li></ul>\n    <p>This diagram is your compass. Come back to it whenever you're unsure.</p>"
+     },
+     "visual": "ingestMap"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Fíjate: <b>todas</b> terminan escribiendo en OneLake, en Delta.",
+      "en": "Notice: <b>all</b> of them end up writing to OneLake, in Delta."
+     },
+     "title": {
+      "es": "Las herramientas de ingesta en una mirada",
+      "en": "Ingestion tools at a glance"
+     },
+     "body": {
+      "es": "<p>Todas viven en Fabric y todas consumen de la misma capacidad. La diferencia está en <b>cuánto control</b> necesitas y <b>quién</b> las usa.</p>",
+      "en": "<p>They all live in Fabric and all draw from the same capacity. The difference is <b>how much control</b> you need and <b>who</b> uses them.</p>"
+     },
+     "cards": [
+      {
+       "e": "🔗",
+       "n": "Shortcut",
+       "d": {
+        "es": "Lee datos donde ya están (OneLake, ADLS, S3, GCS…) sin copiarlos.",
+        "en": "Reads data where it already lives (OneLake, ADLS, S3, GCS…) without copying."
+       },
+       "star": true
+      },
+      {
+       "e": "📦",
+       "n": "Copy job",
+       "d": {
+        "es": "Copia simple de muchas tablas, completa o incremental (watermark o CDC). Él guarda el estado.",
+        "en": "Simple copy of many tables, full or incremental (watermark or CDC). It keeps the state for you."
+       },
+       "star": true
+      },
+      {
+       "e": "🧭",
+       "n": "Pipeline",
+       "d": {
+        "es": "Orquesta actividades: copiar, ejecutar notebooks, decidir, repetir, avisar.",
+        "en": "Orchestrates activities: copy, run notebooks, branch, loop, notify."
+       },
+       "star": true
+      },
+      {
+       "e": "🧹",
+       "n": "Dataflow Gen2",
+       "d": {
+        "es": "Power Query en la nube: conecta y transforma con clics.",
+        "en": "Power Query in the cloud: connect and transform with clicks."
+       }
+      },
+      {
+       "e": "🪞",
+       "n": "Mirroring",
+       "d": {
+        "es": "Réplica continua de bases de datos completas hacia OneLake.",
+        "en": "Continuous replication of whole databases into OneLake."
+       }
+      },
+      {
+       "e": "📓",
+       "n": "Notebook",
+       "d": {
+        "es": "Código Spark: máxima flexibilidad (lo verás a fondo en el Nivel 3).",
+        "en": "Spark code: maximum flexibility (deep dive in Level 3)."
+       }
+      }
+     ],
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "<b>Regla de oro:</b> si no necesitas mover el dato, no lo muevas (shortcut). Si necesitas moverlo, usa la herramienta <b>más simple</b> que resuelva el problema.",
+        "en": "<b>Golden rule:</b> if you don't need to move the data, don't (shortcut). If you must move it, use the <b>simplest</b> tool that solves the problem."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Une cada situación con su herramienta. Usa la brújula del paso 1 si dudas.",
+      "en": "Pair each situation with its tool. Use the compass from step 1 if unsure."
+     },
+     "title": {
+      "es": "Situación → herramienta",
+      "en": "Situation → tool"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Consultar archivos de un partner en Amazon S3 sin duplicarlos",
+        "en": "Query a partner's files in Amazon S3 without duplicating them"
+       },
+       {
+        "es": "🔗 Shortcut",
+        "en": "🔗 Shortcut"
+       }
+      ],
+      [
+       {
+        "es": "Copiar 40 tablas cada noche, solo lo que cambió",
+        "en": "Copy 40 tables every night, only what changed"
+       },
+       {
+        "es": "📦 Copy job",
+        "en": "📦 Copy job"
+       }
+      ],
+      [
+       {
+        "es": "Copiar, luego transformar y avisar si algo falla",
+        "en": "Copy, then transform, and alert if anything fails"
+       },
+       {
+        "es": "🧭 Pipeline",
+        "en": "🧭 Pipeline"
+       }
+      ],
+      [
+       {
+        "es": "Un analista limpia un Excel con clics",
+        "en": "An analyst cleans an Excel file with clicks"
+       },
+       {
+        "es": "🧹 Dataflow Gen2",
+        "en": "🧹 Dataflow Gen2"
+       }
+      ],
+      [
+       {
+        "es": "Ver en Fabric los cambios de Azure SQL casi al instante",
+        "en": "See Azure SQL changes in Fabric almost instantly"
+       },
+       {
+        "es": "🪞 Mirroring",
+        "en": "🪞 Mirroring"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Caso típico de cliente. Piensa en lo <b>simple</b>.",
+      "en": "Classic client case. Think <b>simple</b>."
+     },
+     "q": {
+      "es": "Debes copiar 25 tablas de un SQL Server en el centro de datos del cliente hacia el Lakehouse cada noche, solo con los cambios y sin lógica adicional. ¿Qué eliges?",
+      "en": "You must copy 25 tables from a SQL Server in the client's data center to the Lakehouse every night, only the changes, with no extra logic. What do you pick?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Un notebook con un bucle en PySpark",
+        "en": "A notebook with a PySpark loop"
+       },
+       "why": {
+        "es": "Funciona, pero escribes y mantienes código para algo que una herramienta ya resuelve.",
+        "en": "It works, but you'd write and maintain code for something a tool already solves."
+       }
+      },
+      {
+       "t": {
+        "es": "Copy job en modo incremental, usando un gateway de datos on-premises",
+        "en": "Copy job in incremental mode, through an on-premises data gateway"
+       },
+       "why": {
+        "es": "¡Exacto! Copy job lleva el control del watermark por ti, y el <b>on-premises data gateway</b> le da acceso seguro al servidor dentro de la red del cliente.",
+        "en": "Exactly! Copy job tracks the watermark for you, and the <b>on-premises data gateway</b> gives it secure access to the server inside the client's network."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Un shortcut al SQL Server",
+        "en": "A shortcut to the SQL Server"
+       },
+       "why": {
+        "es": "Los shortcuts apuntan a almacenamiento de archivos/tablas (OneLake, ADLS, S3…), no a un SQL Server.",
+        "en": "Shortcuts point to file/table storage (OneLake, ADLS, S3…), not to a SQL Server."
+       }
+      },
+      {
+       "t": {
+        "es": "Exportar a CSV y subirlos a mano",
+        "en": "Export to CSV and upload by hand"
+       },
+       "why": {
+        "es": "Cada noche, 25 tablas, a mano… tu yo del futuro llora. 😅",
+        "en": "Every night, 25 tables, by hand… future you is crying. 😅"
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Ahora piensa en <b>quién</b> va a usar la herramienta.",
+      "en": "Now think about <b>who</b> will use the tool."
+     },
+     "q": {
+      "es": "El área de Finanzas (no programa, pero domina Excel y Power BI) quiere limpiar un archivo de SharePoint y dejarlo como tabla en el Lakehouse. ¿Qué le recomiendas?",
+      "en": "The Finance team (they don't code, but they master Excel and Power BI) wants to clean a SharePoint file and land it as a Lakehouse table. What do you recommend?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Dataflow Gen2",
+        "en": "Dataflow Gen2"
+       },
+       "why": {
+        "es": "Sí: es Power Query, la misma experiencia que ya conocen de Excel y Power BI, con destino al Lakehouse.",
+        "en": "Yes: it's Power Query, the same experience they know from Excel and Power BI, with the Lakehouse as destination."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Notebook en PySpark",
+        "en": "PySpark notebook"
+       },
+       "why": {
+        "es": "Potente, pero los obliga a programar.",
+        "en": "Powerful, but it forces them to code."
+       }
+      },
+      {
+       "t": {
+        "es": "Mirroring",
+        "en": "Mirroring"
+       },
+       "why": {
+        "es": "Mirroring replica bases de datos, no archivos de SharePoint.",
+        "en": "Mirroring replicates databases, not SharePoint files."
+       }
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Estas preguntas me las hacen en <b>todos</b> los cursos.",
+      "en": "I get these questions in <b>every</b> class."
+     },
+     "title": {
+      "es": "Dudas frecuentes",
+      "en": "Common questions"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "callouts": [
+      {
+       "k": "nodumb",
+       "qa": [
+        {
+         "q": {
+          "es": "¿Copy job o pipeline?",
+          "en": "Copy job or pipeline?"
+         },
+         "a": {
+          "es": "Si solo necesitas mover datos (completo o incremental), Copy job es más simple. Si necesitas pasos encadenados, condiciones, bucles o avisos, usa un pipeline. Y un pipeline puede ejecutar un Copy job como una de sus actividades.",
+          "en": "If you only need to move data (full or incremental), Copy job is simpler. If you need chained steps, conditions, loops or alerts, use a pipeline. A pipeline can also run a Copy job as one of its activities."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Qué es el on-premises data gateway?",
+          "en": "What is the on-premises data gateway?"
+         },
+         "a": {
+          "es": "Un agente que instalas en un servidor dentro de la red del cliente. Abre un canal seguro de salida hacia Fabric para que este pueda leer fuentes que no están expuestas a internet.",
+          "en": "An agent you install on a server inside the client's network. It opens a secure outbound channel to Fabric so it can read sources that aren't exposed to the internet."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Puedo combinar herramientas?",
+          "en": "Can I combine tools?"
+         },
+         "a": {
+          "es": "¡Claro! Lo normal en un proyecto real: shortcuts para lo que ya está en la nube, Mirroring para bases operacionales, Copy job para cargas masivas y un pipeline que orquesta los notebooks de transformación.",
+          "en": "Of course! That's normal in real projects: shortcuts for what's already in the cloud, Mirroring for operational databases, Copy job for bulk loads and a pipeline orchestrating the transformation notebooks."
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l2-2",
+   "icon": "🎼",
+   "min": 25,
+   "badge": {
+    "e": "🎻",
+    "n": {
+     "es": "Director de orquesta",
+     "en": "Orchestra Conductor"
+    }
+   },
+   "title": {
+    "es": "Pipelines: el director de orquesta",
+    "en": "Pipelines: the orchestra conductor"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Un pipeline no transforma datos por sí mismo: <b>dirige</b> a quienes lo hacen.",
+      "en": "A pipeline doesn't transform data by itself: it <b>directs</b> those who do."
+     },
+     "kicker": {
+      "es": "Orquestación",
+      "en": "Orchestration"
+     },
+     "title": {
+      "es": "Actividades + dependencias",
+      "en": "Activities + dependencies"
+     },
+     "body": {
+      "es": "<p>Un <b>pipeline</b> es un flujo de <b>actividades</b> conectadas por <b>dependencias</b>. Cada flecha dice <i>cuándo</i> corre la siguiente actividad:</p>\n    <ul><li>✅ <b>On success</b>: solo si la anterior terminó bien.</li><li>❌ <b>On failure</b>: solo si falló.</li>\n    <li>🔁 <b>On completion</b>: en cualquier caso, haya terminado bien o mal.</li><li>⏭️ <b>On skip</b>: si la anterior no se ejecutó.</li></ul>\n    <p>Además tiene <b>parámetros</b> (valores que recibe al iniciar), <b>variables</b> (valores que cambian durante la ejecución) y <b>programaciones</b> (cuándo corre).</p>",
+      "en": "<p>A <b>pipeline</b> is a flow of <b>activities</b> connected by <b>dependencies</b>. Each arrow says <i>when</i> the next activity runs:</p>\n    <ul><li>✅ <b>On success</b>: only if the previous one succeeded.</li><li>❌ <b>On failure</b>: only if it failed.</li>\n    <li>🔁 <b>On completion</b>: either way, success or failure.</li><li>⏭️ <b>On skip</b>: if the previous one didn't run.</li></ul>\n    <p>It also has <b>parameters</b> (values received at start), <b>variables</b> (values that change during the run) and <b>schedules</b> (when it runs).</p>"
+     },
+     "visual": "pipelineFlow"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "No memorices la lista: aprende las <b>familias</b>.",
+      "en": "Don't memorize the list: learn the <b>families</b>."
+     },
+     "title": {
+      "es": "Las familias de actividades",
+      "en": "Activity families"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "cards": [
+      {
+       "e": "🚚",
+       "n": {
+        "es": "Mover",
+        "en": "Move"
+       },
+       "d": {
+        "es": "Copy data, Copy job",
+        "en": "Copy data, Copy job"
+       },
+       "star": true
+      },
+      {
+       "e": "⚗️",
+       "n": {
+        "es": "Transformar",
+        "en": "Transform"
+       },
+       "d": {
+        "es": "Notebook, Dataflow, Stored procedure, Script",
+        "en": "Notebook, Dataflow, Stored procedure, Script"
+       },
+       "star": true
+      },
+      {
+       "e": "🔀",
+       "n": {
+        "es": "Controlar el flujo",
+        "en": "Control flow"
+       },
+       "d": {
+        "es": "Lookup, ForEach, If Condition, Set variable, Get Metadata, Invoke pipeline, Wait",
+        "en": "Lookup, ForEach, If Condition, Set variable, Get Metadata, Invoke pipeline, Wait"
+       }
+      },
+      {
+       "e": "📣",
+       "n": {
+        "es": "Avisar",
+        "en": "Notify"
+       },
+       "d": {
+        "es": "Teams, Office 365 Outlook",
+        "en": "Teams, Office 365 Outlook"
+       }
+      }
+     ],
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Si conectas tu notificación de error con <b>On completion</b>, ¡te llegará un correo también cuando todo salga bien! Para alertas de error usa <b>On failure</b>.",
+        "en": "If you wire your error notification with <b>On completion</b>, you'll get an email even when everything goes fine! For error alerts use <b>On failure</b>."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Este patrón se llama <b>metadata-driven</b>: una tabla de control dice qué copiar. Ordénalo.",
+      "en": "This pattern is called <b>metadata-driven</b>: a control table says what to copy. Put it in order."
+     },
+     "title": {
+      "es": "Arma una ingesta metadata-driven",
+      "en": "Build a metadata-driven ingestion"
+     },
+     "items": [
+      {
+       "es": "Lookup: leer la lista de tablas desde una tabla de control",
+       "en": "Lookup: read the list of tables from a control table"
+      },
+      {
+       "es": "ForEach: recorrer cada tabla de la lista",
+       "en": "ForEach: loop over each table in the list"
+      },
+      {
+       "es": "Copy data (dentro del ForEach): fuente → Bronce",
+       "en": "Copy data (inside the ForEach): source → Bronze"
+      },
+      {
+       "es": "Notebook: Bronce → Plata → Oro",
+       "en": "Notebook: Bronze → Silver → Gold"
+      },
+      {
+       "es": "Teams/Outlook: avisar el resultado",
+       "en": "Teams/Outlook: report the result"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "say": {
+      "es": "Las <b>expresiones</b> dan vida a un pipeline. Todas empiezan con <code>@</code>.",
+      "en": "<b>Expressions</b> bring a pipeline to life. They all start with <code>@</code>."
+     },
+     "title": {
+      "es": "Completa las expresiones del pipeline",
+      "en": "Complete the pipeline expressions"
+     },
+     "code": "-- Nombre de la tabla que llega como parámetro\n@pipeline().{{0}}.p_tabla\n\n-- Filas que copió la actividad Copy_ventas\n@activity('Copy_ventas').{{1}}.rowsCopied\n\n-- Fecha y hora actual en UTC\n@{{2}}()",
+     "blanks": [
+      {
+       "a": [
+        "parameters"
+       ],
+       "hint": {
+        "es": "Plural, en inglés: los valores que recibe el pipeline al iniciar.",
+        "en": "Plural, in English: the values the pipeline receives at start."
+       }
+      },
+      {
+       "a": [
+        "output"
+       ],
+       "hint": {
+        "es": "Lo que una actividad devuelve cuando termina.",
+        "en": "What an activity returns when it finishes."
+       }
+      },
+      {
+       "a": [
+        "utcnow"
+       ],
+       "hint": {
+        "es": "Función de fecha/hora actual en tiempo universal: utc + Now.",
+        "en": "Current date/time function in universal time: utc + Now."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "A construir tu primer pipeline. Al final tendrás <b>orquestación real</b>: copiar y luego transformar.",
+      "en": "Let's build your first pipeline. At the end you'll have <b>real orchestration</b>: copy, then transform."
+     },
+     "title": {
+      "es": "Laboratorio: copiar datos y encadenar tu notebook",
+      "en": "Lab: copy data and chain your notebook"
+     },
+     "intro": {
+      "es": "Usa el workspace <code>ws_tutor_fabric</code>, el Lakehouse <code>lh_tutor</code> y el notebook <code>nb_ventas_medallion</code> del Nivel 1. <i>Los nombres de los botones pueden variar un poco según tu versión de Fabric.</i>",
+      "en": "Use the <code>ws_tutor_fabric</code> workspace, the <code>lh_tutor</code> Lakehouse and the <code>nb_ventas_medallion</code> notebook from Level 1. <i>Button names may vary slightly with your Fabric version.</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "<b>+ New item → Pipeline</b> (en algunas versiones se llama <i>Data pipeline</i>). Nómbralo <code>pl_ingesta_tutor</code>.",
+        "en": "<b>+ New item → Pipeline</b> (called <i>Data pipeline</i> in some versions). Name it <code>pl_ingesta_tutor</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "En el lienzo elige <b>Copy data assistant</b> (o <i>Copy data → Use copy assistant</i>).",
+        "en": "On the canvas choose <b>Copy data assistant</b> (or <i>Copy data → Use copy assistant</i>)."
+       }
+      },
+      {
+       "t": {
+        "es": "Origen: pestaña <b>Sample data</b> → elige <b>Public Holidays</b>. Si no aparece, elige cualquier otro dataset de ejemplo pequeño.",
+        "en": "Source: <b>Sample data</b> tab → pick <b>Public Holidays</b>. If it's not listed, pick any other small sample dataset."
+       }
+      },
+      {
+       "t": {
+        "es": "Destino: <b>Lakehouse</b> → <code>lh_tutor</code> → <b>Tables</b> → nueva tabla <code>bronze_public_holidays</code>. Termina el asistente.",
+        "en": "Destination: <b>Lakehouse</b> → <code>lh_tutor</code> → <b>Tables</b> → new table <code>bronze_public_holidays</code>. Finish the assistant."
+       }
+      },
+      {
+       "t": {
+        "es": "Agrega la actividad <b>Notebook</b> (pestaña <i>Activities</i>) y en <i>Settings</i> selecciona <code>nb_ventas_medallion</code>.",
+        "en": "Add a <b>Notebook</b> activity (<i>Activities</i> tab) and in <i>Settings</i> select <code>nb_ventas_medallion</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Arrastra el conector verde <b>✓ On success</b> de la actividad Copy hacia el Notebook.",
+        "en": "Drag the green <b>✓ On success</b> connector from the Copy activity to the Notebook."
+       }
+      },
+      {
+       "t": {
+        "es": "<b>Save → Run</b>. En la pestaña <b>Output</b> espera a que ambas actividades digan <i>Succeeded</i>. Abre el detalle de Copy y revisa <i>Rows read / Rows written</i>.",
+        "en": "<b>Save → Run</b>. In the <b>Output</b> tab wait for both activities to say <i>Succeeded</i>. Open the Copy details and check <i>Rows read / Rows written</i>."
+       }
+      },
+      {
+       "t": {
+        "es": "En el SQL analytics endpoint de <code>lh_tutor</code> ejecuta:",
+        "en": "In the <code>lh_tutor</code> SQL analytics endpoint run:"
+       },
+       "code": "SELECT COUNT(*) AS filas FROM bronze_public_holidays;"
+      },
+      {
+       "t": {
+        "es": "Opcional: <b>Schedule</b> → diario a las 06:00. Después <b>desactívalo</b> para no consumir capacidad de tu prueba.",
+        "en": "Optional: <b>Schedule</b> → daily at 06:00. Then <b>turn it off</b> so it doesn't eat your trial capacity."
+       }
+      }
+     ],
+     "expect": {
+      "es": "Ambas actividades en verde y un conteo mayor a cero (el número depende del dataset de ejemplo). Las <b>Rows written</b> del Copy deben coincidir con tu <code>COUNT(*)</code>: así se valida una ingesta.",
+      "en": "Both activities green and a count above zero (the number depends on the sample dataset). The Copy's <b>Rows written</b> must match your <code>COUNT(*)</code>: that's how you validate an ingestion."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Pregunta sobre lo que acabas de construir.",
+      "en": "A question about what you just built."
+     },
+     "q": {
+      "es": "Si mañana la actividad Copy falla, ¿qué pasa con el Notebook conectado con <b>On success</b>?",
+      "en": "If tomorrow the Copy activity fails, what happens to the Notebook wired with <b>On success</b>?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Se ejecuta igual, con los datos de ayer",
+        "en": "It runs anyway, with yesterday's data"
+       },
+       "why": {
+        "es": "Eso pasaría con <b>On completion</b>.",
+        "en": "That would happen with <b>On completion</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "No se ejecuta y la corrida del pipeline queda marcada como fallida",
+        "en": "It doesn't run and the pipeline run is marked as failed"
+       },
+       "why": {
+        "es": "Correcto. Por eso conviene agregar una rama <b>On failure</b> con una alerta.",
+        "en": "Correct. That's why you should add an <b>On failure</b> branch with an alert."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Fabric reintenta el Copy para siempre",
+        "en": "Fabric retries the Copy forever"
+       },
+       "why": {
+        "es": "Puedes configurar reintentos por actividad, pero son un número limitado que tú defines.",
+        "en": "You can configure per-activity retries, but it's a limited number you define."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l2-3",
+   "icon": "🧹",
+   "min": 20,
+   "badge": {
+    "e": "🧽",
+    "n": {
+     "es": "Domador de Power Query",
+     "en": "Power Query Tamer"
+    }
+   },
+   "title": {
+    "es": "Dataflows Gen2: transformar sin código",
+    "en": "Dataflows Gen2: transform without code"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Si alguna vez usaste Power Query en Excel o Power BI, ya sabes la mitad de esta lección.",
+      "en": "If you've ever used Power Query in Excel or Power BI, you already know half of this lesson."
+     },
+     "kicker": {
+      "es": "Low-code",
+      "en": "Low-code"
+     },
+     "title": {
+      "es": "Power Query, ahora con destino",
+      "en": "Power Query, now with a destination"
+     },
+     "body": {
+      "es": "<p>Un <b>Dataflow Gen2</b> es Power Query en la nube: te conectas a una fuente, transformas con clics y <b>escribes el resultado en un destino</b> de Fabric, como un Lakehouse o un Warehouse.</p>\n    <p>Cada clic se guarda como un <b>paso aplicado</b> (en lenguaje M). Es una receta reproducible: el dataflow repite los mismos pasos en cada ejecución.</p>\n    <p>En el destino eliges el <b>método de actualización</b>:</p>\n    <ul><li><b>Replace</b>: borra y vuelve a escribir la tabla completa.</li><li><b>Append</b>: agrega las filas nuevas a lo que ya existe.</li></ul>",
+      "en": "<p>A <b>Dataflow Gen2</b> is Power Query in the cloud: you connect to a source, transform with clicks and <b>write the result to a Fabric destination</b>, such as a Lakehouse or a Warehouse.</p>\n    <p>Every click is saved as an <b>applied step</b> (in the M language). It's a reproducible recipe: the dataflow repeats the same steps on every run.</p>\n    <p>At the destination you pick the <b>update method</b>:</p>\n    <ul><li><b>Replace</b>: deletes and rewrites the whole table.</li><li><b>Append</b>: adds the new rows to what's already there.</li></ul>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Los dataflows consumen capacidad como todo en Fabric. Para volúmenes muy grandes o lógica compleja, un notebook o un Copy job suelen ser más eficientes.",
+        "en": "Dataflows consume capacity like everything in Fabric. For very large volumes or complex logic, a notebook or a Copy job is usually more efficient."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Elige el método de actualización correcto.",
+      "en": "Pick the right update method."
+     },
+     "q": {
+      "es": "Cada día recibes el catálogo <b>completo</b> de productos (todas las filas, no solo cambios). ¿Qué método usas en el destino?",
+      "en": "Every day you receive the <b>complete</b> product catalog (all rows, not just changes). Which method do you use at the destination?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Append",
+        "en": "Append"
+       },
+       "why": {
+        "es": "Con Append, cada día se sumaría otra copia completa del catálogo: duplicados garantizados.",
+        "en": "With Append, a full copy of the catalog would pile up every day: guaranteed duplicates."
+       }
+      },
+      {
+       "t": {
+        "es": "Replace",
+        "en": "Replace"
+       },
+       "why": {
+        "es": "Correcto: si recibes todo, reemplazas todo. La tabla siempre refleja el catálogo de hoy.",
+        "en": "Correct: if you receive everything, you replace everything. The table always reflects today's catalog."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Une cada transformación de Power Query con lo que hace.",
+      "en": "Pair each Power Query transformation with what it does."
+     },
+     "title": {
+      "es": "El cinturón de herramientas de Power Query",
+      "en": "The Power Query tool belt"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Merge queries",
+        "en": "Merge queries"
+       },
+       {
+        "es": "Combinar dos tablas por una clave (JOIN)",
+        "en": "Combine two tables on a key (JOIN)"
+       }
+      ],
+      [
+       {
+        "es": "Append queries",
+        "en": "Append queries"
+       },
+       {
+        "es": "Apilar tablas con las mismas columnas (UNION)",
+        "en": "Stack tables with the same columns (UNION)"
+       }
+      ],
+      [
+       {
+        "es": "Change type",
+        "en": "Change type"
+       },
+       {
+        "es": "Convertir texto a fecha o a número",
+        "en": "Convert text to date or number"
+       }
+      ],
+      [
+       {
+        "es": "Remove duplicates",
+        "en": "Remove duplicates"
+       },
+       {
+        "es": "Eliminar filas repetidas",
+        "en": "Delete repeated rows"
+       }
+      ],
+      [
+       {
+        "es": "Group by",
+        "en": "Group by"
+       },
+       {
+        "es": "Sumar ventas por región",
+        "en": "Sum sales by region"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vamos a repetir la limpieza de la lección 1.5, pero <b>sin escribir código</b>. Compara las dos experiencias.",
+      "en": "We'll repeat the cleanup from lesson 1.5, but <b>without writing code</b>. Compare both experiences."
+     },
+     "title": {
+      "es": "Laboratorio: limpia las ventas con Dataflow Gen2",
+      "en": "Lab: clean the sales data with Dataflow Gen2"
+     },
+     "intro": {
+      "es": "Partimos de la tabla <code>ventas</code> que cargaste en la lección 1.3 (11 filas, con un duplicado y un monto negativo).",
+      "en": "We start from the <code>ventas</code> table you loaded in lesson 1.3 (11 rows, with one duplicate and one negative amount)."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "<b>+ New item → Dataflow Gen2</b>. Nómbralo <code>df_ventas_silver</code>.",
+        "en": "<b>+ New item → Dataflow Gen2</b>. Name it <code>df_ventas_silver</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "<b>Get data</b> → busca <b>Lakehouse</b> → <code>lh_tutor</code> → <b>Tables</b> → marca <code>ventas</code> → <b>Create</b>.",
+        "en": "<b>Get data</b> → search <b>Lakehouse</b> → <code>lh_tutor</code> → <b>Tables</b> → tick <code>ventas</code> → <b>Create</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "Selecciona todas las columnas (Ctrl+A en los encabezados) → <b>Home → Remove rows → Remove duplicates</b>.",
+        "en": "Select all columns (Ctrl+A on the headers) → <b>Home → Remove rows → Remove duplicates</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "En la columna <code>monto</code>: flecha del filtro → <b>Number filters → Greater than</b> → <code>0</code>.",
+        "en": "On the <code>monto</code> column: filter arrow → <b>Number filters → Greater than</b> → <code>0</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Si <code>fecha</code> no es de tipo fecha, cámbiala: clic en el ícono de tipo del encabezado → <b>Date</b>. Revisa el panel <b>Applied steps</b>: ahí está tu receta.",
+        "en": "If <code>fecha</code> isn't a date type, change it: click the type icon in the header → <b>Date</b>. Check the <b>Applied steps</b> pane: that's your recipe."
+       }
+      },
+      {
+       "t": {
+        "es": "Abajo a la derecha, en <b>Data destination</b> → <b>Lakehouse</b> → <code>lh_tutor</code> → nueva tabla <code>silver_ventas_df</code>, método <b>Replace</b>.",
+        "en": "Bottom right, in <b>Data destination</b> → <b>Lakehouse</b> → <code>lh_tutor</code> → new table <code>silver_ventas_df</code>, method <b>Replace</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "<b>Guarda y ejecuta</b> (según tu versión: <i>Publish</i> o <i>Save & run</i>). Luego consulta en el SQL analytics endpoint:",
+        "en": "<b>Save and run</b> (depending on your version: <i>Publish</i> or <i>Save & run</i>). Then query in the SQL analytics endpoint:"
+       },
+       "code": "SELECT COUNT(*) AS filas, MIN(monto) AS minimo\nFROM silver_ventas_df;"
+      }
+     ],
+     "expect": {
+      "es": "<b>filas = 9</b> y <b>minimo = 300.00</b>. ¡El mismo resultado que con PySpark en la lección 1.5! Dos caminos, un mismo destino.",
+      "en": "<b>filas = 9</b> and <b>minimo = 300.00</b>. The same result as with PySpark in lesson 1.5! Two paths, one destination."
+     }
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Ya probaste los dos caminos. ¿Cuál elegirías y cuándo?",
+      "en": "You've tried both paths. Which would you pick, and when?"
+     },
+     "prompt": {
+      "es": "¿Cuándo conviene un Dataflow Gen2 y cuándo un notebook de PySpark?",
+      "en": "When is a Dataflow Gen2 the better choice, and when is a PySpark notebook?"
+     },
+     "answer": {
+      "es": "<b>Dataflow Gen2</b>: equipos que no programan, muchos conectores de negocio (SharePoint, Excel, APIs), volúmenes moderados y transformaciones visuales. <b>Notebook</b>: grandes volúmenes, lógica compleja o reutilizable, pruebas unitarias, control de versiones del código y máximo rendimiento. En proyectos grandes conviven: los analistas usan dataflows y el equipo de ingeniería usa notebooks.",
+      "en": "<b>Dataflow Gen2</b>: teams that don't code, many business connectors (SharePoint, Excel, APIs), moderate volumes and visual transformations. <b>Notebook</b>: large volumes, complex or reusable logic, unit tests, code version control and top performance. In big projects both coexist: analysts use dataflows and the engineering team uses notebooks."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l2-4",
+   "icon": "⏱️",
+   "min": 25,
+   "badge": {
+    "e": "⌛",
+    "n": {
+     "es": "Guardián del watermark",
+     "en": "Watermark Keeper"
+    }
+   },
+   "title": {
+    "es": "Cargas incrementales y Copy job",
+    "en": "Incremental loads and Copy job"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Esta lección separa a los principiantes de los profesionales. 😎",
+      "en": "This lesson separates beginners from professionals. 😎"
+     },
+     "kicker": {
+      "es": "El periódico de cada mañana",
+      "en": "The morning newspaper"
+     },
+     "title": {
+      "es": "No releas todo el archivo histórico cada día",
+      "en": "Don't reread the whole archive every day"
+     },
+     "body": {
+      "es": "<p>Cada mañana lees el periódico <b>de hoy</b>, no todos los periódicos desde 1950. Con los datos es igual:</p>\n    <ul><li><b>Carga completa (full)</b>: copias toda la tabla en cada ejecución. Simple, pero lenta y cara cuando la tabla crece.</li>\n    <li><b>Carga incremental</b>: copias <span class=\"hl\">solo lo nuevo o lo que cambió</span> desde la última vez.</li></ul>\n    <p>Para saber “desde la última vez” necesitas una marca: el <b>watermark</b>. Normalmente es una columna como <code>fecha_mod</code> o un ID que siempre crece. En cada carga copias las filas cuyo valor es <b>mayor</b> que el último que copiaste.</p>",
+      "en": "<p>Every morning you read <b>today's</b> newspaper, not every issue since 1950. Data works the same way:</p>\n    <ul><li><b>Full load</b>: you copy the whole table on every run. Simple, but slow and expensive as the table grows.</li>\n    <li><b>Incremental load</b>: you copy <span class=\"hl\">only what's new or changed</span> since last time.</li></ul>\n    <p>To know “since last time” you need a marker: the <b>watermark</b>. It's usually a column like <code>fecha_mod</code> or an ever-increasing ID. On each load you copy the rows whose value is <b>greater</b> than the last one you copied.</p>"
+     },
+     "visual": "watermark"
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Usa el diagrama. Fíjate bien en la palabra <b>mayor</b>.",
+      "en": "Use the diagram. Pay close attention to the word <b>greater</b>."
+     },
+     "q": {
+      "es": "El último watermark guardado es <code>01-08</code>. La fuente tiene filas con <code>fecha_mod</code> 01-05, 01-06, 01-08, 01-09, 01-11 y 01-12. ¿Cuántas filas copia la carga incremental de hoy?",
+      "en": "The last saved watermark is <code>01-08</code>. The source has rows with <code>fecha_mod</code> 01-05, 01-06, 01-08, 01-09, 01-11 and 01-12. How many rows does today's incremental load copy?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "6",
+        "en": "6"
+       },
+       "why": {
+        "es": "Eso sería una carga completa.",
+        "en": "That would be a full load."
+       }
+      },
+      {
+       "t": {
+        "es": "4",
+        "en": "4"
+       },
+       "why": {
+        "es": "Incluiste la fila de 01-08, pero esa ya se copió: la condición es <b>mayor que</b>, no mayor o igual.",
+        "en": "You included the 01-08 row, but it was already copied: the condition is <b>greater than</b>, not greater-or-equal."
+       }
+      },
+      {
+       "t": {
+        "es": "3",
+        "en": "3"
+       },
+       "why": {
+        "es": "¡Exacto! 01-09, 01-11 y 01-12. Después de copiarlas, el nuevo watermark será 01-12.",
+        "en": "Exactly! 01-09, 01-11 and 01-12. After copying them, the new watermark becomes 01-12."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Hay dos formas de detectar cambios. Y una de ellas <b>no ve los borrados</b>.",
+      "en": "There are two ways to detect changes. And one of them <b>can't see deletes</b>."
+     },
+     "title": {
+      "es": "Watermark vs CDC, y cómo lo resuelve Copy job",
+      "en": "Watermark vs CDC, and how Copy job handles it"
+     },
+     "body": {
+      "es": "<ul><li><b>Watermark</b>: compara una columna que crece (fecha o ID). Funciona con casi cualquier fuente, pero <b>no detecta filas borradas</b>.</li>\n    <li><b>CDC</b> (<i>Change Data Capture</i>): la base de datos registra cada insert, update y delete. Si la fuente lo tiene activado, captura también los borrados.</li></ul>\n    <p><b>Copy job</b> hace el trabajo pesado por ti: en modo <i>incremental</i> la primera ejecución copia todo y las siguientes solo los cambios. <span class=\"hl\">Él guarda el estado</span>, y si una ejecución falla, la siguiente retoma desde la última exitosa.</p>\n    <p>En el destino eliges cómo escribir: <b>Append</b> (agregar), <b>Overwrite</b> (sobrescribir) o <b>Merge</b> (insertar o actualizar por clave). Qué opciones ves depende del conector.</p>",
+      "en": "<ul><li><b>Watermark</b>: compares a growing column (date or ID). Works with almost any source, but <b>doesn't detect deleted rows</b>.</li>\n    <li><b>CDC</b> (<i>Change Data Capture</i>): the database logs every insert, update and delete. If the source has it enabled, it captures deletes too.</li></ul>\n    <p><b>Copy job</b> does the heavy lifting: in <i>incremental</i> mode the first run copies everything and later runs copy only changes. <span class=\"hl\">It keeps the state</span>, and if a run fails, the next one resumes from the last successful run.</p>\n    <p>At the destination you choose how to write: <b>Append</b>, <b>Overwrite</b> or <b>Merge</b> (insert or update by key). Which options you see depends on the connector.</p>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Incremental + Append + filas que vuelven a llegar = <b>duplicados</b>. Si la fuente puede reenviar una fila ya copiada, usa <b>Merge</b> con una clave o deduplica en Plata.",
+        "en": "Incremental + Append + rows that arrive again = <b>duplicates</b>. If the source can resend a row you already copied, use <b>Merge</b> with a key or deduplicate in Silver."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Antes de Copy job, esto se construía a mano en un pipeline. Ordena el patrón clásico.",
+      "en": "Before Copy job, this was hand-built in a pipeline. Order the classic pattern."
+     },
+     "title": {
+      "es": "El patrón watermark hecho a mano",
+      "en": "The hand-built watermark pattern"
+     },
+     "items": [
+      {
+       "es": "Lookup: leer el último watermark guardado",
+       "en": "Lookup: read the last saved watermark"
+      },
+      {
+       "es": "Lookup: obtener el valor máximo actual de fecha_mod en la fuente",
+       "en": "Lookup: get the current max fecha_mod in the source"
+      },
+      {
+       "es": "Copy: copiar las filas entre el watermark viejo y el nuevo",
+       "en": "Copy: copy rows between the old and new watermark"
+      },
+      {
+       "es": "Script: guardar el nuevo watermark para la próxima vez",
+       "en": "Script: save the new watermark for next time"
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "En este laboratorio vas a <b>provocar un error a propósito</b>. Es la mejor forma de no cometerlo en producción.",
+      "en": "In this lab you'll <b>cause a bug on purpose</b>. It's the best way to avoid it in production."
+     },
+     "title": {
+      "es": "Laboratorio: Copy job incremental (y su trampa)",
+      "en": "Lab: incremental Copy job (and its trap)"
+     },
+     "intro": {
+      "es": "Usaremos como fuente <code>silver_ventas</code> (lección 1.5), que tiene la columna <code>_ingest_ts</code> con la hora de carga.",
+      "en": "We'll use <code>silver_ventas</code> (lesson 1.5) as the source; it has an <code>_ingest_ts</code> column with the load time."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "<b>+ New item → Copy job</b>. Nómbralo <code>cj_ventas_incremental</code>.",
+        "en": "<b>+ New item → Copy job</b>. Name it <code>cj_ventas_incremental</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Origen: <b>Lakehouse</b> <code>lh_tutor</code> → tabla <code>silver_ventas</code>.",
+        "en": "Source: <b>Lakehouse</b> <code>lh_tutor</code> → table <code>silver_ventas</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "Destino: <b>Lakehouse</b> <code>lh_tutor</code> → nueva tabla <code>bronze_ventas_cj</code>, escritura <b>Append</b>.",
+        "en": "Destination: <b>Lakehouse</b> <code>lh_tutor</code> → new table <code>bronze_ventas_cj</code>, write mode <b>Append</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "Modo de copia: <b>Incremental copy</b>. Columna incremental: <code>_ingest_ts</code>. Si te ofrece usar CDF, elige watermark para este ejercicio.",
+        "en": "Copy mode: <b>Incremental copy</b>. Incremental column: <code>_ingest_ts</code>. If it offers CDF, choose watermark for this exercise."
+       }
+      },
+      {
+       "t": {
+        "es": "Guarda y <b>ejecuta</b>. Primera corrida: debe copiar <b>9</b> filas.",
+        "en": "Save and <b>run</b>. First run: it should copy <b>9</b> rows."
+       }
+      },
+      {
+       "t": {
+        "es": "<b>Ejecútalo otra vez</b>. Ahora debe copiar <b>0</b> filas: no hay nada nuevo. ✨",
+        "en": "<b>Run it again</b>. Now it should copy <b>0</b> rows: nothing is new. ✨"
+       }
+      },
+      {
+       "t": {
+        "es": "Ahora vuelve a ejecutar el notebook <code>nb_ventas_medallion</code> y después el Copy job una vez más. Cuenta las filas del destino:",
+        "en": "Now rerun the <code>nb_ventas_medallion</code> notebook, then the Copy job once more. Count the destination rows:"
+       },
+       "code": "SELECT COUNT(*) AS filas, COUNT(DISTINCT id) AS ids_unicos\nFROM bronze_ventas_cj;"
+      }
+     ],
+     "expect": {
+      "es": "Verás <b>filas = 18</b> pero <b>ids_unicos = 9</b>. ¡Duplicados! La siguiente pregunta te explica por qué.",
+      "en": "You'll see <b>filas = 18</b> but <b>ids_unicos = 9</b>. Duplicates! The next question explains why."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Detective de datos: ¿quién fue el culpable? 🔍",
+      "en": "Data detective: who's the culprit? 🔍"
+     },
+     "q": {
+      "es": "¿Por qué <code>bronze_ventas_cj</code> terminó con 18 filas?",
+      "en": "Why did <code>bronze_ventas_cj</code> end up with 18 rows?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Copy job tiene un error",
+        "en": "Copy job has a bug"
+       },
+       "why": {
+        "es": "Copy job hizo exactamente lo que le pediste. 😉",
+        "en": "Copy job did exactly what you asked. 😉"
+       }
+      },
+      {
+       "t": {
+        "es": "El notebook reescribió las 9 filas con un <code>_ingest_ts</code> nuevo; el watermark las vio como nuevas y Append las agregó otra vez",
+        "en": "The notebook rewrote all 9 rows with a new <code>_ingest_ts</code>; the watermark saw them as new and Append added them again"
+       },
+       "why": {
+        "es": "¡Exacto! El watermark debe reflejar <b>cambios reales del negocio</b> (como <code>fecha_mod</code>), no la hora de un proceso que reescribe todo. Y con Append, cualquier reenvío duplica. Soluciones: un watermark de negocio, Merge por <code>id</code>, o deduplicar en Plata.",
+        "en": "Exactly! The watermark should reflect <b>real business changes</b> (like <code>fecha_mod</code>), not the time of a process that rewrites everything. And with Append, any resend duplicates. Fixes: a business watermark, Merge on <code>id</code>, or deduplicate in Silver."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "El Lakehouse duplica datos al leerlos",
+        "en": "The Lakehouse duplicates data when reading"
+       },
+       "why": {
+        "es": "No: el Lakehouse no inventa filas.",
+        "en": "No: the Lakehouse doesn't invent rows."
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "pencil",
+     "say": {
+      "es": "Escribe tu respuesta. Esta aparece en entrevistas técnicas.",
+      "en": "Write your answer. This one shows up in technical interviews."
+     },
+     "prompt": {
+      "es": "Un vendedor <b>borra</b> una venta en el ERP. Tu carga incremental usa watermark por <code>fecha_mod</code>. ¿Tu Lakehouse se entera? ¿Qué harías?",
+      "en": "A salesperson <b>deletes</b> a sale in the ERP. Your incremental load uses a watermark on <code>fecha_mod</code>. Does your Lakehouse find out? What would you do?"
+     },
+     "answer": {
+      "es": "<b>No se entera</b>: una fila borrada ya no existe en la fuente, así que no tiene <code>fecha_mod</code> que comparar. Opciones: activar <b>CDC</b> en la fuente (captura deletes), pedir un <b>borrado lógico</b> (columna <code>es_borrado</code>) en lugar de borrar la fila, o hacer una <b>conciliación completa</b> periódica, por ejemplo semanal.",
+      "en": "<b>It doesn't</b>: a deleted row no longer exists in the source, so there's no <code>fecha_mod</code> to compare. Options: enable <b>CDC</b> on the source (captures deletes), ask for a <b>soft delete</b> (an <code>is_deleted</code> column) instead of removing the row, or run a periodic <b>full reconciliation</b>, e.g. weekly."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l2-5",
+   "icon": "🪞",
+   "min": 20,
+   "badge": {
+    "e": "🏆",
+    "n": {
+     "es": "Maestro de la Ingesta",
+     "en": "Ingestion Master"
+    }
+   },
+   "title": {
+    "es": "Mirroring y el desafío final del nivel",
+    "en": "Mirroring and the level's final challenge"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Mirroring es lo más parecido a magia que tiene Fabric. 🪄",
+      "en": "Mirroring is the closest thing to magic Fabric has. 🪄"
+     },
+     "kicker": {
+      "es": "Réplica continua",
+      "en": "Continuous replication"
+     },
+     "title": {
+      "es": "Mirroring: un espejo de tu base de datos en OneLake",
+      "en": "Mirroring: a mirror of your database in OneLake"
+     },
+     "body": {
+      "es": "<p><b>Mirroring</b> replica de forma <b>continua y casi en tiempo real</b> tablas de una base de datos hacia OneLake, en formato Delta. No construyes ETL: lo configuras y Fabric mantiene la copia al día.</p>\n    <p>Fuentes de base de datos: Azure SQL Database, Azure SQL Managed Instance, SQL Server, Azure Cosmos DB, Snowflake y Azure Database for PostgreSQL, entre otras. Con <b>Open Mirroring</b>, partners y soluciones propias pueden escribir cambios en una zona de aterrizaje.</p>\n    <p>El costo es amigable: el cómputo para replicar no se cobra, y el almacenamiento de la réplica es gratuito hasta <span class=\"hl\">1 TB por cada Capacity Unit</span> de tu capacidad.</p>",
+      "en": "<p><b>Mirroring</b> replicates database tables into OneLake <b>continuously and in near real time</b>, in Delta format. You don't build ETL: you configure it and Fabric keeps the copy up to date.</p>\n    <p>Database sources include Azure SQL Database, Azure SQL Managed Instance, SQL Server, Azure Cosmos DB, Snowflake and Azure Database for PostgreSQL, among others. With <b>Open Mirroring</b>, partners and custom solutions can write changes to a landing zone.</p>\n    <p>The cost is friendly: compute for replication isn't charged, and replica storage is free up to <span class=\"hl\">1 TB per Capacity Unit</span> of your capacity.</p>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Mirroring replica <b>tablas</b>, no vistas, y la réplica es de solo lectura. Es tu capa <b>Bronce</b> automática: todavía necesitas Plata y Oro.",
+        "en": "Mirroring replicates <b>tables</b>, not views, and the replica is read-only. It's your automatic <b>Bronze</b> layer: you still need Silver and Gold."
+       }
+      },
+      {
+       "k": "key",
+       "b": {
+        "es": "¿La base está detrás de un firewall? Usa un <b>on-premises data gateway</b> o un <b>VNet data gateway</b>, según la fuente.",
+        "en": "Is the database behind a firewall? Use an <b>on-premises data gateway</b> or a <b>VNet data gateway</b>, depending on the source."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Haz la cuenta: 1 TB por cada CU.",
+      "en": "Do the math: 1 TB per CU."
+     },
+     "q": {
+      "es": "Tu cliente tiene una capacidad <b>F8</b>. ¿Cuánto almacenamiento de réplica de Mirroring tiene sin costo?",
+      "en": "Your client has an <b>F8</b> capacity. How much free Mirroring replica storage do they get?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "1 TB",
+        "en": "1 TB"
+       },
+       "why": {
+        "es": "Es 1 TB <b>por cada CU</b>, no 1 TB en total.",
+        "en": "It's 1 TB <b>per CU</b>, not 1 TB in total."
+       }
+      },
+      {
+       "t": {
+        "es": "8 TB",
+        "en": "8 TB"
+       },
+       "why": {
+        "es": "¡Correcto! F8 = 8 CU → 8 TB. Una F64 tendría 64 TB.",
+        "en": "Correct! F8 = 8 CU → 8 TB. An F64 would get 64 TB."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Ilimitado",
+        "en": "Unlimited"
+       },
+       "why": {
+        "es": "Hay un límite; al pasarlo, OneLake cobra el almacenamiento normal.",
+        "en": "There's a limit; beyond it, OneLake bills storage normally."
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "Pregunta de arquitecto: ¿Mirroring o Copy job?",
+      "en": "Architect question: Mirroring or Copy job?"
+     },
+     "prompt": {
+      "es": "Si Copy job también puede copiar cambios con CDC, ¿cuándo elegirías Mirroring?",
+      "en": "If Copy job can also copy changes with CDC, when would you pick Mirroring?"
+     },
+     "answer": {
+      "es": "<b>Mirroring</b>: quieres una réplica casi en tiempo real de una base soportada, sin programar ejecuciones y sin administrar estado. Fabric la mantiene sincronizada sola. <b>Copy job</b>: necesitas elegir cuándo corre (por ejemplo, cada noche), el destino o el modo de escritura (Append, Merge), o la fuente no es compatible con Mirroring. Ambos terminan en OneLake; cambia el control que tienes.",
+      "en": "<b>Mirroring</b>: you want a near-real-time replica of a supported database, with no run schedule and no state to manage. Fabric keeps it in sync on its own. <b>Copy job</b>: you need to choose when it runs (e.g. nightly), the destination or the write mode (Append, Merge), or the source isn't supported by Mirroring. Both land in OneLake; what changes is how much control you have."
+     }
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "🏁 <b>Desafío final del Nivel 2.</b> Sin pistas esta vez… bueno, quizá una si fallas.",
+      "en": "🏁 <b>Level 2 final challenge.</b> No hints this time… well, maybe one if you miss."
+     },
+     "title": {
+      "es": "Desafío: el arquitecto de ingesta",
+      "en": "Challenge: the ingestion architect"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Ventas de Snowflake en Power BI con minutos de retraso, sin construir ETL",
+        "en": "Snowflake sales in Power BI minutes behind, with no ETL"
+       },
+       {
+        "es": "🪞 Mirroring",
+        "en": "🪞 Mirroring"
+       }
+      ],
+      [
+       {
+        "es": "Parquet de un partner en Google Cloud Storage que no quieres duplicar",
+        "en": "A partner's Parquet in Google Cloud Storage you don't want to duplicate"
+       },
+       {
+        "es": "🔗 Shortcut",
+        "en": "🔗 Shortcut"
+       }
+      ],
+      [
+       {
+        "es": "Proceso nocturno: copiar, transformar y avisar por Teams si falla",
+        "en": "Nightly process: copy, transform and alert on Teams if it fails"
+       },
+       {
+        "es": "🧭 Pipeline",
+        "en": "🧭 Pipeline"
+       }
+      ],
+      [
+       {
+        "es": "Copiar 60 tablas de Oracle cada hora, solo cambios",
+        "en": "Copy 60 Oracle tables every hour, only changes"
+       },
+       {
+        "es": "📦 Copy job",
+        "en": "📦 Copy job"
+       }
+      ],
+      [
+       {
+        "es": "Recursos Humanos limpia una lista de SharePoint con clics",
+        "en": "HR cleans a SharePoint list with clicks"
+       },
+       {
+        "es": "🧹 Dataflow Gen2",
+        "en": "🧹 Dataflow Gen2"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Última pregunta del nivel. Piensa en todo lo que aprendiste.",
+      "en": "Final question of the level. Think about everything you learned."
+     },
+     "q": {
+      "es": "Diseñas la ingesta de un ERP en SQL Server on-premises. Los usuarios necesitan los datos con pocos minutos de retraso y el negocio borra pedidos cancelados. ¿Cuál es la mejor propuesta inicial?",
+      "en": "You're designing ingestion for an on-premises SQL Server ERP. Users need the data a few minutes behind, and the business deletes cancelled orders. What's the best initial proposal?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Copy job incremental por watermark cada noche",
+        "en": "Nightly watermark-based incremental Copy job"
+       },
+       "why": {
+        "es": "Nocturno no cumple los “pocos minutos”, y el watermark no ve los pedidos borrados.",
+        "en": "Nightly doesn't meet “a few minutes”, and the watermark can't see deleted orders."
+       }
+      },
+      {
+       "t": {
+        "es": "Mirroring de SQL Server con un gateway, y Plata/Oro con notebooks orquestados por un pipeline",
+        "en": "SQL Server Mirroring through a gateway, with Silver/Gold notebooks orchestrated by a pipeline"
+       },
+       "why": {
+        "es": "¡Arquitectura de nivel profesional! Mirroring da baja latencia y refleja también los borrados en la réplica. El gateway resuelve el acceso on-premises, y Plata/Oro siguen siendo tu responsabilidad.",
+        "en": "Professional-grade architecture! Mirroring gives low latency and also reflects deletes in the replica. The gateway solves on-premises access, and Silver/Gold are still your job."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Exportar CSV cada 5 minutos a SharePoint y leerlos con un Dataflow",
+        "en": "Export CSVs every 5 minutes to SharePoint and read them with a Dataflow"
+       },
+       "why": {
+        "es": "Frágil, costoso y lleno de piezas manuales. 😬",
+        "en": "Fragile, costly and full of manual parts. 😬"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

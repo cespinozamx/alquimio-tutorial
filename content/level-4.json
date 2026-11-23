@@ -1,0 +1,1168 @@
+{
+ "id": 4,
+ "title": {
+  "es": "Data Warehouse y T-SQL",
+  "en": "Data Warehouse and T-SQL"
+ },
+ "desc": {
+  "es": "Warehouse vs Lakehouse, modelo estrella, T-SQL en Fabric, MERGE y procedimientos, clones, time travel y seguridad.",
+  "en": "Warehouse vs Lakehouse, star schema, T-SQL in Fabric, MERGE and procedures, clones, time travel and security."
+ },
+ "lessons": [
+  {
+   "id": "l4-1",
+   "icon": "🏛️",
+   "min": 15,
+   "badge": {
+    "e": "⚖️",
+    "n": {
+     "es": "Juez Lakehouse vs Warehouse",
+     "en": "Lakehouse vs Warehouse Judge"
+    }
+   },
+   "title": {
+    "es": "Warehouse vs Lakehouse: ¿cuándo cuál?",
+    "en": "Warehouse vs Lakehouse: which one when?"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Nivel 4. Bienvenido al mundo de T-SQL. Si vienes de SQL Server, aquí te sentirás en casa. 🏠",
+      "en": "Level 4. Welcome to the world of T-SQL. If you come from SQL Server, you'll feel right at home. 🏠"
+     },
+     "kicker": {
+      "es": "El taller y la biblioteca",
+      "en": "The workshop and the library"
+     },
+     "title": {
+      "es": "Dos edificios sobre el mismo terreno",
+      "en": "Two buildings on the same land"
+     },
+     "body": {
+      "es": "<p>Imagina un <b>taller</b> enorme donde cabe de todo: piezas sueltas, cajas, planos, prototipos. Trabajas con herramientas eléctricas (Spark) y construyes lo que quieras. Ese es el <b>Lakehouse</b>.</p>\n    <p>Al lado hay una <b>biblioteca</b>: todo está catalogado en estantes con reglas claras, y cualquiera que sepa pedir un libro (T-SQL) lo encuentra, lo presta o lo actualiza. Ese es el <b>Warehouse</b>.</p>\n    <p>La sorpresa: <span class=\"hl\">los dos están construidos sobre el mismo terreno</span>. Ambos guardan sus tablas en <b>OneLake</b>, en formato <b>Delta</b>, y Power BI puede leer cualquiera de los dos.</p>",
+      "en": "<p>Picture a huge <b>workshop</b> where everything fits: loose parts, boxes, blueprints, prototypes. You work with power tools (Spark) and build whatever you want. That's the <b>Lakehouse</b>.</p>\n    <p>Next door is a <b>library</b>: everything is catalogued on shelves with clear rules, and anyone who knows how to ask for a book (T-SQL) can find it, borrow it or update it. That's the <b>Warehouse</b>.</p>\n    <p>The surprise: <span class=\"hl\">both are built on the same land</span>. Both keep their tables in <b>OneLake</b>, in <b>Delta</b> format, and Power BI can read either one.</p>"
+     },
+     "visual": "whVsLh"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "La diferencia clave está en <b>cómo escribes</b> los datos.",
+      "en": "The key difference is <b>how you write</b> data."
+     },
+     "title": {
+      "es": "Lo que cambia y lo que no",
+      "en": "What changes and what doesn't"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "cards": [
+      {
+       "e": "🏭",
+       "n": "Lakehouse",
+       "d": {
+        "es": "Archivos (Files) + tablas Delta. Escribes con Spark, Dataflows o pipelines. Su SQL analytics endpoint es de solo lectura.",
+        "en": "Files + Delta tables. You write with Spark, Dataflows or pipelines. Its SQL analytics endpoint is read-only."
+       }
+      },
+      {
+       "e": "🏛️",
+       "n": "Warehouse",
+       "d": {
+        "es": "Solo tablas. Escribes con T-SQL completo: INSERT, UPDATE, DELETE, MERGE, procedimientos almacenados y transacciones entre varias tablas.",
+        "en": "Tables only. You write with full T-SQL: INSERT, UPDATE, DELETE, MERGE, stored procedures and multi-table transactions."
+       },
+       "star": true
+      },
+      {
+       "e": "🌊",
+       "n": {
+        "es": "En común",
+        "en": "In common"
+       },
+       "d": {
+        "es": "OneLake, formato Delta, seguridad de Fabric, Direct Lake para Power BI y la misma capacidad.",
+        "en": "OneLake, Delta format, Fabric security, Direct Lake for Power BI and the same capacity."
+       }
+      }
+     ],
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "Crear, modificar o borrar tablas y hacer INSERT, UPDATE o DELETE solo funciona en el <b>Warehouse</b>, no en el SQL analytics endpoint del Lakehouse.",
+        "en": "Creating, altering or dropping tables and running INSERT, UPDATE or DELETE only works in the <b>Warehouse</b>, not in the Lakehouse's SQL analytics endpoint."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Une cada necesidad con el elemento que mejor la resuelve.",
+      "en": "Pair each need with the item that solves it best."
+     },
+     "title": {
+      "es": "¿Taller o biblioteca?",
+      "en": "Workshop or library?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Guardar imágenes, JSON y CSV crudos",
+        "en": "Store raw images, JSON and CSV"
+       },
+       {
+        "es": "🏭 Lakehouse (Files)",
+        "en": "🏭 Lakehouse (Files)"
+       }
+      ],
+      [
+       {
+        "es": "Un equipo de SQL con procedimientos almacenados",
+        "en": "A SQL team with stored procedures"
+       },
+       {
+        "es": "🏛️ Warehouse",
+        "en": "🏛️ Warehouse"
+       }
+      ],
+      [
+       {
+        "es": "Transformar 5 TB con PySpark",
+        "en": "Transform 5 TB with PySpark"
+       },
+       {
+        "es": "📓 Notebook sobre Lakehouse",
+        "en": "📓 Notebook on a Lakehouse"
+       }
+      ],
+      [
+       {
+        "es": "Actualizar varias tablas en una sola transacción",
+        "en": "Update several tables in a single transaction"
+       },
+       {
+        "es": "🔒 Transacción en el Warehouse",
+        "en": "🔒 Warehouse transaction"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Escenario de migración, muy común en LATAM.",
+      "en": "A migration scenario, very common in LATAM."
+     },
+     "q": {
+      "es": "Un banco migra su data warehouse de SQL Server: 300 procedimientos almacenados en T-SQL y un equipo que no programa en Python. ¿Qué destino recomiendas en Fabric?",
+      "en": "A bank is migrating its SQL Server data warehouse: 300 T-SQL stored procedures and a team that doesn't code in Python. Which Fabric destination do you recommend?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Lakehouse y reescribir todo en PySpark",
+        "en": "Lakehouse and rewrite everything in PySpark"
+       },
+       "why": {
+        "es": "Posible, pero tirarías años de conocimiento del equipo y alargarías mucho la migración.",
+        "en": "Possible, but you'd throw away years of team knowledge and stretch the migration a lot."
+       }
+      },
+      {
+       "t": {
+        "es": "Warehouse: conserva T-SQL y procedimientos, con ajustes",
+        "en": "Warehouse: keeps T-SQL and procedures, with adjustments"
+       },
+       "why": {
+        "es": "¡Exacto! El Warehouse habla T-SQL. Habrá que ajustar tipos de datos y algunas funciones, pero el conocimiento del equipo se aprovecha.",
+        "en": "Exactly! The Warehouse speaks T-SQL. You'll adjust data types and some features, but the team's knowledge carries over."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Dejarlo en SQL Server y conectarlo con un shortcut",
+        "en": "Leave it in SQL Server and connect it with a shortcut"
+       },
+       "why": {
+        "es": "Los shortcuts no apuntan a SQL Server. Para replicarlo existe Mirroring, pero eso no migra la lógica.",
+        "en": "Shortcuts don't point to SQL Server. Mirroring could replicate it, but that doesn't migrate the logic."
+       }
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "brain",
+     "say": {
+      "es": "La respuesta de arquitecto casi nunca es “uno u otro”.",
+      "en": "The architect's answer is rarely “one or the other”."
+     },
+     "prompt": {
+      "es": "¿Pueden convivir Lakehouse y Warehouse en la misma solución? ¿Cómo los repartirías en una arquitectura Medallion?",
+      "en": "Can a Lakehouse and a Warehouse coexist in the same solution? How would you split them in a Medallion architecture?"
+     },
+     "answer": {
+      "es": "¡Sí, y es muy común! Un patrón típico: <b>Bronce y Plata en Lakehouse</b> (Spark maneja bien archivos crudos y grandes volúmenes) y <b>Oro en Warehouse</b> (modelo estrella cargado con T-SQL y procedimientos). El Warehouse lee las tablas del Lakehouse con <b>consultas entre bases de datos</b> usando nombres de tres partes, como <code>lh_tutor.dbo.silver_ventas_m</code>, sin copiar archivos. Lo harás en la lección 4.3.",
+      "en": "Yes, and it's very common! A typical pattern: <b>Bronze and Silver in a Lakehouse</b> (Spark handles raw files and large volumes well) and <b>Gold in a Warehouse</b> (a star schema loaded with T-SQL and procedures). The Warehouse reads Lakehouse tables with <b>cross-database queries</b> using three-part names, like <code>lh_tutor.dbo.silver_ventas_m</code>, without copying files. You'll do it in lesson 4.3."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l4-2",
+   "icon": "⭐",
+   "min": 18,
+   "badge": {
+    "e": "🌟",
+    "n": {
+     "es": "Arquitecto de estrellas",
+     "en": "Star Architect"
+    }
+   },
+   "title": {
+    "es": "Modelado dimensional: el esquema estrella",
+    "en": "Dimensional modeling: the star schema"
+   },
+   "steps": [
+    {
+     "type": "story",
+     "say": {
+      "es": "Toma un ticket de supermercado. Ahí está todo el modelado dimensional. 🧾",
+      "en": "Grab a supermarket receipt. All of dimensional modeling is right there. 🧾"
+     },
+     "kicker": {
+      "es": "El ticket del súper",
+      "en": "The supermarket receipt"
+     },
+     "title": {
+      "es": "Hechos en el centro, contexto alrededor",
+      "en": "Facts in the middle, context around them"
+     },
+     "body": {
+      "es": "<p>Cada línea de un ticket es un <b>hecho</b>: algo que pasó y que se puede medir (cantidad, importe). Pero un número solo no dice nada. Para entenderlo necesitas el contexto: <b>quién</b> compró, <b>qué</b> producto, <b>cuándo</b> y <b>dónde</b>. Cada pieza de contexto es una <b>dimensión</b>.</p>\n    <p>Si dibujas la tabla de hechos en el centro y las dimensiones alrededor, te queda una <b>estrella</b>. Es el modelo favorito de Power BI y de los motores analíticos porque las consultas son simples y rápidas: unes la tabla de hechos con sus dimensiones, filtras y agregas.</p>",
+      "en": "<p>Every line on a receipt is a <b>fact</b>: something that happened and can be measured (quantity, amount). But a number alone says nothing. To understand it you need context: <b>who</b> bought, <b>which</b> product, <b>when</b> and <b>where</b>. Each piece of context is a <b>dimension</b>.</p>\n    <p>Draw the fact table in the middle with the dimensions around it and you get a <b>star</b>. It's the favorite model of Power BI and analytical engines because queries are simple and fast: join the facts to their dimensions, filter and aggregate.</p>"
+     },
+     "visual": "starSchema"
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Cuatro conceptos que vas a usar toda tu carrera.",
+      "en": "Four concepts you'll use for your whole career."
+     },
+     "title": {
+      "es": "El vocabulario del modelador",
+      "en": "The modeler's vocabulary"
+     },
+     "body": {
+      "es": "<ul><li><b>Granularidad (grano)</b>: qué representa <i>una fila</i> de la tabla de hechos. Por ejemplo, “una línea de venta”. Es la decisión más importante del diseño.</li>\n    <li><b>Medidas</b>: los números de los hechos que se suman o promedian (<code>monto</code>, <code>cantidad</code>).</li>\n    <li><b>Llave sustituta</b> (<i>surrogate key</i>): un número interno del warehouse, como <code>sk_cliente</code>, distinto del ID que trae el sistema origen (la <b>llave de negocio</b>). Te protege si el origen cambia o si mezclas varios sistemas.</li>\n    <li><b>Dimensión de fecha</b>: una fila por día con año, mes, trimestre, día de la semana… Así el reporte no tiene que calcularlos.</li></ul>",
+      "en": "<ul><li><b>Grain</b>: what <i>one row</i> of the fact table represents. For example, “one sales line”. It's the most important design decision.</li>\n    <li><b>Measures</b>: the fact numbers you sum or average (<code>monto</code>, <code>quantity</code>).</li>\n    <li><b>Surrogate key</b>: an internal warehouse number, like <code>sk_cliente</code>, separate from the source system's ID (the <b>business key</b>). It protects you if the source changes or when you mix several systems.</li>\n    <li><b>Date dimension</b>: one row per day with year, month, quarter, weekday… so the report doesn't have to compute them.</li></ul>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Si mezclas granos en una misma tabla de hechos (por ejemplo, líneas de venta y totales mensuales), las sumas se duplican sin que nadie lo note. <b>Un grano por tabla de hechos.</b>",
+        "en": "If you mix grains in the same fact table (say, sales lines and monthly totals), sums get doubled without anyone noticing. <b>One grain per fact table.</b>"
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Estos son los cuatro pasos clásicos de Ralph Kimball. Ordénalos.",
+      "en": "These are Ralph Kimball's four classic steps. Put them in order."
+     },
+     "title": {
+      "es": "Los 4 pasos del diseño dimensional",
+      "en": "The 4 steps of dimensional design"
+     },
+     "items": [
+      {
+       "es": "Elegir el proceso de negocio (por ejemplo, ventas)",
+       "en": "Choose the business process (e.g. sales)"
+      },
+      {
+       "es": "Declarar la granularidad (una fila = una línea de venta)",
+       "en": "Declare the grain (one row = one sales line)"
+      },
+      {
+       "es": "Identificar las dimensiones (cliente, producto, fecha)",
+       "en": "Identify the dimensions (customer, product, date)"
+      },
+      {
+       "es": "Identificar los hechos o medidas (monto, cantidad)",
+       "en": "Identify the facts or measures (amount, quantity)"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "Clasifica cada columna de nuestro modelo de ventas.",
+      "en": "Classify each column in our sales model."
+     },
+     "title": {
+      "es": "¿Qué papel juega cada columna?",
+      "en": "What role does each column play?"
+     },
+     "pairs": [
+      [
+       {
+        "es": "<code>monto</code> en fact_ventas",
+        "en": "<code>monto</code> in fact_ventas"
+       },
+       {
+        "es": "Medida",
+        "en": "Measure"
+       }
+      ],
+      [
+       {
+        "es": "<code>sk_cliente</code> en fact_ventas",
+        "en": "<code>sk_cliente</code> in fact_ventas"
+       },
+       {
+        "es": "Llave foránea hacia una dimensión",
+        "en": "Foreign key to a dimension"
+       }
+      ],
+      [
+       {
+        "es": "<code>region</code> en dim_cliente",
+        "en": "<code>region</code> in dim_cliente"
+       },
+       {
+        "es": "Atributo descriptivo",
+        "en": "Descriptive attribute"
+       }
+      ],
+      [
+       {
+        "es": "El ID del cliente en el ERP",
+        "en": "The customer ID in the ERP"
+       },
+       {
+        "es": "Llave de negocio",
+        "en": "Business key"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Pregunta de granularidad. Piensa qué representa una fila.",
+      "en": "Grain question. Think about what one row represents."
+     },
+     "q": {
+      "es": "En <code>fact_ventas</code> cada fila es una venta individual. Alguien quiere agregar ahí la <b>meta mensual</b> de cada región. ¿Qué haces?",
+      "en": "In <code>fact_ventas</code> each row is one individual sale. Someone wants to add each region's <b>monthly target</b> there. What do you do?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Agregar una columna <code>meta_mensual</code> a cada venta",
+        "en": "Add a <code>meta_mensual</code> column to each sale"
+       },
+       "why": {
+        "es": "La meta se repetiría en cada venta del mes y al sumarla se multiplicaría. Grano mezclado.",
+        "en": "The target would repeat on every sale of the month and be multiplied when summed. Mixed grain."
+       }
+      },
+      {
+       "t": {
+        "es": "Crear otra tabla de hechos <code>fact_metas</code> con grano región-mes",
+        "en": "Create another fact table <code>fact_metas</code> with a region-month grain"
+       },
+       "why": {
+        "es": "¡Exacto! Cada tabla de hechos tiene su propio grano. Las dos comparten dimensiones (región, fecha) y Power BI las compara sin problema.",
+        "en": "Exactly! Each fact table has its own grain. Both share dimensions (region, date) and Power BI compares them easily."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "reveal",
+     "kind": "pencil",
+     "say": {
+      "es": "Escríbelo como se lo explicarías a un cliente.",
+      "en": "Write it the way you'd explain it to a client."
+     },
+     "prompt": {
+      "es": "¿Por qué no hacer una sola tabla gigante con todas las columnas (cliente, producto, fecha, monto) en lugar de una estrella?",
+      "en": "Why not build one giant table with every column (customer, product, date, amount) instead of a star?"
+     },
+     "answer": {
+      "es": "Una tabla ancha repite el texto de cliente y producto en cada fila: ocupa más y, si un cliente cambia de región, tienes que actualizar millones de filas. La estrella guarda cada atributo <b>una sola vez</b> en su dimensión, mantiene la tabla de hechos delgada (solo llaves y números) y es la forma que Power BI optimiza mejor: filtros simples, relaciones claras y medidas DAX más fáciles.",
+      "en": "A wide table repeats customer and product text on every row: it takes more space and, if a customer changes region, you have to update millions of rows. The star stores each attribute <b>just once</b> in its dimension, keeps the fact table slim (keys and numbers only) and is the shape Power BI optimizes best: simple filters, clear relationships and easier DAX measures."
+     }
+    }
+   ]
+  },
+  {
+   "id": "l4-3",
+   "icon": "🛠️",
+   "min": 30,
+   "badge": {
+    "e": "🏗️",
+    "n": {
+     "es": "Constructor de Warehouses",
+     "en": "Warehouse Builder"
+    }
+   },
+   "title": {
+    "es": "T-SQL en el Warehouse: construye tu estrella",
+    "en": "T-SQL in the Warehouse: build your star"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Antes del laboratorio, las <b>diferencias</b> con SQL Server. Te ahorrarán horas de errores.",
+      "en": "Before the lab, the <b>differences</b> from SQL Server. They'll save you hours of errors."
+     },
+     "kicker": {
+      "es": "T-SQL con acento Fabric",
+      "en": "T-SQL with a Fabric accent"
+     },
+     "title": {
+      "es": "Lo que cambia respecto a SQL Server",
+      "en": "What's different from SQL Server"
+     },
+     "body": {
+      "es": "<ul><li><b>Tipos de datos</b>: no hay <code>nvarchar</code>; usa <code>varchar</code>, que en Fabric guarda texto en UTF-8. Tampoco hay <code>datetime</code>: usa <code>datetime2</code>.</li>\n    <li><b>IDENTITY</b>: solo con <code>BIGINT</code>. No defines valor inicial ni incremento, los valores son únicos pero <span class=\"hl\">no consecutivos</span> (puede haber huecos) y no existe <code>IDENTITY_INSERT</code>.</li>\n    <li><b>Llaves primarias y foráneas</b>: se declaran como <code>NOT ENFORCED</code>. Sirven como documentación y para el optimizador, pero <b>no impiden duplicados</b>.</li>\n    <li><b>Consultas entre bases de datos</b>: lees tablas de un Lakehouse o de otro Warehouse del workspace con nombres de tres partes: <code>lh_tutor.dbo.silver_ventas_m</code>.</li>\n    <li>Sí tienes <b>CTAS</b> (<code>CREATE TABLE … AS SELECT</code>), tablas temporales <code>#temp</code>, <code>TRUNCATE</code>, vistas, funciones y procedimientos.</li></ul>",
+      "en": "<ul><li><b>Data types</b>: there's no <code>nvarchar</code>; use <code>varchar</code>, which in Fabric stores text as UTF-8. No <code>datetime</code> either: use <code>datetime2</code>.</li>\n    <li><b>IDENTITY</b>: <code>BIGINT</code> only. You can't set the seed or increment, values are unique but <span class=\"hl\">not consecutive</span> (there can be gaps) and there's no <code>IDENTITY_INSERT</code>.</li>\n    <li><b>Primary and foreign keys</b>: declared as <code>NOT ENFORCED</code>. They document the model and help the optimizer, but <b>don't prevent duplicates</b>.</li>\n    <li><b>Cross-database queries</b>: you read tables from a Lakehouse or another Warehouse in the workspace with three-part names: <code>lh_tutor.dbo.silver_ventas_m</code>.</li>\n    <li>You do get <b>CTAS</b> (<code>CREATE TABLE … AS SELECT</code>), <code>#temp</code> tables, <code>TRUNCATE</code>, views, functions and procedures.</li></ul>"
+     }
+    },
+    {
+     "type": "fill",
+     "say": {
+      "es": "Completa las tres piezas que más se olvidan.",
+      "en": "Fill in the three pieces people forget most."
+     },
+     "title": {
+      "es": "T-SQL estilo Fabric",
+      "en": "Fabric-style T-SQL"
+     },
+     "code": "CREATE TABLE dbo.dim_cliente (\n    sk_cliente BIGINT {{0}},\n    cliente    VARCHAR(100) NOT NULL\n);\n\nALTER TABLE dbo.dim_cliente\n  ADD CONSTRAINT pk_dim_cliente\n  PRIMARY KEY NONCLUSTERED (sk_cliente) NOT {{1}};\n\nSELECT * FROM lh_tutor.{{2}}.silver_ventas_m;",
+     "blanks": [
+      {
+       "a": [
+        "identity"
+       ],
+       "hint": {
+        "es": "La propiedad que genera números automáticos.",
+        "en": "The property that auto-generates numbers."
+       }
+      },
+      {
+       "a": [
+        "enforced"
+       ],
+       "hint": {
+        "es": "NOT ______: la llave se declara pero no se valida.",
+        "en": "NOT ______: the key is declared but not validated."
+       }
+      },
+      {
+       "a": [
+        "dbo"
+       ],
+       "hint": {
+        "es": "El esquema por defecto de las tablas.",
+        "en": "The default schema for tables."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vas a construir un <b>modelo estrella completo</b> con T-SQL, leyendo directo del Lakehouse. 🌟",
+      "en": "You'll build a <b>complete star schema</b> with T-SQL, reading straight from the Lakehouse. 🌟"
+     },
+     "title": {
+      "es": "Laboratorio: tu primer modelo estrella en el Warehouse",
+      "en": "Lab: your first star schema in the Warehouse"
+     },
+     "intro": {
+      "es": "Usaremos <code>silver_ventas_m</code> (11 filas, lección 3.3) como fuente. <i>Los nombres de los botones pueden variar un poco según tu versión de Fabric.</i>",
+      "en": "We'll use <code>silver_ventas_m</code> (11 rows, lesson 3.3) as the source. <i>Button names may vary slightly with your Fabric version.</i>"
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "En <code>ws_tutor_fabric</code>: <b>+ New item → Warehouse</b>. Nómbralo <code>wh_ventas</code>.",
+        "en": "In <code>ws_tutor_fabric</code>: <b>+ New item → Warehouse</b>. Name it <code>wh_ventas</code>."
+       }
+      },
+      {
+       "t": {
+        "es": "En el <b>Explorer</b> del Warehouse, agrega <code>lh_tutor</code> como fuente (<b>+ Warehouses</b> o <b>+ Data sources</b>). Así podrás leer sus tablas con nombres de tres partes.",
+        "en": "In the Warehouse <b>Explorer</b>, add <code>lh_tutor</code> as a source (<b>+ Warehouses</b> or <b>+ Data sources</b>). That lets you read its tables with three-part names."
+       }
+      },
+      {
+       "t": {
+        "es": "<b>New SQL query</b>. Crea y carga las tres dimensiones:",
+        "en": "<b>New SQL query</b>. Create and load the three dimensions:"
+       },
+       "code": "-- Dimensión cliente: llave sustituta IDENTITY (siempre BIGINT en Fabric)\nCREATE TABLE dbo.dim_cliente (\n    sk_cliente BIGINT IDENTITY,\n    cliente    VARCHAR(100) NOT NULL,\n    region     VARCHAR(30)  NOT NULL\n);\nINSERT INTO dbo.dim_cliente (cliente, region)\nSELECT DISTINCT cliente, region\nFROM lh_tutor.dbo.silver_ventas_m;\n\n-- Dimensión producto\nCREATE TABLE dbo.dim_producto (\n    sk_producto BIGINT IDENTITY,\n    producto    VARCHAR(100) NOT NULL\n);\nINSERT INTO dbo.dim_producto (producto)\nSELECT DISTINCT producto\nFROM lh_tutor.dbo.silver_ventas_m;\n\n-- Dimensión fecha con CTAS (CREATE TABLE AS SELECT)\nCREATE TABLE dbo.dim_fecha AS\nSELECT DISTINCT\n       YEAR(fecha) * 10000 + MONTH(fecha) * 100 + DAY(fecha) AS sk_fecha,\n       fecha,\n       YEAR(fecha)  AS anio,\n       MONTH(fecha) AS mes,\n       DAY(fecha)   AS dia\nFROM lh_tutor.dbo.silver_ventas_m;"
+      },
+      {
+       "t": {
+        "es": "Crea y carga la tabla de hechos:",
+        "en": "Create and load the fact table:"
+       },
+       "code": "CREATE TABLE dbo.fact_ventas (\n    id_venta    INT,\n    sk_fecha    INT,\n    sk_cliente  BIGINT,\n    sk_producto BIGINT,\n    monto       DECIMAL(12, 2)\n);\n\nINSERT INTO dbo.fact_ventas\nSELECT v.id,\n       YEAR(v.fecha) * 10000 + MONTH(v.fecha) * 100 + DAY(v.fecha),\n       c.sk_cliente,\n       p.sk_producto,\n       CAST(v.monto AS DECIMAL(12, 2))\nFROM lh_tutor.dbo.silver_ventas_m AS v\nJOIN dbo.dim_cliente  AS c ON c.cliente = v.cliente AND c.region = v.region\nJOIN dbo.dim_producto AS p ON p.producto = v.producto;"
+      },
+      {
+       "t": {
+        "es": "Valida con cifras de control:",
+        "en": "Validate with control totals:"
+       },
+       "code": "SELECT 'dim_cliente' AS tabla, COUNT(*) AS filas FROM dbo.dim_cliente\nUNION ALL SELECT 'dim_producto', COUNT(*) FROM dbo.dim_producto\nUNION ALL SELECT 'dim_fecha',    COUNT(*) FROM dbo.dim_fecha\nUNION ALL SELECT 'fact_ventas',  COUNT(*) FROM dbo.fact_ventas;\n\nSELECT c.region, COUNT(*) AS ventas, SUM(f.monto) AS total\nFROM dbo.fact_ventas f\nJOIN dbo.dim_cliente c ON c.sk_cliente = f.sk_cliente\nGROUP BY c.region\nORDER BY total DESC;"
+      },
+      {
+       "t": {
+        "es": "Curiosidad: ejecuta <code>SELECT * FROM dbo.dim_cliente;</code> y observa los valores de <code>sk_cliente</code>.",
+        "en": "Curiosity: run <code>SELECT * FROM dbo.dim_cliente;</code> and look at the <code>sk_cliente</code> values."
+       }
+      }
+     ],
+     "expect": {
+      "es": "<p>Conteos: <b>dim_cliente 5 · dim_producto 4 · dim_fecha 7 · fact_ventas 11</b>. Totales por región:</p>\n     <table class=\"res\"><tr><th>region</th><th>ventas</th><th>total</th></tr><tr><td>Norte</td><td>3</td><td>3735.75</td></tr><tr><td>Sur</td><td>3</td><td>1860.75</td></tr><tr><td>Centro</td><td>2</td><td>1670.00</td></tr><tr><td>Occidente</td><td>3</td><td>1325.50</td></tr></table>\n     <p>Suma = <b>8592.00</b>, igual que en Plata. ¡El dato llegó entero de Bronce a Oro!</p>",
+      "en": "<p>Counts: <b>dim_cliente 5 · dim_producto 4 · dim_fecha 7 · fact_ventas 11</b>. Totals by region:</p>\n     <table class=\"res\"><tr><th>region</th><th>ventas</th><th>total</th></tr><tr><td>Norte</td><td>3</td><td>3735.75</td></tr><tr><td>Sur</td><td>3</td><td>1860.75</td></tr><tr><td>Centro</td><td>2</td><td>1670.00</td></tr><tr><td>Occidente</td><td>3</td><td>1325.50</td></tr></table>\n     <p>Sum = <b>8592.00</b>, same as Silver. The data made it whole from Bronze to Gold!</p>"
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "¿Viste los valores de <code>sk_cliente</code>? Probablemente no eran 1, 2, 3, 4, 5. 🤔",
+      "en": "Did you see the <code>sk_cliente</code> values? They probably weren't 1, 2, 3, 4, 5. 🤔"
+     },
+     "q": {
+      "es": "Tus <code>sk_cliente</code> salieron como números grandes y con saltos. ¿Qué significa?",
+      "en": "Your <code>sk_cliente</code> values came out as large numbers with gaps. What does it mean?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Error: hay que borrar la tabla y repetir la carga",
+        "en": "An error: drop the table and reload"
+       },
+       "why": {
+        "es": "No es error. Si repites la carga, saldrán otros números igual de “raros”.",
+        "en": "Not an error. Reload and you'll get other equally “weird” numbers."
+       }
+      },
+      {
+       "t": {
+        "es": "Es normal: IDENTITY en Fabric garantiza valores únicos, pero no consecutivos",
+        "en": "It's normal: IDENTITY in Fabric guarantees unique values, but not consecutive ones"
+       },
+       "why": {
+        "es": "¡Exacto! El Warehouse es distribuido: genera rangos en paralelo. Una llave sustituta solo necesita ser única; su valor no debe significar nada.",
+        "en": "Exactly! The Warehouse is distributed: it generates ranges in parallel. A surrogate key only needs to be unique; its value shouldn't mean anything."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Hay que usar <code>IDENTITY(1,1)</code>",
+        "en": "You need <code>IDENTITY(1,1)</code>"
+       },
+       "why": {
+        "es": "En Fabric no se puede definir valor inicial ni incremento.",
+        "en": "In Fabric you can't set the seed or increment."
+       }
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Ojo con esta: le pasa a gente con mucha experiencia en SQL Server.",
+      "en": "Careful with this one: it trips up people with lots of SQL Server experience."
+     },
+     "q": {
+      "es": "Declaraste <code>PRIMARY KEY … NOT ENFORCED</code> en <code>dim_cliente</code>. Si cargas por error el mismo cliente dos veces, ¿qué pasa?",
+      "en": "You declared <code>PRIMARY KEY … NOT ENFORCED</code> on <code>dim_cliente</code>. If you accidentally load the same customer twice, what happens?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "El INSERT falla por violación de llave",
+        "en": "The INSERT fails with a key violation"
+       },
+       "why": {
+        "es": "Eso pasaría en SQL Server. Aquí la llave <b>no se valida</b>.",
+        "en": "That's what SQL Server would do. Here the key <b>isn't validated</b>."
+       }
+      },
+      {
+       "t": {
+        "es": "Se insertan los duplicados sin avisar; tu proceso de carga debe evitarlos",
+        "en": "The duplicates get inserted silently; your load process must prevent them"
+       },
+       "why": {
+        "es": "Correcto. Por eso las cargas usan <code>MERGE</code> o <code>WHERE NOT EXISTS</code>, y las cifras de control comparan conteos. Lo verás en la lección 4.4.",
+        "en": "Correct. That's why loads use <code>MERGE</code> or <code>WHERE NOT EXISTS</code>, and control totals compare counts. You'll see it in lesson 4.4."
+       },
+       "ok": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l4-4",
+   "icon": "🔁",
+   "min": 28,
+   "badge": {
+    "e": "⚙️",
+    "n": {
+     "es": "Maestro de procedimientos",
+     "en": "Stored Procedure Master"
+    }
+   },
+   "title": {
+    "es": "Cargas en el Warehouse: MERGE y procedimientos almacenados",
+    "en": "Warehouse loads: MERGE and stored procedures"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Ya tienes tu estrella. Ahora hay que <b>mantenerla al día</b> cada noche, sin duplicar nada.",
+      "en": "You have your star. Now you need to <b>keep it up to date</b> every night without duplicating anything."
+     },
+     "kicker": {
+      "es": "Cargas repetibles",
+      "en": "Repeatable loads"
+     },
+     "title": {
+      "es": "Cómo entran los datos al Warehouse",
+      "en": "How data gets into the Warehouse"
+     },
+     "body": {
+      "es": "<ul><li><b>INSERT … SELECT / CTAS entre bases de datos</b>: lees de un Lakehouse y escribes en el Warehouse. Es lo más común en una arquitectura Medallion.</li>\n    <li><b>Pipelines y Copy job</b> con el Warehouse como destino, para traer datos de fuentes externas.</li>\n    <li><b>COPY INTO</b>: carga masiva de archivos (CSV, Parquet) desde una cuenta de almacenamiento.</li></ul>\n    <p>Para que la carga sea repetible usamos <b>MERGE</b> en T-SQL, que <span class=\"hl\">en el Warehouse de Fabric es GA desde enero de 2026</span>, y la envolvemos en un <b>procedimiento almacenado</b>. Un pipeline lo ejecuta con la actividad <i>Stored procedure</i>.</p>",
+      "en": "<ul><li><b>Cross-database INSERT … SELECT / CTAS</b>: read from a Lakehouse and write into the Warehouse. The most common approach in a Medallion architecture.</li>\n    <li><b>Pipelines and Copy job</b> with the Warehouse as destination, to bring data from external sources.</li>\n    <li><b>COPY INTO</b>: bulk-load files (CSV, Parquet) from a storage account.</li></ul>\n    <p>To make the load repeatable we use T-SQL <b>MERGE</b>, <span class=\"hl\">generally available in the Fabric Warehouse since January 2026</span>, and wrap it in a <b>stored procedure</b>. A pipeline runs it with the <i>Stored procedure</i> activity.</p>"
+     },
+     "callouts": [
+      {
+       "k": "key",
+       "b": {
+        "es": "Carga primero las <b>dimensiones</b> y después los <b>hechos</b>: la tabla de hechos necesita encontrar las llaves sustitutas de clientes y productos nuevos.",
+        "en": "Load the <b>dimensions</b> first, then the <b>facts</b>: the fact table needs to find the surrogate keys of new customers and products."
+       }
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "say": {
+      "es": "Ordena el procedimiento de carga nocturna.",
+      "en": "Order the nightly load procedure."
+     },
+     "title": {
+      "es": "El orden correcto de una carga dimensional",
+      "en": "The right order for a dimensional load"
+     },
+     "items": [
+      {
+       "es": "Insertar en las dimensiones los clientes, productos y fechas nuevos",
+       "en": "Insert new customers, products and dates into the dimensions"
+      },
+      {
+       "es": "Buscar las llaves sustitutas de cada venta con JOIN a las dimensiones",
+       "en": "Look up each sale's surrogate keys by joining to the dimensions"
+      },
+      {
+       "es": "MERGE en la tabla de hechos: actualizar lo que cambió e insertar lo nuevo",
+       "en": "MERGE into the fact table: update what changed and insert what's new"
+      },
+      {
+       "es": "Comparar conteos y totales contra Plata (cifras de control)",
+       "en": "Compare counts and totals against Silver (control totals)"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "say": {
+      "es": "MERGE en T-SQL tiene sus propias palabras. Complétalas.",
+      "en": "T-SQL MERGE has its own keywords. Fill them in."
+     },
+     "title": {
+      "es": "MERGE en T-SQL",
+      "en": "T-SQL MERGE"
+     },
+     "code": "CREATE {{0}} dbo.usp_cargar_clientes AS\nBEGIN\n  MERGE dbo.dim_cliente AS t\n  USING (SELECT DISTINCT cliente, region\n         FROM lh_tutor.dbo.silver_ventas_m) AS s\n     ON t.cliente = s.cliente\n  WHEN MATCHED AND t.region <> s.region THEN\n      {{1}} SET t.region = s.region\n  WHEN NOT MATCHED BY {{2}} THEN\n      INSERT (cliente, region) VALUES (s.cliente, s.region);\nEND;",
+     "blanks": [
+      {
+       "a": [
+        "procedure",
+        "proc"
+       ],
+       "hint": {
+        "es": "CREATE ______: un procedimiento almacenado.",
+        "en": "CREATE ______: a stored procedure."
+       }
+      },
+      {
+       "a": [
+        "update"
+       ],
+       "hint": {
+        "es": "Lo que haces con una fila que ya existe y cambió.",
+        "en": "What you do to a row that exists and changed."
+       }
+      },
+      {
+       "a": [
+        "target"
+       ],
+       "hint": {
+        "es": "NOT MATCHED BY ______: no existe en el destino.",
+        "en": "NOT MATCHED BY ______: missing in the destination."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vas a crear un procedimiento que <b>se cura solo</b>: si alguien daña un dato, la siguiente ejecución lo corrige. 🩹",
+      "en": "You'll create a procedure that <b>heals itself</b>: if someone damages a value, the next run fixes it. 🩹"
+     },
+     "title": {
+      "es": "Laboratorio: procedimiento de carga idempotente",
+      "en": "Lab: idempotent load procedure"
+     },
+     "intro": {
+      "es": "Trabaja en <code>wh_ventas</code>, con las tablas de la lección 4.3.",
+      "en": "Work in <code>wh_ventas</code>, with the tables from lesson 4.3."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Crea el procedimiento:",
+        "en": "Create the procedure:"
+       },
+       "code": "CREATE PROCEDURE dbo.usp_cargar_ventas\nAS\nBEGIN\n    -- 1) Clientes nuevos\n    MERGE dbo.dim_cliente AS t\n    USING (SELECT DISTINCT cliente, region FROM lh_tutor.dbo.silver_ventas_m) AS s\n       ON t.cliente = s.cliente AND t.region = s.region\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (cliente, region) VALUES (s.cliente, s.region);\n\n    -- 2) Productos nuevos\n    MERGE dbo.dim_producto AS t\n    USING (SELECT DISTINCT producto FROM lh_tutor.dbo.silver_ventas_m) AS s\n       ON t.producto = s.producto\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (producto) VALUES (s.producto);\n\n    -- 3) Fechas nuevas\n    MERGE dbo.dim_fecha AS t\n    USING (SELECT DISTINCT YEAR(fecha) * 10000 + MONTH(fecha) * 100 + DAY(fecha) AS sk_fecha,\n                           fecha, YEAR(fecha) AS anio, MONTH(fecha) AS mes, DAY(fecha) AS dia\n           FROM lh_tutor.dbo.silver_ventas_m) AS s\n       ON t.sk_fecha = s.sk_fecha\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (sk_fecha, fecha, anio, mes, dia) VALUES (s.sk_fecha, s.fecha, s.anio, s.mes, s.dia);\n\n    -- 4) Hechos: actualiza montos que cambiaron e inserta ventas nuevas\n    MERGE dbo.fact_ventas AS t\n    USING (SELECT v.id,\n                  YEAR(v.fecha) * 10000 + MONTH(v.fecha) * 100 + DAY(v.fecha) AS sk_fecha,\n                  c.sk_cliente, p.sk_producto,\n                  CAST(v.monto AS DECIMAL(12, 2)) AS monto\n           FROM lh_tutor.dbo.silver_ventas_m AS v\n           JOIN dbo.dim_cliente  AS c ON c.cliente = v.cliente AND c.region = v.region\n           JOIN dbo.dim_producto AS p ON p.producto = v.producto) AS s\n       ON t.id_venta = s.id\n    WHEN MATCHED AND t.monto <> s.monto THEN\n        UPDATE SET t.monto = s.monto\n    WHEN NOT MATCHED BY TARGET THEN\n        INSERT (id_venta, sk_fecha, sk_cliente, sk_producto, monto)\n        VALUES (s.id, s.sk_fecha, s.sk_cliente, s.sk_producto, s.monto);\nEND;"
+      },
+      {
+       "t": {
+        "es": "Ejecútalo y revisa que nada cambie, porque los datos ya estaban cargados:",
+        "en": "Run it and check that nothing changes, since the data was already loaded:"
+       },
+       "code": "EXEC dbo.usp_cargar_ventas;\nSELECT COUNT(*) AS filas, SUM(monto) AS total FROM dbo.fact_ventas;"
+      },
+      {
+       "t": {
+        "es": "Ahora “daña” un dato a propósito y vuelve a cargar:",
+        "en": "Now “damage” a value on purpose and reload:"
+       },
+       "code": "UPDATE dbo.fact_ventas SET monto = 0 WHERE id_venta = 1;\nSELECT SUM(monto) AS total_danado FROM dbo.fact_ventas;\n\nEXEC dbo.usp_cargar_ventas;\nSELECT SUM(monto) AS total_reparado FROM dbo.fact_ventas;"
+      }
+     ],
+     "expect": {
+      "es": "Tras el primer EXEC: <b>11 filas y 8592.00</b>. Después del UPDATE: <b>total_danado = 7341.50</b> (faltan los 1250.50 de la venta 1). Tras el segundo EXEC: <b>total_reparado = 8592.00</b>. El MERGE detectó la diferencia contra Plata y la corrigió.",
+      "en": "After the first EXEC: <b>11 rows and 8592.00</b>. After the UPDATE: <b>total_danado = 7341.50</b> (missing the 1250.50 from sale 1). After the second EXEC: <b>total_reparado = 8592.00</b>. The MERGE found the difference against Silver and fixed it."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Conecta lo que aprendiste en el Nivel 2.",
+      "en": "Connect it to what you learned in Level 2."
+     },
+     "q": {
+      "es": "Quieres que <code>usp_cargar_ventas</code> se ejecute cada noche, justo después del notebook que actualiza Plata. ¿Cómo lo orquestas?",
+      "en": "You want <code>usp_cargar_ventas</code> to run every night, right after the notebook that refreshes Silver. How do you orchestrate it?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Un pipeline: Notebook → (On success) → actividad Stored procedure",
+        "en": "A pipeline: Notebook → (On success) → Stored procedure activity"
+       },
+       "why": {
+        "es": "¡Exacto! El pipeline garantiza el orden y puedes agregar una rama On failure con una alerta.",
+        "en": "Exactly! The pipeline guarantees the order, and you can add an On failure branch with an alert."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Dos programaciones separadas: el notebook a las 2:00 y el procedimiento a las 3:00",
+        "en": "Two separate schedules: the notebook at 2:00 and the procedure at 3:00"
+       },
+       "why": {
+        "es": "Si un día el notebook tarda más de una hora, el procedimiento cargará datos incompletos. Usa dependencias, no horarios.",
+        "en": "If the notebook ever takes more than an hour, the procedure will load incomplete data. Use dependencies, not clock times."
+       }
+      },
+      {
+       "t": {
+        "es": "Llamar al procedimiento desde Power BI",
+        "en": "Call the procedure from Power BI"
+       },
+       "why": {
+        "es": "Power BI consume datos; no orquesta cargas.",
+        "en": "Power BI consumes data; it doesn't orchestrate loads."
+       }
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "Estas dudas aparecen en todas las migraciones.",
+      "en": "These questions come up in every migration."
+     },
+     "title": {
+      "es": "Dudas frecuentes",
+      "en": "Common questions"
+     },
+     "body": {
+      "es": "",
+      "en": ""
+     },
+     "callouts": [
+      {
+       "k": "nodumb",
+       "qa": [
+        {
+         "q": {
+          "es": "¿El Warehouse soporta transacciones?",
+          "en": "Does the Warehouse support transactions?"
+         },
+         "a": {
+          "es": "Sí. Puedes envolver varias operaciones en <code>BEGIN TRAN … COMMIT</code>, incluso sobre varias tablas del mismo Warehouse: o se aplican todas o ninguna.",
+          "en": "Yes. You can wrap several operations in <code>BEGIN TRAN … COMMIT</code>, even across multiple tables in the same Warehouse: either all apply or none do."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Puedo escribir en el Lakehouse desde el Warehouse?",
+          "en": "Can I write to the Lakehouse from the Warehouse?"
+         },
+         "a": {
+          "es": "No. Desde el Warehouse <b>lees</b> las tablas del Lakehouse; las escrituras en el Lakehouse se hacen con Spark, pipelines o Dataflows.",
+          "en": "No. From the Warehouse you <b>read</b> Lakehouse tables; writes to the Lakehouse go through Spark, pipelines or Dataflows."
+         }
+        },
+        {
+         "q": {
+          "es": "¿Y si vengo de Synapse dedicated SQL pool?",
+          "en": "What if I'm coming from a Synapse dedicated SQL pool?"
+         },
+         "a": {
+          "es": "Vas a encontrar mucho familiar, pero sin distribuciones ni índices que administrar: el Warehouse de Fabric los maneja solo. Revisa los tipos de datos y las funciones que uses antes de migrar.",
+          "en": "You'll find a lot that's familiar, but with no distributions or indexes to manage: the Fabric Warehouse handles them for you. Check the data types and features you use before migrating."
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l4-5",
+   "icon": "🛡️",
+   "min": 25,
+   "badge": {
+    "e": "🏆",
+    "n": {
+     "es": "Guardián del Warehouse",
+     "en": "Warehouse Guardian"
+    }
+   },
+   "title": {
+    "es": "Clones, time travel, seguridad y el desafío final",
+    "en": "Clones, time travel, security and the final challenge"
+   },
+   "steps": [
+    {
+     "type": "concept",
+     "say": {
+      "es": "Dos superpoderes que muchos warehouses tradicionales envidian. 🦸",
+      "en": "Two superpowers many traditional warehouses envy. 🦸"
+     },
+     "kicker": {
+      "es": "Clones y viajes en el tiempo",
+      "en": "Clones and time travel"
+     },
+     "title": {
+      "es": "Copiar sin copiar y consultar el pasado",
+      "en": "Copy without copying, and query the past"
+     },
+     "body": {
+      "es": "<ul><li><b>Clon zero-copy</b>: <code>CREATE TABLE nueva AS CLONE OF original</code> crea una tabla nueva copiando solo los <b>metadatos</b>; los archivos Parquet se comparten. Es casi instantáneo y casi no ocupa espacio. Ideal para pruebas, desarrollo o “congelar” una foto para auditoría. Con <code>AT</code> puedes clonar la tabla como estaba en un momento anterior.</li>\n    <li><b>Time travel</b>: agrega <code>OPTION (FOR TIMESTAMP AS OF '…')</code> a un SELECT y verás los datos como estaban en ese momento. El Warehouse conserva versiones por defecto hasta <span class=\"hl\">30 días</span>. La hora siempre va en <b>UTC</b>.</li></ul>",
+      "en": "<ul><li><b>Zero-copy clone</b>: <code>CREATE TABLE new AS CLONE OF original</code> creates a new table by copying only the <b>metadata</b>; the Parquet files are shared. It's nearly instant and takes almost no space. Ideal for testing, development or “freezing” a snapshot for audit. With <code>AT</code> you can clone the table as it was at an earlier moment.</li>\n    <li><b>Time travel</b>: add <code>OPTION (FOR TIMESTAMP AS OF '…')</code> to a SELECT and you'll see the data as it was at that moment. The Warehouse keeps versions for up to <span class=\"hl\">30 days</span> by default. Times are always in <b>UTC</b>.</li></ul>"
+     },
+     "callouts": [
+      {
+       "k": "watch",
+       "b": {
+        "es": "Las consultas con time travel son de solo lectura: no puedes hacer INSERT, UPDATE ni DELETE “en el pasado”. Para recuperar datos, clona la tabla <code>AT</code> el momento correcto o inserta desde un SELECT con time travel.",
+        "en": "Time-travel queries are read-only: you can't INSERT, UPDATE or DELETE “in the past”. To recover data, clone the table <code>AT</code> the right moment or insert from a time-travel SELECT."
+       }
+      }
+     ]
+    },
+    {
+     "type": "lab",
+     "say": {
+      "es": "Vas a romper algo… y a rescatarlo del pasado. 🕰️",
+      "en": "You'll break something… and rescue it from the past. 🕰️"
+     },
+     "title": {
+      "es": "Laboratorio: clon zero-copy y rescate con time travel",
+      "en": "Lab: zero-copy clone and time-travel rescue"
+     },
+     "intro": {
+      "es": "En <code>wh_ventas</code>. Ejecuta cada bloque por separado.",
+      "en": "In <code>wh_ventas</code>. Run each block separately."
+     },
+     "tasks": [
+      {
+       "t": {
+        "es": "Crea un clon y experimenta en él:",
+        "en": "Create a clone and experiment on it:"
+       },
+       "code": "-- 1) Clon zero-copy para pruebas: solo copia metadatos\nCREATE TABLE dbo.fact_ventas_dev AS CLONE OF dbo.fact_ventas;\n\n-- 2) Experimenta en el clon sin tocar producción\nUPDATE dbo.fact_ventas_dev SET monto = monto * 2;\n\nSELECT 'produccion' AS tabla, SUM(monto) AS total FROM dbo.fact_ventas\nUNION ALL\nSELECT 'dev', SUM(monto) FROM dbo.fact_ventas_dev;"
+      },
+      {
+       "t": {
+        "es": "Anota la hora, borra el clon y viaja al pasado:",
+        "en": "Note the time, wipe the clone and travel to the past:"
+       },
+       "code": "-- 3) Anota la hora actual (UTC) y copia el resultado\nSELECT CONVERT(VARCHAR(23), SYSUTCDATETIME(), 126) AS ahora_utc;\n\n-- 4) Borra todo el clon… ¡uy!\nDELETE FROM dbo.fact_ventas_dev;\n\n-- 5) Viaja al pasado: pega la hora que copiaste en el paso 3\nSELECT COUNT(*) AS filas_en_el_pasado\nFROM dbo.fact_ventas_dev\nOPTION (FOR TIMESTAMP AS OF 'PEGA_AQUI_LA_HORA');"
+      },
+      {
+       "t": {
+        "es": "Comprueba el presente:",
+        "en": "Check the present:"
+       },
+       "code": "SELECT COUNT(*) AS filas_hoy FROM dbo.fact_ventas_dev;"
+      }
+     ],
+     "expect": {
+      "es": "Clon: producción <b>8592.00</b> y dev <b>17184.00</b>: producción no se tocó. Después del DELETE: <b>filas_en_el_pasado = 11</b> y <b>filas_hoy = 0</b>. Los datos “borrados” siguen accesibles en el pasado.",
+      "en": "Clone: production <b>8592.00</b> and dev <b>17184.00</b>: production wasn't touched. After the DELETE: <b>filas_en_el_pasado = 11</b> and <b>filas_hoy = 0</b>. The “deleted” data is still reachable in the past."
+     }
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "Pregunta de costos para tu cliente.",
+      "en": "A cost question for your client."
+     },
+     "q": {
+      "es": "Clonas una tabla de hechos de 2 TB para que el equipo de QA haga pruebas. ¿Cuánto almacenamiento extra ocupa el clon en el momento de crearlo?",
+      "en": "You clone a 2 TB fact table so the QA team can test. How much extra storage does the clone take at creation time?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Otros 2 TB",
+        "en": "Another 2 TB"
+       },
+       "why": {
+        "es": "Eso sería una copia tradicional. El clon zero-copy comparte los archivos.",
+        "en": "That would be a traditional copy. A zero-copy clone shares the files."
+       }
+      },
+      {
+       "t": {
+        "es": "Casi nada: solo los metadatos. Crece únicamente con los cambios que QA haga en el clon",
+        "en": "Almost nothing: just metadata. It only grows with the changes QA makes to the clone"
+       },
+       "why": {
+        "es": "¡Exacto! Por eso los clones son perfectos para ambientes de prueba.",
+        "en": "Exactly! That's why clones are perfect for test environments."
+       },
+       "ok": 1
+      }
+     ]
+    },
+    {
+     "type": "concept",
+     "say": {
+      "es": "La seguridad no es opcional, menos con datos de clientes.",
+      "en": "Security isn't optional, least of all with customer data."
+     },
+     "title": {
+      "es": "Seguridad granular en el Warehouse",
+      "en": "Granular security in the Warehouse"
+     },
+     "body": {
+      "es": "<p>Además de los roles del workspace, el Warehouse permite seguridad fina con T-SQL:</p>",
+      "en": "<p>Beyond workspace roles, the Warehouse supports fine-grained security with T-SQL:</p>"
+     },
+     "cards": [
+      {
+       "e": "🔐",
+       "n": "GRANT / DENY",
+       "d": {
+        "es": "Permisos por objeto: quién puede leer qué tabla o vista.",
+        "en": "Object permissions: who can read which table or view."
+       }
+      },
+      {
+       "e": "🧱",
+       "n": {
+        "es": "Seguridad por columna",
+        "en": "Column-level security"
+       },
+       "d": {
+        "es": "Permitir SELECT solo sobre ciertas columnas.",
+        "en": "Allow SELECT on specific columns only."
+       }
+      },
+      {
+       "e": "🧭",
+       "n": {
+        "es": "Seguridad por fila (RLS)",
+        "en": "Row-level security (RLS)"
+       },
+       "d": {
+        "es": "Una función de filtro y una política: cada usuario ve solo sus filas.",
+        "en": "A filter function plus a policy: each user sees only their rows."
+       },
+       "star": true
+      },
+      {
+       "e": "🎭",
+       "n": {
+        "es": "Enmascaramiento dinámico",
+        "en": "Dynamic data masking"
+       },
+       "d": {
+        "es": "Mostrar datos sensibles parcialmente ocultos (por ejemplo, XXXX1234).",
+        "en": "Show sensitive data partially hidden (e.g. XXXX1234)."
+       }
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "say": {
+      "es": "🏁 <b>Desafío final del Nivel 4.</b> Necesidad → funcionalidad.",
+      "en": "🏁 <b>Level 4 final challenge.</b> Need → feature."
+     },
+     "title": {
+      "es": "Desafío: el guardián del Warehouse",
+      "en": "Challenge: the Warehouse guardian"
+     },
+     "pairs": [
+      [
+       {
+        "es": "Ambiente de pruebas sin duplicar 5 TB",
+        "en": "A test environment without duplicating 5 TB"
+       },
+       {
+        "es": "Clon zero-copy",
+        "en": "Zero-copy clone"
+       }
+      ],
+      [
+       {
+        "es": "Ver cómo estaba una tabla ayer a las 9:00",
+        "en": "See how a table looked yesterday at 9:00"
+       },
+       "OPTION (FOR TIMESTAMP AS OF …)"
+      ],
+      [
+       {
+        "es": "Cada gerente ve solo las ventas de su región",
+        "en": "Each manager sees only their region's sales"
+       },
+       {
+        "es": "Seguridad por fila (RLS)",
+        "en": "Row-level security (RLS)"
+       }
+      ],
+      [
+       {
+        "es": "Mostrar el RFC como XXXX-1234",
+        "en": "Show the tax ID as XXXX-1234"
+       },
+       {
+        "es": "Enmascaramiento dinámico",
+        "en": "Dynamic data masking"
+       }
+      ],
+      [
+       {
+        "es": "Carga nocturna repetible sin duplicados",
+        "en": "Repeatable nightly load with no duplicates"
+       },
+       {
+        "es": "Procedimiento con MERGE",
+        "en": "Procedure with MERGE"
+       }
+      ]
+     ]
+    },
+    {
+     "type": "quiz",
+     "say": {
+      "es": "La pregunta de arquitecto que cierra el nivel. ¡Ya casi!",
+      "en": "The architect question that closes the level. Almost there!"
+     },
+     "q": {
+      "es": "Diseñas Oro para una cadena de restaurantes. El equipo de BI domina T-SQL, ingeniería usa PySpark y los reportes van en Power BI. ¿Qué propones?",
+      "en": "You're designing Gold for a restaurant chain. The BI team masters T-SQL, engineering uses PySpark and reports run in Power BI. What do you propose?"
+     },
+     "opts": [
+      {
+       "t": {
+        "es": "Todo en un solo Lakehouse y que BI aprenda PySpark",
+        "en": "Everything in a single Lakehouse and BI learns PySpark"
+       },
+       "why": {
+        "es": "Ignoras la fortaleza del equipo de BI y alargas el proyecto.",
+        "en": "You ignore the BI team's strengths and stretch the project."
+       }
+      },
+      {
+       "t": {
+        "es": "Bronce y Plata en Lakehouse con Spark; Oro en Warehouse con modelo estrella y procedimientos T-SQL; Power BI en Direct Lake",
+        "en": "Bronze and Silver in a Lakehouse with Spark; Gold in a Warehouse with a star schema and T-SQL procedures; Power BI in Direct Lake"
+       },
+       "why": {
+        "es": "¡Arquitectura de nivel profesional! Cada equipo trabaja con su herramienta, todo vive en OneLake y Power BI lee Oro sin importar datos.",
+        "en": "Professional-grade architecture! Each team uses its own tool, everything lives in OneLake and Power BI reads Gold without importing data."
+       },
+       "ok": 1
+      },
+      {
+       "t": {
+        "es": "Exportar Oro a Excel cada día",
+        "en": "Export Gold to Excel every day"
+       },
+       "why": {
+        "es": "Adiós gobierno, adiós una sola versión de la verdad. 😬",
+        "en": "Goodbye governance, goodbye single version of the truth. 😬"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
