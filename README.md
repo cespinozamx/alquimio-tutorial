@@ -37,7 +37,8 @@ Sube la carpeta `site/` tal cual a cualquier hosting estático: GitHub Pages, Az
 Este repositorio publica en Azure Static Web Apps mediante GitHub Actions al
 subir cambios a `main`. El workflow usa `app_location: "/"`,
 `skip_app_build: true` y `output_location: ""`: no instala paquetes ni compila
-el sitio. El token de despliegue se mantiene en GitHub Secrets.
+el sitio. El token de despliegue se mantiene en GitHub Secrets y el workflow
+solicita un token OIDC de GitHub para la política de autenticación del recurso.
 
 ## Agregar un nivel
 
