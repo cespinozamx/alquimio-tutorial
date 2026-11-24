@@ -34,6 +34,11 @@ python -m http.server 8000
 
 Sube la carpeta `site/` tal cual a cualquier hosting estático: GitHub Pages, Azure Static Web Apps, Netlify o un bucket con sitio web estático.
 
+Este repositorio publica en Azure Static Web Apps mediante GitHub Actions al
+subir cambios a `main`. El workflow usa `app_location: "/"`,
+`skip_app_build: true` y `output_location: ""`: no instala paquetes ni compila
+el sitio. El token de despliegue se mantiene en GitHub Secrets.
+
 ## Agregar un nivel
 
 1. Crea `content/level-3.json` con la misma forma que `level-2.json`.
